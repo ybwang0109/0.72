@@ -914,14 +914,12 @@ class ScrollView extends React.Component<Props, State> {
     if (this._scrollView.nativeInstance == null) {
       return;
     }
-    setTimeout(() => {
-      Commands.scrollTo(
-        this._scrollView.nativeInstance,
-        x || 0,
-        y || 0,
-        animated !== false
-      );
-    },100);
+    Commands.scrollTo(
+      this._scrollView.nativeInstance,
+      x || 0,
+      y || 0,
+      animated !== false
+    );
   };
 
   /**

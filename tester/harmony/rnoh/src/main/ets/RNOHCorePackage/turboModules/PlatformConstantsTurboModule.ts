@@ -11,9 +11,9 @@ export class PlatformConstantsTurboModule extends TurboModule {
       osFullName: deviceInfo.osFullName,
       isTesting: false,
       reactNativeVersion: {
-        major: 0,
-        minor: 72,
-        patch: 5,
+        major: this.ctx.reactNativeVersion.split('.', 3)[0],
+        minor: this.ctx.reactNativeVersion.split('.', 3)[1],
+        patch: this.ctx.reactNativeVersion.split('.', 3)[2],
       }
     };
   }
