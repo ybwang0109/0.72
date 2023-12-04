@@ -68,5 +68,5 @@ napi_ref TurboModuleFactory::maybeGetArkTsTurboModuleInstanceRef(const std::stri
 
 TurboModuleFactory::SharedTurboModule TurboModuleFactory::handleUnregisteredModuleRequest(Context ctx, const std::string &name) const {
     LOG(WARNING) << "Turbo Module '" << name << "' not found.";
-    return nullptr;
+    return std::make_shared<StubModule>(name, ctx.jsInvoker);;
 }

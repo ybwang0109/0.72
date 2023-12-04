@@ -44,7 +44,7 @@ export class ResourceJSBundleProvider implements JSBundleProvider {
 
 
 export class MetroJSBundleProvider implements JSBundleProvider {
-  constructor(private bundleUrl: string = "http://localhost:8081/index.bundle?platform=harmony&dev=false&minify=false", private appKeys: string[] = []) {
+  constructor(private bundleUrl: string = "http://localhost:8081", private appKeys: string[] = []) {
   }
 
   getAppKeys() {
@@ -55,7 +55,75 @@ export class MetroJSBundleProvider implements JSBundleProvider {
     return this.bundleUrl
   }
 
+  async getBundleSplit() {
+    const httpRequest = http.createHttp();
+    let content = '';
+    try {
+      const rsp = await httpRequest.request(
+        this.bundleUrl + '/split-pkgs',
+        {
+          header: {
+            'Content-Type': 'text/javascript'
+          },
+        }
+      );
+      for (let i = 0; i < (rsp.result as number); i++) {
+        const data = await httpRequest.request(
+          this.bundleUrl + '/get-pkg',
+          {
+            header: {
+              'Content-Type': 'text/javascript',
+              'pkg': i + '',
+            },
+          }
+        );
+        content = content + (data.result as string)
+      }
+      const encoder = new util.TextEncoder();
+      const result = encoder.encodeInto(content);
+      return result.buffer;
+    } catch (err) {
+      throw new JSBundleProviderError(`Couldn't load JSBundle from ${this.bundleUrl}`, err)
+    } finally {
+      httpRequest.destroy();
+    }
+  }
+
   async getBundle() {
+    const httpRequest = http.createHttp();
+    let content = '';
+    try {
+      const rsp = await httpRequest.request(
+        this.bundleUrl + '/split-pkgs',
+        {
+          header: {
+            'Content-Type': 'text/javascript'
+          },
+        }
+      );
+      for (let i = 0; i < (rsp.result as number); i++) {
+        const data = await httpRequest.request(
+          this.bundleUrl + '/get-pkg',
+          {
+            header: {
+              'Content-Type': 'text/javascript',
+              'pkg': i + '',
+            },
+          }
+        );
+        content = content + (data.result as string)
+      }
+      const encoder = new util.TextEncoder();
+      const result = encoder.encodeInto(content);
+      return result.buffer;
+    } catch (err) {
+      throw new JSBundleProviderError(`Couldn't load JSBundle from ${this.bundleUrl}`, err)
+    } finally {
+      httpRequest.destroy();
+    }
+  }
+
+  async getBundleSmall() {
     const httpRequest = http.createHttp();
     try {
       const data = await httpRequest.request(

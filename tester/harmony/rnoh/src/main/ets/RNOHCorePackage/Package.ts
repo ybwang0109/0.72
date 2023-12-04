@@ -1,13 +1,19 @@
 import { RNPackage, TurboModulesFactory } from '../RNOH/RNPackage';
 import type { TurboModule, TurboModuleContext } from '../RNOH/TurboModule';
 import {
+  AccessibilityInfoTurboModule,
   AlertManagerTurboModule,
   AppearanceTurboModule,
   AppStateTurboModule,
+  BlobTurboModule,
   DeviceEventManagerTurboModule,
   DeviceInfoTurboModule,
+  DevSplitBundleLoaderTurboModule,
   ExceptionsManagerTurboModule,
+  FileReaderTurboModule,
+  FrameRateLoggerTurboModule,
   ImageLoaderTurboModule,
+  ImageStoreTurboModule,
   KeyboardObserverTurboModule,
   NativeAnimatedTurboModule,
   NetworkingTurboModule,
@@ -28,12 +34,18 @@ export class RNOHCorePackage extends RNPackage {
 }
 
 const TURBO_MODULE_CLASS_BY_NAME: Record<string, typeof TurboModule> = {
+  [AccessibilityInfoTurboModule.NAME]: AccessibilityInfoTurboModule,
   [AlertManagerTurboModule.NAME]: AlertManagerTurboModule,
   [AppearanceTurboModule.NAME]: AppearanceTurboModule,
   [AppStateTurboModule.NAME]: AppStateTurboModule,
+  [BlobTurboModule.NAME]: BlobTurboModule,
   [DeviceEventManagerTurboModule.NAME]: DeviceEventManagerTurboModule,
+  [DevSplitBundleLoaderTurboModule.NAME]: DevSplitBundleLoaderTurboModule,
   [ExceptionsManagerTurboModule.NAME]: ExceptionsManagerTurboModule,
+  [FileReaderTurboModule.NAME]: FileReaderTurboModule,
+  [FrameRateLoggerTurboModule.NAME]: FrameRateLoggerTurboModule,
   [ImageLoaderTurboModule.NAME]: ImageLoaderTurboModule,
+  [ImageStoreTurboModule.NAME]: ImageStoreTurboModule,
   [KeyboardObserverTurboModule.NAME]: KeyboardObserverTurboModule,
   [NativeAnimatedTurboModule.NAME]: NativeAnimatedTurboModule,
   [LinkingManagerTurboModule.NAME]: LinkingManagerTurboModule,

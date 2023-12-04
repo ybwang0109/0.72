@@ -10,16 +10,23 @@
 #include <react/renderer/components/modal/ModalHostViewComponentDescriptor.h>
 #include "RNOH/Package.h"
 #include "RNOH/ArkTSTurboModule.h"
+#include "RNOHCorePackage/TurboModules/AccessibilityInfoTurboModule.h"
 #include "RNOHCorePackage/TurboModules/AlertManagerTurboModule.h"
 #include "RNOHCorePackage/TurboModules/AppearanceTurboModule.h"
 #include "RNOHCorePackage/TurboModules/AppStateTurboModule.h"
+#include "RNOHCorePackage/TurboModules/BlobTurboModule.h"
 #include "RNOHCorePackage/TurboModules/DeviceEventManagerTurboModule.h"
 #include "RNOHCorePackage/TurboModules/DeviceInfoTurboModule.h"
+#include "RNOHCorePackage/TurboModules/DevSplitBundleLoaderTurboModule.h"
 #include "RNOHCorePackage/TurboModules/ExceptionsManagerTurboModule.h"
+#include "RNOHCorePackage/TurboModules/FileReaderTurboModule.h"
+#include "RNOHCorePackage/TurboModules/FrameRateLoggerTurboModule.h"
 #include "RNOHCorePackage/TurboModules/ImageLoaderTurboModule.h"
+#include "RNOHCorePackage/TurboModules/ImageStoreTurboModule.h"
 #include "RNOHCorePackage/TurboModules/LinkingManagerTurboModule.h"
 #include "RNOHCorePackage/TurboModules/NetworkingTurboModule.h"
 #include "RNOHCorePackage/TurboModules/PlatformConstantsTurboModule.h"
+#include "RNOHCorePackage/TurboModules/RNCLogTurboModule.h"
 #include "RNOHCorePackage/TurboModules/SourceCodeTurboModule.h"
 #include "RNOHCorePackage/TurboModules/StatusBarTurboModule.h"
 #include "RNOHCorePackage/TurboModules/TimingTurboModule.h"
@@ -59,18 +66,30 @@ class RNOHCoreTurboModuleFactoryDelegate : public TurboModuleFactoryDelegate {
     SharedTurboModule createTurboModule(Context ctx, const std::string &name) const override {
         if (name == "AlertManager") {
             return std::make_shared<AlertManagerTurboModule>(ctx, name);
+        } else if (name == "AccessibilityManager") {
+            return std::make_shared<AccessibilityInfoTurboModule>(ctx, name);
         } else if (name == "Appearance") {
             return std::make_shared<AppearanceTurboModule>(ctx, name);
         } else if (name == "AppState") {
             return std::make_shared<AppStateTurboModule>(ctx, name);
+        } else if (name == "BlobModule") {
+            return std::make_shared<BlobTurboModule>(ctx, name);
         } else if (name == "DeviceEventManager") {
             return std::make_shared<DeviceEventManagerTurboModule>(ctx, name);
         } else if (name == "DeviceInfo") {
             return std::make_shared<DeviceInfoTurboModule>(ctx, name);
+        } else if (name == "DevSplitBundleLoader") {
+            return std::make_shared<DevSplitBundleLoaderTurboModule>(ctx, name);
         } else if (name == "ExceptionsManager") {
             return std::make_shared<ExceptionsManagerTurboModule>(ctx, name);
+        } else if (name == "FileReaderModule") {
+            return std::make_shared<FileReaderTurboModule>(ctx, name);
+		} else if (name == "FrameRateLogger") {
+            return std::make_shared<FrameRateLoggerTurboModule>(ctx, name);
         } else if (name == "ImageLoader") {
             return std::make_shared<ImageLoaderTurboModule>(ctx, name);
+        } else if (name == "ImageStoreManager") {
+            return std::make_shared<ImageStoreTurboModule>(ctx, name);
         } else if (name == "KeyboardObserver") {
             return std::make_shared<ArkTSTurboModule>(ctx, name);
         } else if (name == "LinkingManager") {
@@ -81,6 +100,8 @@ class RNOHCoreTurboModuleFactoryDelegate : public TurboModuleFactoryDelegate {
             return std::make_shared<NetworkingTurboModule>(ctx, name);
         } else if (name == "PlatformConstants") {
             return std::make_shared<PlatformConstantsTurboModule>(ctx, name);
+        } else if (name == "RNCLog") {
+            return std::make_shared<RNCLogTurboModule>(ctx, name);
         } else if (name == "SourceCode") {
             return std::make_shared<SourceCodeTurboModule>(ctx, name);
         } else if (name == "StatusBarManager") {
