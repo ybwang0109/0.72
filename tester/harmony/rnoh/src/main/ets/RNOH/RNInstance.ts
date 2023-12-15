@@ -133,8 +133,6 @@ export class RNInstanceImpl implements RNInstance {
   private componentNameByDescriptorType = new Map<string, string>()
   private logger: RNOHLogger
   private surfaceHandles: Set<SurfaceHandle> = new Set()
-  private destroyedPromise: Promise<void> | undefined = undefined
-  private resolveDestroyPromise: (() => void) = () => {}
   private responderLockDispatcher: ResponderLockDispatcher
 
   /**
@@ -164,26 +162,21 @@ export class RNInstanceImpl implements RNInstance {
       logger,
     );
     this.componentCommandHub = new RNComponentCommandHub();
-    this.destroyedPromise = new Promise(resolve => {
-      this.resolveDestroyPromise = resolve
-    })
     this.responderLockDispatcher = new ResponderLockDispatcher(this.descriptorRegistry, this.componentCommandHub, logger)
     stopTracing()
   }
 
-  public getDestroyedPromise() {
-    return this.destroyedPromise
-  }
-
-  public async onDestroy() {
+  public onDestroy() {
     const stopTracing = this.logger.clone("onDestroy").startTracing()
     for (const surfaceHandle of this.surfaceHandles) {
-      await surfaceHandle.destroy()
-      this.logger.warn("Destroying instance with running surface with tag: " + surfaceHandle.getTag());
+      if (surfaceHandle.isRunning()) {
+        this.logger.warn("Destroying instance with running surface with tag: "+surfaceHandle.getTag());
+        surfaceHandle.stop();
+      }
+      surfaceHandle.destroy()
     }
     this.napiBridge.destroyReactNativeInstance(this.id)
     this.turboModuleProvider.onDestroy()
-    this.resolveDestroyPromise()
     stopTracing()
   }
 
@@ -249,7 +242,8 @@ export class RNInstanceImpl implements RNInstance {
           const turboModuleFactory = pkg.createTurboModulesFactory(turboModuleContext);
           await turboModuleFactory.prepareEagerTurboModules()
           return turboModuleFactory
-        }))
+        })),
+        this.logger
       )
     }
     stopTracing()
@@ -315,7 +309,7 @@ export class RNInstanceImpl implements RNInstance {
   public createSurface(appKey: string): SurfaceHandle {
     const stopTracing = this.logger.clone("createSurface").startTracing()
     const tag = this.getNextSurfaceTag();
-    const result = new SurfaceHandle(this, tag, appKey, this.defaultProps, this.napiBridge);
+    const result = new SurfaceHandle(this, tag, appKey, this.defaultProps, this.napiBridge, (handle) => this.surfaceHandles.delete(handle));
     this.surfaceHandles.add(result)
     stopTracing()
     return result
