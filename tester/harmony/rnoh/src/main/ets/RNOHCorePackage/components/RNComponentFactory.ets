@@ -8,6 +8,7 @@ import { Descriptor } from "../../RNOH/DescriptorBase";
 import { RNModalHostView } from './RNModalHostView'
 import { RNSwitch } from './RNSwitch'
 import { RNActivityIndicator } from './RNActivityIndicator'
+import { BuilderProxy } from '../../RNSurface'
 
 export interface ComponentBuilderContext {
   rnohContext: RNOHContext
@@ -109,5 +110,69 @@ export struct RNComponentFactory {
         componentName: this.componentName
       })
     }
+  }
+}
+
+@Builder
+export function rnComponentFactoryBuilder(ctx: RNOHContext, tag:Tag, componentName: string) {
+  if (componentName === "View" || componentName === "RootView") {
+    RNView({
+      ctx: ctx,
+      tag: tag,
+      buildCustomComponent: BuilderProxy.buildCustomComponent
+    })
+    // rnViewBuilder(ctx, tag)
+  } else if (componentName === "Image") {
+    RNImage({ ctx: ctx, tag: tag })
+  } else if (componentName === "TextInput") {
+    RNTextInput({ ctx: ctx, tag: tag })
+  } else if (componentName === "Paragraph") {
+    RNText({ ctx: ctx, tag: tag, buildCustomComponent: BuilderProxy.buildCustomComponent })
+    // rnTextBuilder(ctx, tag)
+  } else if (componentName === "PullToRefreshView") {
+    /**
+     * RNScrollView displays Refresh component if PullToRefreshView is its direct parent.
+     * Native Refresh component works correctly, only when a native Scroll is its direct child.
+     */
+    // RNComponentFactory({
+    //   ctx: ctx,
+    //   tag: ctx.descriptorRegistry.getDescriptor(tag)?.childrenTags[0],
+    //   buildCustomComponent: BuilderProxy.buildCustomComponent
+    // })
+    rnComponentFactoryBuilder(
+      ctx,
+      ctx.descriptorRegistry.getDescriptor(tag)?.childrenTags[0],
+      ctx.rnInstance.getComponentNameFromDescriptorType(
+        ctx.descriptorRegistry.getDescriptor(ctx.descriptorRegistry.getDescriptor(tag)?.childrenTags[0])?.type))
+  }
+  else if (componentName === "ScrollView") {
+    RNScrollView({
+      ctx: ctx,
+      tag: tag,
+      buildCustomComponent: BuilderProxy.buildCustomComponent
+    })
+  } else if (componentName === "Switch") {
+    RNSwitch({
+      ctx: ctx,
+      tag: tag,
+    })
+  } else if (componentName === "ModalHostView") {
+    RNModalHostView({
+      ctx: ctx,
+      tag: tag,
+      buildCustomComponent: BuilderProxy.buildCustomComponent
+    })
+  } else if (componentName === "ActivityIndicatorView") {
+    RNActivityIndicator({
+      ctx: ctx,
+      tag: tag,
+    })
+  } else if (componentName !== '') {
+    BuilderProxy.buildCustomComponent({
+      rnohContext: ctx,
+      descriptor: ctx.descriptorRegistry.getDescriptor<Descriptor>(tag) as DescriptorEssence,
+      tag: tag,
+      componentName: componentName
+    })
   }
 }

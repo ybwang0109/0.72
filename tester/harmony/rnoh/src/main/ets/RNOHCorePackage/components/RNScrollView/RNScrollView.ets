@@ -2,7 +2,7 @@ import { Descriptor, Position, RNOHComponentCommand, RNOHContext, Size, Tag } fr
 import { _RNScrollViewManager } from './RNScrollViewManager';
 import { RNViewBase, ViewDescriptorWrapperBase } from '../RNViewBase';
 import { RN_PULL_TO_REFRESH_VIEW_NAME, RNPullToRefreshView } from '../RNPullToRefreshView';
-import { CustomComponentBuilder, RNComponentFactory } from '../RNComponentFactory';
+import { CustomComponentBuilder, RNComponentFactory, rnComponentFactoryBuilder } from '../RNComponentFactory';
 import {
   CurrentOffset,
   FirstVisibleView,
@@ -592,7 +592,8 @@ export struct RNScrollView {
     Scroll(this.scroller) {
       Stack() {
         ForEach(this.descriptor.childrenTags, (childrenTag: Tag) => {
-          RNComponentFactory({ ctx: this.ctx, tag: childrenTag, buildCustomComponent: this.buildCustomComponent })
+          // RNComponentFactory({ ctx: this.ctx, tag: childrenTag, buildCustomComponent: this.buildCustomComponent })
+          rnComponentFactoryBuilder(this.ctx, childrenTag, this.ctx.rnInstance.getComponentNameFromDescriptorType(this.ctx.descriptorRegistry.getDescriptor(childrenTag)?.type))
         }, (childrenTag: Tag) => childrenTag.toString())
       }
       .width(this.contentSize.width)

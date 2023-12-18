@@ -5,7 +5,8 @@ import {
   Tag,
   RNComponentFactory,
   RNOHContext,
-  RNViewBase
+  RNViewBase,
+  rnComponentFactoryBuilder
 } from 'rnoh';
 
 
@@ -49,7 +50,8 @@ export struct SampleView {
     RNViewBase({ ctx: this.ctx, tag: this.tag }) {
       Text(this.descriptor.tag.toString()).fontColor("white").fontSize(this.fontSize ?? 12)
       ForEach(this.descriptor.childrenTags, (tag: Tag) => {
-        RNComponentFactory({ ctx: this.ctx, tag: tag, buildCustomComponent: this.buildCustomComponent })
+        // RNComponentFactory({ ctx: this.ctx, tag: tag, buildCustomComponent: this.buildCustomComponent })
+        rnComponentFactoryBuilder(this.ctx, tag, this.ctx.rnInstance.getComponentNameFromDescriptorType(this.ctx.descriptorRegistry.getDescriptor(tag)?.type))
       }, (tag: Tag) => tag.toString())
     }
   }

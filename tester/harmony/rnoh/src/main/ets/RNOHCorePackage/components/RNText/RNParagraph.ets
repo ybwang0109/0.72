@@ -3,7 +3,7 @@ import { RNViewBase } from '../RNViewBase'
 import { PositionedFragment } from '../../../ParagraphMeasurer';
 import { PositionedLine, Size, } from '../../../ParagraphMeasurer'
 import { RNParagraphManager } from './RNParagraphManager'
-import { CustomComponentBuilder } from '../RNComponentFactory'
+import { CustomComponentBuilder, rnComponentFactoryBuilder } from '../RNComponentFactory'
 import { RNComponentFactory } from '../RNComponentFactory'
 import { TextDescriptor, TextFragmentExtraData } from './types'
 import { ViewDescriptorWrapper } from "../RNViewBase"
@@ -100,7 +100,8 @@ export struct RNParagraph {
         })
       })
       ForEach(this.descriptor.childrenTags, (childrenTag: Tag) => {
-        RNComponentFactory({ ctx: this.ctx, tag: childrenTag, buildCustomComponent: this.buildCustomComponent })
+        // RNComponentFactory({ ctx: this.ctx, tag: childrenTag, buildCustomComponent: this.buildCustomComponent })
+        rnComponentFactoryBuilder(this.ctx, childrenTag, this.ctx.rnInstance.getComponentNameFromDescriptorType(this.ctx.descriptorRegistry.getDescriptor(childrenTag)?.type))
       }, (childrenTag: Tag) => childrenTag.toString())
     }
   }

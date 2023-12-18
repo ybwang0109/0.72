@@ -6,7 +6,7 @@ import { RNOHContext } from '../../RNOH/RNOHContext'
 import { ViewBaseProps } from './RNViewBase'
 import { TouchDispatcher } from '../../RNOH/TouchDispatcher'
 import { RNModalHostViewManager } from '../componentManagers/RNModalHostViewManager';
-import { CustomComponentBuilder } from './RNComponentFactory'
+import { CustomComponentBuilder, rnComponentFactoryBuilder } from './RNComponentFactory'
 import { RNComponentFactory } from './RNComponentFactory'
 
 interface ModalHostViewProps extends ViewBaseProps {
@@ -71,7 +71,8 @@ struct ModalHostViewDialog {
     if (this.showContent) {
       Stack() {
         ForEach(this.descriptor.childrenTags, (childrenTag: Tag) => {
-          RNComponentFactory({ ctx: this.ctx, tag: childrenTag, buildCustomComponent: this.buildCustomComponent })
+          // RNComponentFactory({ ctx: this.ctx, tag: childrenTag, buildCustomComponent: this.buildCustomComponent })
+          rnComponentFactoryBuilder(this.ctx, childrenTag, this.ctx.rnInstance.getComponentNameFromDescriptorType(this.ctx.descriptorRegistry.getDescriptor(childrenTag)?.type))
         }, (childrenTag: Tag) => childrenTag.toString())
       }.onTouch((touchEvent) => this.touchDispatcher.handleTouchEvent(touchEvent))
     }

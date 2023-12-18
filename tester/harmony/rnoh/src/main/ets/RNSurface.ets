@@ -1,6 +1,7 @@
-import { ComponentBuilderContext } from './RNOHCorePackage/components/RNComponentFactory';
+import { ComponentBuilderContext, CustomComponentBuilder,
+  rnComponentFactoryBuilder } from './RNOHCorePackage/components/RNComponentFactory';
 import { RNComponentFactory } from './RNOHCorePackage';
-import { Descriptor, DisplayMode, RNOHContext, RNOHLogger } from './RNOH';
+import { Descriptor, DisplayMode, RNOHContext, RNOHLogger, Tag } from './RNOH';
 import {
   ViewBaseProps,
   ViewDescriptorWrapperBase,
@@ -26,6 +27,10 @@ interface SurfaceConfig2 {
 
 type SurfaceConfig = SurfaceConfig1 | SurfaceConfig2
 
+export class BuilderProxy {
+  public static buildCustomComponent: CustomComponentBuilder;
+}
+
 @Component
 export struct RNSurface {
   ctx!: RNOHContext;
@@ -48,6 +53,7 @@ export struct RNSurface {
 
   aboutToAppear() {
     this.logger = this.ctx.logger.clone("RNSurface")
+    BuilderProxy.buildCustomComponent = this.buildCustomComponent
     const stopTracing = this.logger.clone("aboutToAppear").startTracing()
     if (Object.keys(this.surfaceConfig).includes("surfaceHandle")) {
       this.surfaceHandle = (this.surfaceConfig as Object as SurfaceConfig1).surfaceHandle;
@@ -132,11 +138,16 @@ export struct RNSurface {
 
   build() {
     Stack() {
-      RNComponentFactory({
-        ctx: this.ctx,
-        tag: this.surfaceHandle.getTag(),
-        buildCustomComponent: this.buildCustomComponent
-      })
+      // RNComponentFactory({
+      //   ctx: this.ctx,
+      //   tag: this.surfaceHandle.getTag(),
+      //   buildCustomComponent: this.buildCustomComponent
+      // })
+
+      ForEach(this.descriptor.childrenTags, (childrenTag: Tag) => {
+        // RNComponentFactory({ ctx: this.ctx, tag: childrenTag, buildCustomComponent: this.buildCustomComponent })
+        rnComponentFactoryBuilder(this.ctx, childrenTag, this.ctx.rnInstance.getComponentNameFromDescriptorType(this.ctx.descriptorRegistry.getDescriptor(childrenTag)?.type))
+      }, (childrenTag: Tag) => childrenTag.toString())
     }
     .width("100%")
     .height("100%")

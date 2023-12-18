@@ -1,6 +1,6 @@
 import { RNOHContext, Tag } from '../../RNOH'
 import { RNViewBase, ViewBaseDescriptor } from './RNViewBase'
-import { ComponentBuilderContext, RNComponentFactory } from './RNComponentFactory'
+import { ComponentBuilderContext, RNComponentFactory, rnComponentFactoryBuilder } from './RNComponentFactory'
 
 @Component
 export struct RNView {
@@ -36,7 +36,8 @@ export struct RNView {
       tag: this.tag,
     }) {
       ForEach(this.childrenTags, (childrenTag: Tag) => {
-        RNComponentFactory({ ctx: this.ctx, tag: childrenTag, buildCustomComponent: this.buildCustomComponent })
+        // RNComponentFactory({ ctx: this.ctx, tag: childrenTag, buildCustomComponent: this.buildCustomComponent })
+        rnComponentFactoryBuilder(this.ctx, childrenTag, this.ctx.rnInstance.getComponentNameFromDescriptorType(this.ctx.descriptorRegistry.getDescriptor(childrenTag)?.type))
       }, (childrenTag: Tag) => childrenTag.toString())
     }
   }
