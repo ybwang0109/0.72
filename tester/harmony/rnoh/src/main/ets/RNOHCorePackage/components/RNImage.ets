@@ -1,7 +1,11 @@
+import { RNViewManager } from '..';
+import matrix4 from '@ohos.matrix4';
 import { RemoteImageLoaderError } from '../../RemoteImageLoader/RemoteImageLoaderError';
-import { ColorSegments, Descriptor, getTintColorMatrix, RNOHContext } from '../../RNOH';
+import { ColorSegments, Descriptor, getTintColorMatrix, RNOHContext, TransformMatrix } from '../../RNOH';
 import { ImageLoaderTurboModule } from '../turboModules/ImageLoaderTurboModule';
-import { RNViewBase, ViewBaseProps, ViewDescriptorWrapperBase, ViewRawProps } from './RNViewBase';
+import { RNViewBase, ViewBaseDescriptor, ViewBaseProps,
+  ViewDescriptorWrapper,
+  ViewDescriptorWrapperBase, ViewRawProps } from './RNViewBase';
 
 export interface ImageProps extends ViewBaseProps {
   uri: string,
@@ -64,7 +68,13 @@ export struct RNImage {
   ]
   private unregisterDescriptorChangesListener?: () => void = undefined
 
+  public componentManager!: RNViewManager;
+  @State private viewDescriptorWrapper: ViewDescriptorWrapper | undefined = undefined
+  private unregisterComponentManager?: () => void = undefined
+  private unregisterCommandCallback?: () => void = undefined
+
   aboutToAppear() {
+    this.initComponent();
     this.descriptor = this.ctx.descriptorRegistry.getDescriptor<ImageDescriptor>(this.tag)
     this.descriptorWrapper = new ImageDescriptorWrapper(this.descriptor)
     this.onLoadStart();
@@ -84,6 +94,9 @@ export struct RNImage {
 
   aboutToDisappear() {
     this.unregisterDescriptorChangesListener?.()
+
+    this.unregisterComponentManager?.()
+    this.unregisterCommandCallback?.()
   }
 
   updateImageSource() {
@@ -170,31 +183,99 @@ export struct RNImage {
     return getTintColorMatrix(this.descriptor.props.tintColor)
   }
 
-  build() {
-    RNViewBase({
-      ctx: this.ctx,
-      tag: this.tag,
-    }) {
-      // NOTE: this ensures we switch the image source, even if the new source is bad.
-      // ArkUI keeps displaying the last "good" image when the passed source parameter changes
-      if (this.imageSource !== undefined) {
-        Image(this.imageSource.source)
-          .accessibilityText(this.descriptor.rawProps.alt)
-          .interpolation(ImageInterpolation.High)
-          .width("100%")
-          .height("100%")
-          .objectFit(this.getResizeMode(this.descriptor.props.resizeMode))
-          .objectRepeat(this.descriptor.props.resizeMode === 4 ?
-          ImageRepeat.XY : ImageRepeat.NoRepeat)
-          .colorFilter(this.getColorFilter())
-          .blur(this.descriptor.props.blurRadius)
-          .onComplete(event => this.onLoad(event))
-          .onError((event: ImageOnErrorEvent) => {
-            if (this.imageSource !== undefined) {
-              this.dispatchOnError(event.message)
-            }
-          })
+  initComponent() {
+    let descriptor = this.ctx.descriptorRegistry.getDescriptor<ViewBaseDescriptor>(this.tag)
+    if (!this.componentManager) {
+      this.componentManager = new RNViewManager(this.tag, this.ctx)
+    }
+    this.unregisterComponentManager = this.ctx.componentManagerRegistry.registerComponentManager(this.tag, this.componentManager)
+    this.setDescriptor(descriptor)
+    const parentTag = descriptor.parentTag;
+    this.componentManager.setParentTag(parentTag);
+    this.unregisterDescriptorChangesListener = this.ctx.descriptorRegistry.subscribeToDescriptorChanges(this.tag,
+      (newDescriptor) => {
+        this.setDescriptor(newDescriptor)
       }
+    )
+  }
+
+  private setDescriptor(descriptor: ViewBaseDescriptor) {
+    this.viewDescriptorWrapper = new ViewDescriptorWrapper(descriptor)
+  }
+
+  getHitTestMode() {
+    switch (this.viewDescriptorWrapper?.pointerEvents) {
+      case "none":
+        return HitTestMode.None
+      case "box-none":
+        return HitTestMode.None
+      case "box-only":
+        return HitTestMode.Block
+      default:
+        return HitTestMode.Default
+    }
+  }
+
+  getBorderStyle(): BorderStyle {
+    switch (this.viewDescriptorWrapper?.borderStyle) {
+      case "dashed":
+        return BorderStyle.Dashed
+      case "dotted":
+        return BorderStyle.Dotted
+      default:
+        return BorderStyle.Solid
+    }
+  }
+
+  getTransform(): undefined | matrix4.Matrix4Transit {
+    const descriptorWrapper = this.viewDescriptorWrapper
+    if (!descriptorWrapper) {
+      return undefined
+    }
+    const rawTransformationMatrix = descriptorWrapper.rawTransformationMatrix.slice()
+    rawTransformationMatrix[12] = vp2px(rawTransformationMatrix[12]);
+    rawTransformationMatrix[13] = vp2px(rawTransformationMatrix[13]);
+    rawTransformationMatrix[14] = vp2px(rawTransformationMatrix[14]);
+    return matrix4.init(rawTransformationMatrix as TransformMatrix)
+  }
+
+  build() {
+    // NOTE: this ensures we switch the image source, even if the new source is bad.
+    // ArkUI keeps displaying the last "good" image when the passed source parameter changes
+    if (this.imageSource !== undefined) {
+      Image(this.imageSource.source)
+        .accessibilityText(this.descriptor.rawProps.alt)
+        .interpolation(ImageInterpolation.High)
+        .objectFit(this.getResizeMode(this.descriptor.props.resizeMode))
+        .objectRepeat(this.descriptor.props.resizeMode === 4 ?
+        ImageRepeat.XY : ImageRepeat.NoRepeat)
+        .colorFilter(this.getColorFilter())
+        .blur(this.descriptor.props.blurRadius)
+        .onComplete(event => this.onLoad(event))
+        .onError((event: ImageOnErrorEvent) => {
+          if (this.imageSource !== undefined) {
+            this.dispatchOnError(event.message)
+          }
+        })
+
+        .width(this.descriptorWrapper?.width)
+        .height(this.descriptorWrapper?.height)
+        .backgroundColor(this.descriptorWrapper?.backgroundColor)
+        .position(this.descriptorWrapper?.positionRelativeToParent)
+        .borderWidth(this.descriptorWrapper?.borderWidth)
+        .borderColor(this.descriptorWrapper?.borderColor)
+        .borderRadius(this.descriptorWrapper?.borderRadius)
+        .borderStyle(this.getBorderStyle())
+        .opacity(this.descriptorWrapper?.opacity)
+        .transform(this.getTransform())
+        .clip(this.descriptorWrapper?.isClipping)
+        .hitTestBehavior(this.getHitTestMode())
+        .shadow(this.descriptorWrapper?.shadow)
+        .id(this.tag.toString())
+        .accessibilityGroup(this.descriptorWrapper?.accessibilityGroup)
+        .accessibilityText(this.descriptorWrapper?.accessibilityText)
+        .accessibilityLevel(this.descriptorWrapper?.accessibilityLevel)
+        .accessibilityDescription(this.descriptorWrapper?.accessibilityDescription)
     }
   }
 }

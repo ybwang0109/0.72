@@ -1,14 +1,15 @@
-import { Tag, RNOHContext } from "../../RNOH"
+import { Tag, RNOHContext, PLACEHOLDER_SYMBOL } from "../../RNOH"
 import { RNView } from "./RNView"
 import { RNImage } from "./RNImage"
 import { RNTextInput } from "./RNTextInput"
-import { RNText } from "./RNText"
+import { RNParagraph, RNSimpleText, RNText } from "./RNText"
 import { RNScrollView } from "./RNScrollView"
 import { Descriptor } from "../../RNOH/DescriptorBase";
 import { RNModalHostView } from './RNModalHostView'
 import { RNSwitch } from './RNSwitch'
 import { RNActivityIndicator } from './RNActivityIndicator'
 import { BuilderProxy } from '../../RNSurface'
+import { TextDescriptor } from '..'
 
 export interface ComponentBuilderContext {
   rnohContext: RNOHContext
@@ -121,14 +122,18 @@ export function rnComponentFactoryBuilder(ctx: RNOHContext, tag:Tag, componentNa
       tag: tag,
       buildCustomComponent: BuilderProxy.buildCustomComponent
     })
-    // rnViewBuilder(ctx, tag)
   } else if (componentName === "Image") {
     RNImage({ ctx: ctx, tag: tag })
   } else if (componentName === "TextInput") {
     RNTextInput({ ctx: ctx, tag: tag })
   } else if (componentName === "Paragraph") {
-    RNText({ ctx: ctx, tag: tag, buildCustomComponent: BuilderProxy.buildCustomComponent })
-    // rnTextBuilder(ctx, tag)
+    // RNText({ ctx: ctx, tag: tag, buildCustomComponent: BuilderProxy.buildCustomComponent })
+    if (ctx.descriptorRegistry.getDescriptor<TextDescriptor>(tag).props.fragments.length <= 1
+    && !ctx.descriptorRegistry.getDescriptor<TextDescriptor>(tag).props.fragments.some(fragment => fragment.text === PLACEHOLDER_SYMBOL)) {
+      RNSimpleText({ ctx: ctx, tag: tag })
+    } else {
+      RNParagraph({ ctx: ctx, tag: tag, buildCustomComponent: BuilderProxy.buildCustomComponent })
+    }
   } else if (componentName === "PullToRefreshView") {
     /**
      * RNScrollView displays Refresh component if PullToRefreshView is its direct parent.
