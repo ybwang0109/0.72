@@ -75,6 +75,9 @@ struct Index {
           initialProps: { "foo": "bar" } as Record<string, string>,
           appKey: "app_name",
           buildCustomComponent: CustomComponentBuilder,
+          onSetUp: (rnInstance) => {
+            // rnInstance.enableFeatureFlag("ENABLE_RN_INSTANCE_CLEAN_UP")
+          },
           jsBundleProvider: new TraceJSBundleProviderDecorator(new AnyJSBundleProvider([
             new MetroJSBundleProvider(),
             new ResourceJSBundleProvider(this.rnAbility.context.resourceManager, 'hermes_bundle.hbc'),
