@@ -84,10 +84,12 @@ void RNInstance::initializeScheduler() {
                                                                       [this](auto &preallocatedViewRawPropsByTag, react::ShadowViewMutationList mutations) {
                                                                           this->m_mutationsListener(this->m_mutationsToNapiConverter, preallocatedViewRawPropsByTag, mutations);
                                                                       },
-                                                                      [this](auto tag, auto commandName, auto args) {
-                                                                          this->taskExecutor->runTask(TaskThread::MAIN, [this, tag, commandName = std::move(commandName), args = std::move(args)]() {
-                                                                              this->m_commandDispatcher(tag, commandName, args);
-                                                                          });
+                                                                      [weakExecutor = std::weak_ptr(this->taskExecutor), commandDispatcher = this->m_commandDispatcher](auto tag, auto commandName, auto args) {
+                                                                          if (auto taskExecutor = weakExecutor.lock()) {
+                                                                              taskExecutor->runTask(TaskThread::MAIN, [tag, commandDispatcher, commandName = std::move(commandName), args = std::move(args)]() {
+                                                                                  commandDispatcher(tag, commandName, args);
+                                                                              });
+                                                                          }
                                                                       }),
                                                                   m_arkTsChannel);
     m_animationDriver = std::make_shared<react::LayoutAnimationDriver>(
