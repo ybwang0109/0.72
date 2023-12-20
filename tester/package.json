@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@gorhom/portal": "^1.0.14",
-    "@rnoh/testerino": "^0.0.8",
+    "@rnoh/testerino": "file:../testerino/rnoh-testerino-0.0.8.tgz",
     "chai": "4.3.7",
     "d3-scale-chromatic": "^3.0.0",
     "react": "18.2.0",

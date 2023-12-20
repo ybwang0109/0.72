@@ -181,5 +181,8 @@ module.exports = {
     return require('react-native/Libraries/Renderer/shims/ReactNative')
       .dispatchCommand;
   },
+  get EventEmitter() {
+    return require('react-native/Libraries/vendor/emitter/EventEmitter')
+  }
   // END: react-native-harmony specific exports
 };
