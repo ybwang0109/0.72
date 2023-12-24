@@ -2,6 +2,7 @@ import { Descriptor, RNOHContext, TransformMatrix } from '../../../RNOH';
 import { ViewBaseProps, ViewRawProps } from './types';
 import { ViewDescriptorWrapper } from './ViewDescriptorWrapper';
 import { RNViewManager } from '../../componentManagers';
+import { ViewModifier } from '../../componentAttributeModifiers/ViewModifier'
 import matrix4 from '@ohos.matrix4';
 
 export interface ViewBaseState {}
@@ -101,23 +102,24 @@ export struct RNViewBase {
     Stack() {
       this.renderChildren()
     }
-    .width(this.descriptorWrapper?.width)
-    .height(this.descriptorWrapper?.height)
-    .backgroundColor(this.descriptorWrapper?.backgroundColor)
-    .position(this.descriptorWrapper?.positionRelativeToParent)
-    .borderWidth(this.descriptorWrapper?.borderWidth)
-    .borderColor(this.descriptorWrapper?.borderColor)
-    .borderRadius(this.descriptorWrapper?.borderRadius)
-    .borderStyle(this.getBorderStyle())
-    .opacity(this.descriptorWrapper?.opacity)
-    .transform(this.getTransform())
-    .clip(this.descriptorWrapper?.isClipping)
-    .hitTestBehavior(this.getHitTestMode())
-    .shadow(this.descriptorWrapper?.shadow)
-    .id(this.tag.toString())
-    .accessibilityGroup(this.descriptorWrapper?.accessibilityGroup)
-    .accessibilityText(this.descriptorWrapper?.accessibilityText)
-    .accessibilityLevel(this.descriptorWrapper?.accessibilityLevel)
-    .accessibilityDescription(this.descriptorWrapper?.accessibilityDescription)
+    .attributeModifier(ViewModifier.getInstance().setDescriptor(this.descriptorWrapper, this.tag))
+    // .width(this.descriptorWrapper?.width)
+    // .height(this.descriptorWrapper?.height)
+    // .backgroundColor(this.descriptorWrapper?.backgroundColor)
+    // .position(this.descriptorWrapper?.positionRelativeToParent)
+    // .borderWidth(this.descriptorWrapper?.borderWidth)
+    // .borderColor(this.descriptorWrapper?.borderColor)
+    // .borderRadius(this.descriptorWrapper?.borderRadius)
+    // .borderStyle(this.getBorderStyle())
+    // .opacity(this.descriptorWrapper?.opacity)
+    // .transform(this.getTransform())
+    // .clip(this.descriptorWrapper?.isClipping)
+    // .hitTestBehavior(this.getHitTestMode())
+    // .shadow(this.descriptorWrapper?.shadow)
+    // .id(this.tag.toString())
+    // .accessibilityGroup(this.descriptorWrapper?.accessibilityGroup)
+    // .accessibilityText(this.descriptorWrapper?.accessibilityText)
+    // .accessibilityLevel(this.descriptorWrapper?.accessibilityLevel)
+    // .accessibilityDescription(this.descriptorWrapper?.accessibilityDescription)
   }
 }

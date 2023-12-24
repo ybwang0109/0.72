@@ -16,6 +16,7 @@ import {
 } from './conversions'
 import { AttributedFragment } from './types';
 import { TextDescriptor } from './types'
+import { TextModifier } from '../../componentAttributeModifiers/TextModifier'
 
 @Component
 export struct RNSimpleText {
@@ -107,45 +108,46 @@ export struct RNSimpleText {
 
   build() {
     Text(this.fragment && capitalizeTextIfNecessary(this.fragment?.text, this.fragment?.textTransform))
-      .fontColor(convertColorSegmentsToString(this.fragment?.fontColor))
-      .fontFamily(this.fragment?.fontFamily)
-      .fontWeight(this.fragment?.fontWeight)
-      .fontSize(this.fragment?.fontSize)
-      .fontStyle(stringToFontStyle(this.fragment?.fontStyle))
-      .decoration({
-        type: getTextDecorationLine(this.fragment?.textDecorationLine),
-        color: convertColorSegmentsToString(this.fragment?.textDecorationColor ?? this.fragment?.fontColor)
-      })
-      .lineHeight(this.fragment?.lineHeight || (this.fragment?.fontSize ?? 16) * (DEFAULT_LINE_SPACING + 1))
-      .backgroundColor(convertColorSegmentsToString(this.fragment?.backgroundColor))
-      .letterSpacing(getLetterSpacing(this.fragment?.letterSpacing))
-      .textCase(stringToTextTransform(this.fragment?.textTransform))
-      .maxLines(getMaxLines(this.descriptor.props.maximumNumberOfLines))
-      .textShadow(getTextShadow(this.fragment?.textShadowProps))
-      .textOverflow({ overflow: ellipsizeModeToTextOverflow(this.descriptor.props.ellipsizeMode) })
-      .textAlign(stringToAlignment(this.descriptor.props.textAlign))
-      .align(stringToVerticalAlign(this.descriptor.props.textAlignVertical))
-      .padding(this.descriptor.props.padding)
-      .copyOption(this.descriptor.props.selectable ? CopyOptions.LocalDevice : CopyOptions.None)
-      .enabled(!this.descriptor.props.disabled)
+      .attributeModifier(TextModifier.getInstance().setDescriptor(this.descriptor, this.descriptorWrapper, this.fragment, this.tag))
+      // .fontColor(convertColorSegmentsToString(this.fragment?.fontColor))
+      // .fontFamily(this.fragment?.fontFamily)
+      // .fontWeight(this.fragment?.fontWeight)
+      // .fontSize(this.fragment?.fontSize)
+      // .fontStyle(stringToFontStyle(this.fragment?.fontStyle))
+      // .decoration({
+      //   type: getTextDecorationLine(this.fragment?.textDecorationLine),
+      //   color: convertColorSegmentsToString(this.fragment?.textDecorationColor ?? this.fragment?.fontColor)
+      // })
+      // .lineHeight(this.fragment?.lineHeight || (this.fragment?.fontSize ?? 16) * (DEFAULT_LINE_SPACING + 1))
+      // .backgroundColor(convertColorSegmentsToString(this.fragment?.backgroundColor))
+      // .letterSpacing(getLetterSpacing(this.fragment?.letterSpacing))
+      // .textCase(stringToTextTransform(this.fragment?.textTransform))
+      // .maxLines(getMaxLines(this.descriptor.props.maximumNumberOfLines))
+      // .textShadow(getTextShadow(this.fragment?.textShadowProps))
+      // .textOverflow({ overflow: ellipsizeModeToTextOverflow(this.descriptor.props.ellipsizeMode) })
+      // .textAlign(stringToAlignment(this.descriptor.props.textAlign))
+      // .align(stringToVerticalAlign(this.descriptor.props.textAlignVertical))
+      // .padding(this.descriptor.props.padding)
+      // .copyOption(this.descriptor.props.selectable ? CopyOptions.LocalDevice : CopyOptions.None)
+      // .enabled(!this.descriptor.props.disabled)
 
-      .width(this.descriptorWrapper?.width)
-      .height(this.descriptorWrapper?.height)
-      .backgroundColor(this.descriptorWrapper?.backgroundColor)
-      .position(this.descriptorWrapper?.positionRelativeToParent)
-      .borderWidth(this.descriptorWrapper?.borderWidth)
-      .borderColor(this.descriptorWrapper?.borderColor)
-      .borderRadius(this.descriptorWrapper?.borderRadius)
-      .borderStyle(this.getBorderStyle())
-      .opacity(this.descriptorWrapper?.opacity)
-      .transform(this.getTransform())
-      .clip(this.descriptorWrapper?.isClipping)
-      .hitTestBehavior(this.getHitTestMode())
-      .shadow(this.descriptorWrapper?.shadow)
-      .id(this.tag.toString())
-      .accessibilityGroup(this.descriptorWrapper?.accessibilityGroup)
-      .accessibilityText(this.descriptorWrapper?.accessibilityText)
-      .accessibilityLevel(this.descriptorWrapper?.accessibilityLevel)
-      .accessibilityDescription(this.descriptorWrapper?.accessibilityDescription)
+      // .width(this.descriptorWrapper?.width)
+      // .height(this.descriptorWrapper?.height)
+      // .backgroundColor(this.descriptorWrapper?.backgroundColor)
+      // .position(this.descriptorWrapper?.positionRelativeToParent)
+      // .borderWidth(this.descriptorWrapper?.borderWidth)
+      // .borderColor(this.descriptorWrapper?.borderColor)
+      // .borderRadius(this.descriptorWrapper?.borderRadius)
+      // .borderStyle(this.getBorderStyle())
+      // .opacity(this.descriptorWrapper?.opacity)
+      // .transform(this.getTransform())
+      // .clip(this.descriptorWrapper?.isClipping)
+      // .hitTestBehavior(this.getHitTestMode())
+      // .shadow(this.descriptorWrapper?.shadow)
+      // .id(this.tag.toString())
+      // .accessibilityGroup(this.descriptorWrapper?.accessibilityGroup)
+      // .accessibilityText(this.descriptorWrapper?.accessibilityText)
+      // .accessibilityLevel(this.descriptorWrapper?.accessibilityLevel)
+      // .accessibilityDescription(this.descriptorWrapper?.accessibilityDescription)
   }
 }

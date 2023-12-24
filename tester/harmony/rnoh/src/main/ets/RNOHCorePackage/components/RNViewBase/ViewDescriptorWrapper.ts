@@ -144,6 +144,13 @@ export class ViewDescriptorWrapperBase<TType extends string = string, TProps ext
     }
     return this.props.transform.slice() as TransformMatrix
   }
+ 
+  public get transformStringify(): String {
+    if (!('transform' in this.props)) {
+      return '[1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]';
+    }
+    return JSON.stringify(this.props.transform);
+  }
 
   public get transformationMatrix(): matrix4.Matrix4Transit {
     return matrix4.init(this.rawTransformationMatrix as TransformMatrix);

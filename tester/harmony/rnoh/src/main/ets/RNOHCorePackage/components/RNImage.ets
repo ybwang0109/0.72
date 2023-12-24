@@ -6,6 +6,7 @@ import { ImageLoaderTurboModule } from '../turboModules/ImageLoaderTurboModule';
 import { RNViewBase, ViewBaseDescriptor, ViewBaseProps,
   ViewDescriptorWrapper,
   ViewDescriptorWrapperBase, ViewRawProps } from './RNViewBase';
+import { ImageModifier } from '../componentAttributeModifiers/ImageModifier'
 
 export interface ImageProps extends ViewBaseProps {
   uri: string,
@@ -244,13 +245,14 @@ export struct RNImage {
     // ArkUI keeps displaying the last "good" image when the passed source parameter changes
     if (this.imageSource !== undefined) {
       Image(this.imageSource.source)
-        .accessibilityText(this.descriptor.rawProps.alt)
+        .attributeModifier(ImageModifier.getInstance().setDescriptor(this.descriptor, this.descriptorWrapper, this.tag))
+        // .accessibilityText(this.descriptor.rawProps.alt)
         .interpolation(ImageInterpolation.High)
-        .objectFit(this.getResizeMode(this.descriptor.props.resizeMode))
-        .objectRepeat(this.descriptor.props.resizeMode === 4 ?
-        ImageRepeat.XY : ImageRepeat.NoRepeat)
+        // .objectFit(this.getResizeMode(this.descriptor.props.resizeMode))
+        // .objectRepeat(this.descriptor.props.resizeMode === 4 ?
+        // ImageRepeat.XY : ImageRepeat.NoRepeat)
         .colorFilter(this.getColorFilter())
-        .blur(this.descriptor.props.blurRadius)
+        // .blur(this.descriptor.props.blurRadius)
         .onComplete(event => this.onLoad(event))
         .onError((event: ImageOnErrorEvent) => {
           if (this.imageSource !== undefined) {
@@ -258,24 +260,24 @@ export struct RNImage {
           }
         })
 
-        .width(this.descriptorWrapper?.width)
-        .height(this.descriptorWrapper?.height)
-        .backgroundColor(this.descriptorWrapper?.backgroundColor)
-        .position(this.descriptorWrapper?.positionRelativeToParent)
-        .borderWidth(this.descriptorWrapper?.borderWidth)
-        .borderColor(this.descriptorWrapper?.borderColor)
-        .borderRadius(this.descriptorWrapper?.borderRadius)
-        .borderStyle(this.getBorderStyle())
-        .opacity(this.descriptorWrapper?.opacity)
-        .transform(this.getTransform())
-        .clip(this.descriptorWrapper?.isClipping)
-        .hitTestBehavior(this.getHitTestMode())
-        .shadow(this.descriptorWrapper?.shadow)
-        .id(this.tag.toString())
-        .accessibilityGroup(this.descriptorWrapper?.accessibilityGroup)
-        .accessibilityText(this.descriptorWrapper?.accessibilityText)
-        .accessibilityLevel(this.descriptorWrapper?.accessibilityLevel)
-        .accessibilityDescription(this.descriptorWrapper?.accessibilityDescription)
+        // .width(this.descriptorWrapper?.width)
+        // .height(this.descriptorWrapper?.height)
+        // .backgroundColor(this.descriptorWrapper?.backgroundColor)
+        // .position(this.descriptorWrapper?.positionRelativeToParent)
+        // .borderWidth(this.descriptorWrapper?.borderWidth)
+        // .borderColor(this.descriptorWrapper?.borderColor)
+        // .borderRadius(this.descriptorWrapper?.borderRadius)
+        // .borderStyle(this.getBorderStyle())
+        // .opacity(this.descriptorWrapper?.opacity)
+        // .transform(this.getTransform())
+        // .clip(this.descriptorWrapper?.isClipping)
+        // .hitTestBehavior(this.getHitTestMode())
+        // .shadow(this.descriptorWrapper?.shadow)
+        // .id(this.tag.toString())
+        // .accessibilityGroup(this.descriptorWrapper?.accessibilityGroup)
+        // .accessibilityText(this.descriptorWrapper?.accessibilityText)
+        // .accessibilityLevel(this.descriptorWrapper?.accessibilityLevel)
+        // .accessibilityDescription(this.descriptorWrapper?.accessibilityDescription)
     }
   }
 }

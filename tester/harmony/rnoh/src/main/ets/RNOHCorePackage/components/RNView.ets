@@ -2,6 +2,7 @@ import { RNOHContext, Tag, TransformMatrix } from '../../RNOH'
 import { RNViewBase, ViewBaseDescriptor, ViewDescriptorWrapper } from './RNViewBase'
 import { ComponentBuilderContext, RNComponentFactory, rnComponentFactoryBuilder } from './RNComponentFactory'
 import { RNViewManager } from '..'
+import { ViewModifier } from '../componentAttributeModifiers/ViewModifier'
 import matrix4 from '@ohos.matrix4'
 
 @Component
@@ -106,23 +107,24 @@ export struct RNView {
         rnComponentFactoryBuilder(this.ctx, childrenTag, this.ctx.rnInstance.getComponentNameFromDescriptorType(this.ctx.descriptorRegistry.getDescriptor(childrenTag)?.type))
       }, (childrenTag: Tag) => childrenTag.toString())
     }
-    .width(this.descriptorWrapper?.width)
-    .height(this.descriptorWrapper?.height)
-    .backgroundColor(this.descriptorWrapper?.backgroundColor)
-    .position(this.descriptorWrapper?.positionRelativeToParent)
-    .borderWidth(this.descriptorWrapper?.borderWidth)
-    .borderColor(this.descriptorWrapper?.borderColor)
-    .borderRadius(this.descriptorWrapper?.borderRadius)
-    .borderStyle(this.getBorderStyle())
-    .opacity(this.descriptorWrapper?.opacity)
-    .transform(this.getTransform())
-    .clip(this.descriptorWrapper?.isClipping)
-    .hitTestBehavior(this.getHitTestMode())
-    .shadow(this.descriptorWrapper?.shadow)
-    .id(this.tag.toString())
-    .accessibilityGroup(this.descriptorWrapper?.accessibilityGroup)
-    .accessibilityText(this.descriptorWrapper?.accessibilityText)
-    .accessibilityLevel(this.descriptorWrapper?.accessibilityLevel)
-    .accessibilityDescription(this.descriptorWrapper?.accessibilityDescription)
+    .attributeModifier(ViewModifier.getInstance().setDescriptor(this.descriptorWrapper, this.tag))
+    // .width(this.descriptorWrapper?.width)
+    // .height(this.descriptorWrapper?.height)
+    // .backgroundColor(this.descriptorWrapper?.backgroundColor)
+    // .position(this.descriptorWrapper?.positionRelativeToParent)
+    // .borderWidth(this.descriptorWrapper?.borderWidth)
+    // .borderColor(this.descriptorWrapper?.borderColor)
+    // .borderRadius(this.descriptorWrapper?.borderRadius)
+    // .borderStyle(this.getBorderStyle())
+    // .opacity(this.descriptorWrapper?.opacity)
+    // .transform(this.getTransform())
+    // .clip(this.descriptorWrapper?.isClipping)
+    // .hitTestBehavior(this.getHitTestMode())
+    // .shadow(this.descriptorWrapper?.shadow)
+    // .id(this.tag.toString())
+    // .accessibilityGroup(this.descriptorWrapper?.accessibilityGroup)
+    // .accessibilityText(this.descriptorWrapper?.accessibilityText)
+    // .accessibilityLevel(this.descriptorWrapper?.accessibilityLevel)
+    // .accessibilityDescription(this.descriptorWrapper?.accessibilityDescription)
   }
 }
