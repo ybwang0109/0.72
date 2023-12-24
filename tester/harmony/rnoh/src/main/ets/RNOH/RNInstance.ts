@@ -154,7 +154,7 @@ export class RNInstanceImpl implements RNInstance {
   ) {
     this.logger = logger.clone("RNInstance")
     const stopTracing = this.logger.clone("constructor").startTracing()
-    this.componentManagerRegistry = new ComponentManagerRegistry();
+    this.componentManagerRegistry = new ComponentManagerRegistry(logger);
     this.descriptorRegistry = new DescriptorRegistry(
       {
         '1': { ...rootDescriptor },
