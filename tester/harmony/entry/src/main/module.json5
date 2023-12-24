@@ -13,6 +13,12 @@
     "requestPermissions": [
       {"name":  "ohos.permission.INTERNET"}
     ],
+    "metadata": [
+      {
+        "name": "half_leading",
+        "value": "true",
+      }
+    ],
     "abilities": [
       {
         "name": "EntryAbility",
