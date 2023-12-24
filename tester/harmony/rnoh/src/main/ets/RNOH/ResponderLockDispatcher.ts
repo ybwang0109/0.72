@@ -6,7 +6,7 @@ import { RNOHLogger } from "./RNOHLogger"
 export class ResponderLockDispatcher {
   private numberOfLocksByTag: Map<Tag, number> = new Map()
   private logger: RNOHLogger
-  constructor(private componentManagerRegistry: ComponentManagerRegistry, private componentCommandHub: RNComponentCommandHub, logger: RNOHLogger) {
+  constructor(private descriptorRegistry: DescriptorRegistry, private componentCommandHub: RNComponentCommandHub, logger: RNOHLogger) {
     this.logger = logger.clone("ResponderLockDispatcher")
   }
 

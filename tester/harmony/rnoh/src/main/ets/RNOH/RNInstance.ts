@@ -167,7 +167,7 @@ export class RNInstanceImpl implements RNInstance {
     this.destroyedPromise = new Promise(resolve => {
       this.resolveDestroyPromise = resolve
     })
-    this.responderLockDispatcher = new ResponderLockDispatcher(this.componentManagerRegistry, this.componentCommandHub, logger);
+    this.responderLockDispatcher = new ResponderLockDispatcher(this.descriptorRegistry, this.componentCommandHub, logger)
     stopTracing()
   }
 
