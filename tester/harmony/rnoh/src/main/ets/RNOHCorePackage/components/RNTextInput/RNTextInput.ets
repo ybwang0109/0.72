@@ -87,20 +87,21 @@ export struct RNTextInput {
   @State value: string = '';
   private unregisterDescriptorChangesListener?: () => void = undefined
   private cleanupCommandCallback?: () => void = undefined
-  private textWasPastedOrCut: boolean = false
-  private selection: Selection = { start: 0, end: 0 }
-  private valueChanged: boolean = false
-  private shouldIgnoreNextSelectionChange: boolean = false
+  private shouldIgnoreNextValueChange: boolean = false
 
   handleChangeEvent(value: string) {
     this.value = value
-    this.valueChanged = true;
+    if (this.shouldIgnoreNextValueChange) {
+      this.shouldIgnoreNextValueChange = false;
+    } else {
+      this.ctx.rnInstance.emitComponentEvent(this.descriptor.tag, RNOHEventEmitRequestHandlerName.TextInputChange, this.value)
+    }
   }
 
   onFocusEvent() {
     if (this.descriptorWrapper?.clearTextOnFocus) {
       this.value = "";
-      this.shouldIgnoreNextSelectionChange = true;
+      this.shouldIgnoreNextValueChange = true;
     }
     this.ctx.rnInstance.emitComponentEvent(this.descriptor.tag, "onFocus", this.value)
   }
@@ -154,49 +155,6 @@ export struct RNTextInput {
   onSubmitEditing(): void {
     focusControl.requestFocus(`fixedBlur${this.tag}`)
     this.ctx.rnInstance.emitComponentEvent(this.descriptor.tag, "onSubmitEditing", this.value)
-  }
-
-  onPasteOrCut(): void {
-    this.textWasPastedOrCut = true;
-  }
-
-  dispatchKeyEvent(currentSelection: Selection): void {
-    if (this.textWasPastedOrCut) {
-      this.textWasPastedOrCut = false;
-    }
-    else if (this.valueChanged) {
-      let key: string = "";
-      const noPreviousSelection = this.selection.start === this.selection.end;
-      const cursorDidNotMove = currentSelection.start === this.selection.start;
-      const cursorMovedBackwardsOrAtBeginningOfInput = (currentSelection.start < this.selection.start) || currentSelection.start <= 0;
-      if (!cursorMovedBackwardsOrAtBeginningOfInput && (noPreviousSelection || !cursorDidNotMove)) {
-        key = this.value.charAt(currentSelection.start - 1);
-      }
-      this.ctx.rnInstance.emitComponentEvent(this.descriptor.tag, "onKeyPress", key);
-    }
-  }
-
-  dispatchChangeEvent(): void {
-    if (this.valueChanged) {
-      this.valueChanged = false;
-      this.ctx.rnInstance.emitComponentEvent(this.descriptor.tag, RNOHEventEmitRequestHandlerName.TextInputChange, this.value);
-    }
-  }
-
-  textSelectionChange(currentSelectionStart: number, currentSelectionEnd: number): void {
-    if (this.shouldIgnoreNextSelectionChange) {
-      this.shouldIgnoreNextSelectionChange = false;
-      return;
-    }
-    /**
-     * New values of selection are needed to determine what key was pressed, so this.dispatchKeyEvent needs to be
-     * invoked after this callback fires. OnChange callback fires earlier than OnTextSelectionChange, so all this logic
-     * needs to be handled here rather than in this.handleChangeEvent. According to RN the keyPress event should fire
-     * before changeEvent, so dispatching change event needs to be handled here as well.
-     * */
-    this.dispatchKeyEvent({ start: currentSelectionStart, end: currentSelectionEnd });
-    this.selection = { start: currentSelectionStart, end: currentSelectionEnd };
-    this.dispatchChangeEvent();
   }
 
   build() {
@@ -255,9 +213,6 @@ export struct RNTextInput {
             width: this.descriptorWrapper?.width,
             height: this.descriptorWrapper?.height
           })
-          .onPaste(() => this.onPasteOrCut())
-          .onCut(() => this.onPasteOrCut())
-          .onTextSelectionChange((start, end) => this.textSelectionChange(start, end))
           .key(`TextInput@${this.tag}`)
       } else {
         TextInput({
@@ -308,9 +263,6 @@ export struct RNTextInput {
             width: this.descriptorWrapper?.width,
             height: this.descriptorWrapper?.height
           })
-          .onPaste(() => this.onPasteOrCut())
-          .onCut(() => this.onPasteOrCut())
-          .onTextSelectionChange((start, end) => this.textSelectionChange(start, end))
           .key(`TextInput@${this.tag}`)
       }
       /**

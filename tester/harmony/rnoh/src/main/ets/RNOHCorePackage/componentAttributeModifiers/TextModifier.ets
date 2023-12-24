@@ -92,8 +92,8 @@ export class TextModifier implements AttributeModifier<TextAttribute> {
     instance.position(this.descriptorWrapper?.positionRelativeToParent);
     instance.id(this.tag.toString())
 
-    if (this.descriptorWrapper?.backgroundColor !== '#00000000') {
-      instance.backgroundColor(this.descriptorWrapper?.backgroundColor)
+    if (JSON.stringify(this.fragment?.backgroundColor) !== '0,0,0,0') {
+      instance.backgroundColor(convertColorSegmentsToString(this.fragment?.backgroundColor))
     }
     if (JSON.stringify(this.descriptorWrapper?.borderWidth) !== '{}') {
       instance.borderWidth(this.descriptorWrapper?.borderWidth)
@@ -157,8 +157,8 @@ export class TextModifier implements AttributeModifier<TextAttribute> {
         color: convertColorSegmentsToString(this.fragment?.textDecorationColor ?? this.fragment?.fontColor)
       })
     }
-    if (JSON.stringify(this.fragment?.backgroundColor) !== '0,0,0,0') {
-      instance.backgroundColor(convertColorSegmentsToString(this.fragment?.backgroundColor))
+    if (this.descriptorWrapper?.backgroundColor !== '#00000000') {
+      instance.backgroundColor(this.descriptorWrapper?.backgroundColor)
     }
     if (this.fragment?.letterSpacing) {
       instance.letterSpacing(getLetterSpacing(this.fragment?.letterSpacing))
