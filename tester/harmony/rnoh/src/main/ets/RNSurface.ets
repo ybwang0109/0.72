@@ -50,11 +50,11 @@ export struct RNSurface {
     this.logger = this.ctx.logger.clone("RNSurface")
     const stopTracing = this.logger.clone("aboutToAppear").startTracing()
     if (Object.keys(this.surfaceConfig).includes("surfaceHandle")) {
-      this.surfaceHandle = (this.surfaceConfig as SurfaceConfig1).surfaceHandle;
+      this.surfaceHandle = (this.surfaceConfig as Object as SurfaceConfig1).surfaceHandle;
       this.surfaceHandle.setDisplayMode(DisplayMode.Visible);
     } else {
-      this.surfaceHandle = this.ctx.rnInstance.createSurface((this.surfaceConfig as SurfaceConfig2).appKey);
-      this.initialProps = (this.surfaceConfig as SurfaceConfig2).initialProps;
+      this.surfaceHandle = this.ctx.rnInstance.createSurface((this.surfaceConfig as Object as SurfaceConfig2).appKey);
+      this.initialProps = (this.surfaceConfig as Object as SurfaceConfig2).initialProps;
       this.shouldStartSurface = true;
       this.shouldStopSurface = true;
     }
@@ -124,7 +124,7 @@ export struct RNSurface {
     }
   }
 
-  handleTouch(event: TouchEvent) {
+  handleTouch(event?: TouchEvent) {
     this.logger.clone("handleTouch").debug()
     this.touchDispatcher.handleTouchEvent(event)
 

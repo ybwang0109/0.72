@@ -24,7 +24,10 @@ export class TouchDispatcher {
     this.touchTargetHelper = new TouchTargetHelper(surfaceTag, rnInstance.descriptorRegistry, rnInstance.componentManagerRegistry, logger);
   }
 
-  public handleTouchEvent(touchEvent: TouchEvent) {
+  public handleTouchEvent(touchEvent?: TouchEvent) {
+    if (touchEvent === undefined) {
+      return;
+    }
     const changedIds = touchEvent.changedTouches.map(touch => touch.id);
 
     // sometimes views are deleted while a touch event is in flight.
