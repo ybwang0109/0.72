@@ -129,9 +129,11 @@ export struct RNTextInput {
         if (command === 'blur') {
           if (this.descriptor.props.multiline) {
             this.areaController.stopEditing();
+            focusControl.requestFocus(`fixedBlur${this.tag}`)
           }
           else {
             this.inputController.stopEditing();
+            focusControl.requestFocus(`fixedBlur${this.tag}`)
           }
         } else if (command === 'setTextAndSelection') {
           const parsedArgs = parseSetTextAndSelectionCommandCallback(args);
