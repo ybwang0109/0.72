@@ -41,7 +41,7 @@ export interface ImageState {}
 
 
 export type ImageDescriptor = Descriptor<"Image", ImageProps, ImageState, ImageRawProps>;
-class ImageDescriptorWrapper extends ViewDescriptorWrapperBase<"Image", ImageProps, ImageState, ImageRawProps> {
+export class ImageDescriptorWrapper extends ViewDescriptorWrapperBase<"Image", ImageProps, ImageState, ImageRawProps> {
 }
 
 class ImageSourceHolder {
