@@ -141,7 +141,7 @@ export struct RNSurface {
       //   buildCustomComponent: this.buildCustomComponent
       // })
 
-      rnComponentFactoryBuilder(this.ctx, childrenTag, this.ctx.rnInstance.getComponentNameFromDescriptorType(this.ctx.descriptorRegistry.getDescriptor(childrenTag)?.type))
+      rnComponentFactoryBuilder(this.ctx, this.surfaceHandle.getTag(), this.ctx.rnInstance.getComponentNameFromDescriptorType(this.ctx.descriptorRegistry.getDescriptor(this.surfaceHandle.getTag())?.type))
     }
     .width("100%")
     .height("100%")
