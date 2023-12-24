@@ -567,6 +567,27 @@ export struct RNScrollView {
   }
 
   @Builder
+  fadingEdgeLength(fadingEdgeLength: number){
+    Flex({ direction: this.props.flexDirection===2 ? FlexDirection.Row : FlexDirection.Column}){
+      Stack().height( this.props.flexDirection===2 ? "100%" :"50%").width(this.props.flexDirection===2 ? "50%" : "100%").linearGradient({
+        angle: this.props.flexDirection===2 ? 90 : 180,
+        colors: [[0xFFffffff, 0.0],
+          [0x10ffffff, fadingEdgeLength/(this.props.flexDirection===2 ?this.descriptor.layoutMetrics.frame.size.width:this.descriptor.layoutMetrics.frame.size.height) > 1.0 ? 1.0 : fadingEdgeLength/(this.props.flexDirection===2 ?this.descriptor.layoutMetrics.frame.size.width:this.descriptor.layoutMetrics.frame.size.height)],
+          [0x01ffffff, 1.0]]
+      }).visibility((this.props.flexDirection===2?this.contentOffset.x:this.contentOffset.y)<= 5 ? Visibility.Hidden : Visibility.Visible)
+      Stack().height(this.props.flexDirection===2 ? "100%" :"50%").width(this.props.flexDirection===2 ? "50%" : "100%").linearGradient({
+        angle:this.props.flexDirection===2 ? 270 : 0 ,
+        colors: [[0xFFffffff, 0.0],
+          [0x10ffffff, fadingEdgeLength/(this.props.flexDirection===2 ?this.descriptor.layoutMetrics.frame.size.width:this.descriptor.layoutMetrics.frame.size.height)>1.0 ? 1.0 : fadingEdgeLength/(this.props.flexDirection===2 ?this.descriptor.layoutMetrics.frame.size.width:this.descriptor.layoutMetrics.frame.size.height)],
+          [0x01ffffff, 1.0]]
+      }).visibility((this.props.flexDirection===2?this.contentOffset.x>=(this.contentSize.width -this.descriptor.layoutMetrics.frame.size.width-5 ):this.contentOffset.y >= ( this.contentSize.height-this.descriptor.layoutMetrics.frame.size.height-10) )? Visibility.Hidden : Visibility.Visible)
+    }.height("100%").width("100%")
+  }
+
+  @Builder
+  fadingEdgeNone(){}
+
+  @Builder
   buildScrollCore() {
     Scroll(this.scroller) {
       Stack() {
@@ -620,6 +641,8 @@ export struct RNScrollView {
     .onScrollEdge((edge) => {
       this.scrollPosition = isEdgeStart(edge) ? ScrollPosition.EDGE_START : ScrollPosition.EDGE_END;
     })
+    .overlay(this.descriptor.rawProps.fadingEdgeLength !== undefined && this.descriptor.rawProps.fadingEdgeLength > 0 ?
+      this.fadingEdgeLength(this.descriptor.rawProps.fadingEdgeLength):this.fadingEdgeNone())
   }
 
   build() {

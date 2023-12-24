@@ -26,6 +26,7 @@ export interface ScrollViewRawProps extends ViewRawProps {
   disableIntervalMomentum?: boolean
   inverted?: boolean
   maintainVisibleContentPosition?: MaintainVisibleContentPosition
+  fadingEdgeLength: number
 }
 
 export interface ScrollViewState {

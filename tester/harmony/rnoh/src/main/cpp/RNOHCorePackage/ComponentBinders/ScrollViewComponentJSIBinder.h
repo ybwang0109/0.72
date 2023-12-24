@@ -25,7 +25,7 @@ class ScrollViewComponentJSIBinder : public ViewComponentJSIBinder {
         object.setProperty(rt, "disableIntervalMomentum", true);
         object.setProperty(rt, "inverted", "boolean");
         object.setProperty(rt, "maintainVisibleContentPosition", "Object");
-
+        object.setProperty(rt, "fadingEdgeLength", "number");
         return object;
     }
 
