@@ -74,7 +74,7 @@ struct Index {
           rnInstanceConfig: { createRNPackages },
           initialProps: { "foo": "bar" } as Record<string, string>,
           appKey: "app_name",
-          buildCustomComponent: CustomComponentBuilder,
+          buildCustomComponent: wrapBuilder(CustomComponentBuilder),
           onSetUp: (rnInstance) => {
             // rnInstance.enableFeatureFlag("ENABLE_RN_INSTANCE_CLEAN_UP")
           },

@@ -28,14 +28,14 @@ interface SurfaceConfig2 {
 type SurfaceConfig = SurfaceConfig1 | SurfaceConfig2
 
 export class BuilderProxy {
-  public static buildCustomComponent: CustomComponentBuilder;
+  public static customComponentBuilder: WrappedBuilder<[ctx: ComponentBuilderContext]> | undefined;
 }
 
 @Component
 export struct RNSurface {
   ctx!: RNOHContext;
   surfaceConfig!: SurfaceConfig;
-  @BuilderParam buildCustomComponent: (ctx: ComponentBuilderContext) => void;
+  buildCustomComponent?: WrappedBuilder<[ctx: ComponentBuilderContext]>;
   surfaceWidth: number = 0;
   surfaceHeight: number = 0;
   surfaceOffsetX: number = 0;
@@ -53,7 +53,7 @@ export struct RNSurface {
 
   aboutToAppear() {
     this.logger = this.ctx.logger.clone("RNSurface")
-    BuilderProxy.buildCustomComponent = this.buildCustomComponent
+    BuilderProxy.customComponentBuilder = this.buildCustomComponent
     const stopTracing = this.logger.clone("aboutToAppear").startTracing()
     if (Object.keys(this.surfaceConfig).includes("surfaceHandle")) {
       this.surfaceHandle = (this.surfaceConfig as Object as SurfaceConfig1).surfaceHandle;

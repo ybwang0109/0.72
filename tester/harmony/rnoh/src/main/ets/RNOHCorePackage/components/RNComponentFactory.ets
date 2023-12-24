@@ -115,12 +115,17 @@ export struct RNComponentFactory {
 }
 
 @Builder
+export  function  emptyCustomComponentBuilder(ctx: ComponentBuilderContext) {
+
+}
+
+@Builder
 export function rnComponentFactoryBuilder(ctx: RNOHContext, tag:Tag, componentName: string) {
   if (componentName === "View" || componentName === "RootView") {
     RNView({
       ctx: ctx,
       tag: tag,
-      buildCustomComponent: BuilderProxy.buildCustomComponent
+      buildCustomComponent: emptyCustomComponentBuilder
     })
   } else if (componentName === "Image") {
     RNImage({ ctx: ctx, tag: tag })
@@ -132,7 +137,7 @@ export function rnComponentFactoryBuilder(ctx: RNOHContext, tag:Tag, componentNa
     && !ctx.descriptorRegistry.getDescriptor<TextDescriptor>(tag).props.fragments.some(fragment => fragment.text === PLACEHOLDER_SYMBOL)) {
       RNSimpleText({ ctx: ctx, tag: tag })
     } else {
-      RNParagraph({ ctx: ctx, tag: tag, buildCustomComponent: BuilderProxy.buildCustomComponent })
+      RNParagraph({ ctx: ctx, tag: tag, buildCustomComponent: emptyCustomComponentBuilder })
     }
   } else if (componentName === "PullToRefreshView") {
     /**
@@ -154,7 +159,7 @@ export function rnComponentFactoryBuilder(ctx: RNOHContext, tag:Tag, componentNa
     RNScrollView({
       ctx: ctx,
       tag: tag,
-      buildCustomComponent: BuilderProxy.buildCustomComponent
+      buildCustomComponent: emptyCustomComponentBuilder
     })
   } else if (componentName === "Switch") {
     RNSwitch({
@@ -165,7 +170,7 @@ export function rnComponentFactoryBuilder(ctx: RNOHContext, tag:Tag, componentNa
     RNModalHostView({
       ctx: ctx,
       tag: tag,
-      buildCustomComponent: BuilderProxy.buildCustomComponent
+      buildCustomComponent: emptyCustomComponentBuilder
     })
   } else if (componentName === "ActivityIndicatorView") {
     RNActivityIndicator({
@@ -173,7 +178,7 @@ export function rnComponentFactoryBuilder(ctx: RNOHContext, tag:Tag, componentNa
       tag: tag,
     })
   } else if (componentName !== '') {
-    BuilderProxy.buildCustomComponent({
+    BuilderProxy.customComponentBuilder?.builder({
       rnohContext: ctx,
       descriptor: ctx.descriptorRegistry.getDescriptor<Descriptor>(tag) as DescriptorEssence,
       tag: tag,

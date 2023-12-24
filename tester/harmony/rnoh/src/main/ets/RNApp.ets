@@ -1,4 +1,4 @@
-import { CustomComponentBuilder } from './RNOHCorePackage'
+import { ComponentBuilderContext } from './RNOHCorePackage'
 import { RNInstanceOptions } from './RNOH';
 import { RNInstance, JSBundleProvider, RNAbility, RNOHLogger } from './RNOH'
 import { RNSurface } from "./RNSurface"
@@ -32,7 +32,8 @@ export struct RNApp {
   /**
    * Builds a custom fabric component.
    */
-  @BuilderParam public buildCustomComponent!: CustomComponentBuilder
+  //@BuilderParam public buildCustomComponent!: CustomComponentBuilder
+  public buildCustomComponent?: WrappedBuilder<[ctx: ComponentBuilderContext]>
   /**
    * Called before a surface is visible, and rnInstance is available.
    */
