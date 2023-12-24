@@ -80,6 +80,9 @@ export class DescriptorRegistry {
     let currentTag: Tag | undefined = tag
     do {
       let descriptor = this.getDescriptor(currentTag)
+      if (descriptor === undefined) {
+        break;
+      }
       currentTag = descriptor.parentTag
       results.push(descriptor)
     } while (currentTag !== undefined);
