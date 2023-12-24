@@ -72,7 +72,20 @@ export struct RNPullToRefreshView {
         {}
       )
     }
+
+    /**
+     * `Refresh` should not be active, if `refreshing` prop is set to `false`. When a user activates the `Refresh`,
+     * the component sets `isRefreshing` to `true`. For unknown reason, if `isRefreshing` is set to `false` here
+     * without timeout, and soon after `isRefreshing` is set back to `true` by `refreshing` prop,
+     * that second change is ignored.
+     */
+    setTimeout(() => {
+      if (!this.descriptor.rawProps.refreshing) {
+        this.isRefreshing = false
+      }
+    }, 500)
   }
+
 
   @Builder
   RefreshLoadingProgress(params: RefreshLoadingProgressBuilderParams) {
