@@ -16,7 +16,7 @@ namespace react {
  * Exact type of float numbers which ideally should match a type behing
  * platform- and chip-architecture-specific float type.
  */
-using Float = float; // RNOH: patch
+using Float = float;
 
 } // namespace react
 } // namespace facebook
