@@ -64,8 +64,8 @@ struct ModalHostViewDialog {
   private async onLandscapeChange() {
     const windowInstance = await window.getLastWindow(this.ctx.uiAbilityContext);
     const windowProperties = windowInstance.getWindowProperties();
-    const height = px2vp(windowProperties.windowRect.width);
-    const width = px2vp(windowProperties.windowRect.height);
+    const width = px2vp(windowProperties.windowRect.width);
+    const height = px2vp(windowProperties.windowRect.height);
     this.ctx.descriptorRegistry.setState<ModalHostViewState>(this.tag, { screenSize: { height, width } });
   }
 
