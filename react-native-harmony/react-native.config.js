@@ -1,4 +1,4 @@
-const { config: harmonyConfig } = require('@rnoh/react-native-harmony-cli')
+const { config: harmonyConfig } = require('@react-native-oh/react-native-harmony-cli')
 
 /**
  * @type {import("@react-native-community/cli-types").Config}

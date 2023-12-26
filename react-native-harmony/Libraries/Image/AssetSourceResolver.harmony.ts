@@ -1,7 +1,7 @@
 import {
   getAssetDestRelativePath,
   Asset,
-} from '@rnoh/react-native-harmony-cli/src/assetResolver';
+} from '@react-native-oh/react-native-harmony-cli/src/assetResolver';
 
 type ResolvedAssetSource = {
   readonly __packager_asset: boolean;
