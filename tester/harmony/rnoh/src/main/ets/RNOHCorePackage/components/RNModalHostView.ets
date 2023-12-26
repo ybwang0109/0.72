@@ -8,7 +8,8 @@ import { TouchDispatcher } from '../../RNOH/TouchDispatcher'
 import { RNModalHostViewManager } from '../componentManagers/RNModalHostViewManager';
 import { CustomComponentBuilder, rnComponentFactoryBuilder } from './RNComponentFactory'
 import { RNComponentFactory } from './RNComponentFactory'
-
+import mediaQuery from '@ohos.mediaquery'
+import window from '@ohos.window';
 interface ModalHostViewProps extends ViewBaseProps {
   transparent: boolean;
   visible: boolean;
@@ -36,7 +37,7 @@ struct ModalHostViewDialog {
   private cleanUpCallbacks: (() => void)[] = []
   touchDispatcher!: TouchDispatcher;
   componentManager!: RNModalHostViewManager;
-
+  windowChangesListener = mediaQuery.matchMediaSync('(orientation: landscape)')
   emitComponentEvent(eventName: string) {
     this.ctx.rnInstanceManager.emitComponentEvent(this.tag, eventName, {});
   }
@@ -54,10 +55,17 @@ struct ModalHostViewDialog {
       this.showContent = true
     })
     this.touchDispatcher = new TouchDispatcher(this.tag, this.ctx.rnInstance, this.ctx.logger);
+    this.onLandscapeChange();
+    this.windowChangesListener.on('change', () => {
+      this.onLandscapeChange();
+    })
+  }
 
-    const displayClass = display.getDefaultDisplaySync();
-    const height = px2vp(displayClass.height);
-    const width = px2vp(displayClass.width);
+  private async onLandscapeChange() {
+    const windowInstance = await window.getLastWindow(this.ctx.uiAbilityContext);
+    const windowProperties = windowInstance.getWindowProperties();
+    const height = px2vp(windowProperties.windowRect.width);
+    const width = px2vp(windowProperties.windowRect.height);
     this.ctx.descriptorRegistry.setState<ModalHostViewState>(this.tag, { screenSize: { height, width } });
   }
 
