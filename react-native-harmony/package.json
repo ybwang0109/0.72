@@ -33,7 +33,8 @@
     "./Libraries/**/*",
     "./types/**/*",
     "./*.js",
-    "./*.json"
+    "./*.json",
+    "./*.har"
   ],
   "dependencies": {
     "@react-native-oh/react-native-harmony-cli": "^0.0.15",
