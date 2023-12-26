@@ -21,10 +21,10 @@ export struct RNView {
   private cleanupCallback?: () => void = undefined
 
   aboutToAppear() {
-    this.initComponent();
     const descriptor = this.ctx.descriptorRegistry.getDescriptor<ViewBaseDescriptor>(this.tag)
     if (descriptor) {
       this.updateDescriptor(descriptor)
+      this.initComponent();
     }
     this.cleanupCallback = this.ctx.descriptorRegistry.subscribeToDescriptorChanges(
       this.tag,
