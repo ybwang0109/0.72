@@ -132,13 +132,7 @@ export function rnComponentFactoryBuilder(ctx: RNOHContext, tag:Tag, componentNa
   } else if (componentName === "TextInput") {
     RNTextInput({ ctx: ctx, tag: tag })
   } else if (componentName === "Paragraph") {
-    // RNText({ ctx: ctx, tag: tag, buildCustomComponent: BuilderProxy.buildCustomComponent })
-    if (ctx.descriptorRegistry.getDescriptor<TextDescriptor>(tag).props.fragments.length <= 1
-    && !ctx.descriptorRegistry.getDescriptor<TextDescriptor>(tag).props.fragments.some(fragment => fragment.text === PLACEHOLDER_SYMBOL)) {
-      RNSimpleText({ ctx: ctx, tag: tag })
-    } else {
-      RNParagraph({ ctx: ctx, tag: tag, buildCustomComponent: emptyCustomComponentBuilder })
-    }
+    RNText({ ctx: ctx, tag: tag, buildCustomComponent: emptyCustomComponentBuilder })
   } else if (componentName === "PullToRefreshView") {
     /**
      * RNScrollView displays Refresh component if PullToRefreshView is its direct parent.
