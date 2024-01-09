@@ -23,6 +23,8 @@ export function stringToVerticalAlign(textAlignVertical?: string) {
       return Alignment.BottomStart
     case "center":
       return Alignment.Start
+    case "auto":
+      return Alignment.Start
     default:
       return Alignment.TopStart
   }
