@@ -22,3 +22,4 @@ export * from './types'
 export * from './TouchTargetHelper'
 export * from "./CompactValue"
 export * from "./RNOHLogger"
+export * from "./RNOHError"
