@@ -109,6 +109,7 @@ export struct RNSimpleText {
   build() {
     Text(this.fragment && capitalizeTextIfNecessary(this.fragment?.text, this.fragment?.textTransform))
       .attributeModifier(TextModifier.getInstance().setDescriptor(this.descriptor, this.descriptorWrapper, this.fragment, this.tag))
+      .wordBreak(this.descriptor.props.ellipsizeMode === 2 ? WordBreak.BREAK_ALL : WordBreak.BREAK_WORD)
       // .fontColor(convertColorSegmentsToString(this.fragment?.fontColor))
       // .fontFamily(this.fragment?.fontFamily)
       // .fontWeight(this.fragment?.fontWeight)

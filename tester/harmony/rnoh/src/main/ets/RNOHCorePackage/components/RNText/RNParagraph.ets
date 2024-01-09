@@ -89,6 +89,7 @@ export struct RNParagraph {
               .letterSpacing(getLetterSpacing(positionedFragment.fragment.extraData.letterSpacing))
               .textCase(stringToTextTransform(positionedFragment.fragment.extraData.textTransform))
               .textShadow(getTextShadow(positionedFragment.fragment.extraData?.textShadowProps))
+              .wordBreak(this.descriptor.props.ellipsizeMode === 2 ? WordBreak.BREAK_ALL : WordBreak.BREAK_WORD)
               .position({
                 x: line.positionRelativeToParagraph.x + positionedFragment.positionRelativeToLine.x,
                 y: line.positionRelativeToParagraph.y + positionedFragment.positionRelativeToLine.y + this.getVerticalAlignmentOffset()
