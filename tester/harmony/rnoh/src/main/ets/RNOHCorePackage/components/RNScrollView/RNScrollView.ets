@@ -636,6 +636,9 @@ export struct RNScrollView {
           yOffset: this.contentOffset.y,
         })
       }
+      if (this.isNested && (this.scrollPosition === ScrollPosition.EDGE_START || this.scrollPosition === ScrollPosition.EDGE_END)) {
+        this.shouldAllowParentScrolling = true;
+      }
     })
     .friction(this.getFriction())
     .scrollSnap(this.getScrollSnap())
