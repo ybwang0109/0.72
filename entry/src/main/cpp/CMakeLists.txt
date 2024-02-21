@@ -1,21 +1,11 @@
-project(rnapp)
+# the minimum version of CMake.
 cmake_minimum_required(VERSION 3.4.1)
-set(RNOH_APP_DIR "${CMAKE_CURRENT_SOURCE_DIR}")
-set(RNOH_CPP_DIR "${CMAKE_CURRENT_SOURCE_DIR}/../../../../../../tester/harmony/entry/oh_modules/rnoh/src/main/cpp")
+project(0.72-new-dev)
 
-add_subdirectory("${RNOH_CPP_DIR}" ./rn)
+set(NATIVERENDER_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
-# RNOH_BEGIN: add_package_subdirectories
-add_subdirectory("../../../../sample_package/src/main/cpp" ./sample-package)
-# RNOH_END: add_package_subdirectories
+include_directories(${NATIVERENDER_ROOT_PATH}
+                    ${NATIVERENDER_ROOT_PATH}/include)
 
-add_library(rnoh_app SHARED
-    "./PackageProvider.cpp"
-    "${RNOH_CPP_DIR}/RNOHAppNapiBridge.cpp"
-)
-
-target_link_libraries(rnoh_app PUBLIC rnoh)
-
-# RNOH_BEGIN: link_packages
-target_link_libraries(rnoh_app PUBLIC rnoh_sample_package)
-# RNOH_END: link_packages
+add_library(entry SHARED hello.cpp)
+target_link_libraries(entry PUBLIC libace_napi.z.so)
