@@ -1,16 +1,38 @@
 {
   "apiType": 'stageMode',
   "buildOption": {
+    "arkOptions": {
+      // "apPath": "./modules.ap" /* Profile used for Profile-guided optimization (PGO), a compiler optimization technique to improve app runtime performance. */
+    },
     "externalNativeOptions": {
       "path": "./src/main/cpp/CMakeLists.txt",
       "arguments": "",
       "cppFlags": "",
     },
+    "sourceOption": {
+      "workers": [
+        "./src/main/ets/workers/MyTurboModuleWorker.ets"
+      ]
+    }
   },
+  "buildOptionSet": [
+    {
+      "name": "release",
+      "arkOptions": {
+        "obfuscation": {
+          "ruleOptions": {
+            "enable": true,
+            "files": [
+              "./obfuscation-rules.txt"
+            ]
+          }
+        }
+      }
+    }
+  ]
   "targets": [
     {
       "name": "default",
-      "runtimeOS": "HarmonyOS"
     },
     {
       "name": "ohosTest",
