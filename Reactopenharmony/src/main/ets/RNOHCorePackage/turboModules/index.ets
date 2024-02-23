@@ -1,1 +1,2 @@
-console.log('11111')
+export * from "./DeviceInfoTurboModule";
+export * from './SafeAreaTurboModule'
