@@ -1,1 +1,1 @@
-console.log('11111')
+export class ParagraphMeasurerError extends Error {}
