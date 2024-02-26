@@ -12,12 +12,12 @@ const ReactTurboModule: CatalystInstanceWorkerHost = new CatalystInstanceWorkerH
  * @param e message data
  */
  workerPort.onmessage = (e: MessageEvents) => {
-    hilog.info(0X000, "ReactWorker", 'receive a message "%{public}s"', e.data);
+    hilog.info(0X0000, "ReactWorker", 'receive a message "%{public}s"', e.data);
     ReactTurboModule.onmessage(e);
  }
 
  /**
-  * Defines the event handler to be called when the worker thread receives a message that cannot be deserialized.
+  * Defines the event handler to be called when the worker  receives a message that cannot be deserialized.
   * The event handler is executed in the worker thread.
   *
   * @param e message data
@@ -28,10 +28,10 @@ const ReactTurboModule: CatalystInstanceWorkerHost = new CatalystInstanceWorkerH
   }
 
   /**
-   * Defines the event handler to be called when an exception occurs during worker exception.
+   * Defines the event handler to be called when an exception occurs during worker execution.
    * The event handler is executed in the worker thread.
    *
-   * @param e message message
+   * @param e error message
    */
    workerPort.onerror = (e: ErrorEvent) => {
     ReactTurboModule.onerror(e);

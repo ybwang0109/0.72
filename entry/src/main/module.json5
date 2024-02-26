@@ -22,14 +22,14 @@
         "label": "$string:EntryAbility_label",
         "startWindowIcon": "$media:startIcon",
         "startWindowBackground": "$color:start_window_background",
-        "executed": true,
+        "exported": true,
         "skills": [
           {
             "entities": [
               "entity.system.home"
             ],
             "actions": [
-              action.system.home"
+              "action.system.home"
             ]
           }
         ]
