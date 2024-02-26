@@ -1,1 +1,3 @@
-console.log('11111')
+export interface JSBundleLoader {
+
+}

@@ -1,8 +1,8 @@
 # Define project specific obfuscation rules here.
-# You can include the obfuscation configuration files in the current module's build-Profile.json5.
+# You can include the obfuscation configuration files in the current module's build-profile.json5.
 #
 # For more details, see
-#   http://gitee.com/openharmony/arkcompiler_ets_frontend/blob/master/arkguard/README.md
+#   https://gitee.com/openharmony/arkcompiler_ets_frontend/blob/master/arkguard/README.md
 
 # Obfuscation options:
 # -disable-obfuscation: disable all obfuscations
@@ -13,6 +13,6 @@
 # -print-namecache: print the name cache that contains the mapping from the old names to new names
 # -apply-namecache: reuse the given cache file
 
-# keep options:
+# Keep options:
 # -keep-property-name: specifies property names that you want to keep
 # -keep-global-name: specifies names that you want to keep in the global scope
