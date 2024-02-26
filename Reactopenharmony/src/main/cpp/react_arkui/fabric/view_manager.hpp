@@ -20,12 +20,12 @@ namespace rnoh {
 
     protected:
         virtual T *createViewInstance() = 0;
-    }
+    };
 
     template <typename T>
     T *view_manager<T>::createView(Tag reactTag, folly::dynamic props, State::shared state,
                                    EventEmitter::Shared eventEmitter) {
-        L0G(ERROR) << "view_manager::createView. this is " << this << "\n";
+        LoG(ERROR) << "view_manager::createView. this is " << this << "\n";
         auto a = createViewInstance();
         return a;
     }

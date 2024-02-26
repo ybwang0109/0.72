@@ -8,7 +8,7 @@
 #define VIEW_STATE_H
 
 #include "react_arkui/fabric/arkui_view.h"
-#include "react_arkui/fabric/base_view_manager.hpp'
+#include "react_arkui/fabric/base_view_manager.hpp"
 #include <react/renderer/mounting/shadowView.h>
 
 using namespace facebook::react;

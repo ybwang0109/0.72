@@ -13,7 +13,7 @@ namespace rnoh {
                                            std::shared_ptr<EventDispatcher> eventDispatcher)
         : m_env(env), m_arkTsTurboModuleProviderRef(arkTsTurboModuleProviderRef), m_taskExecutor(taskExecutor),
         m_delegate(std::shared_ptr<DefaultTurboModuleManagerDelegate>()), m_jsInvoker(jsInvoker),
-        m_eventDispatcher (eventDispatcher) {}
+        m_eventDispatcher(eventDispatcher) {}
 
     std::shared_ptr<facebook::react::TurboModule> TurboModuleFactory::getTurboModule(std::string const &moduleName) {
         if (m_cache.contains(moduleName)) {
@@ -21,7 +21,7 @@ namespace rnoh {
             return m_cache[moduleName];
         }
             
-        LOG(INFO) << "Providing Turbo Modnle: " << moduleName;
+        LOG(INFO) << "Providing Turbo Module: " << moduleName;
         SharedTurboModule turboModule;
         
         Context ctx{{.jsInvoker = m_jsInvoker},
@@ -31,7 +31,7 @@ namespace rnoh {
                     .eventDispatcher = m_eventDispatcher};
 
         if (moduleName == "UIManager") {
-            turboModule = std::make_shared<UIManagerModule>(ctx, moduleName)
+            turboModule = std::make_shared<UIManagerModule>(ctx, moduleName);
         } else {
             turboModule = m_delegate->getTurboModule(ctx, moduleName);
             if (turboModule == nullptr) {
@@ -41,7 +41,7 @@ namespace rnoh {
         }
 
         if (TurboModule != nullptr) {
-            m_cache[moduleName] = TurboModule;
+            m_cache[moduleName] = turboModule;
             return turboModule;
         }
         LOG(ERROR) << "Couldn't provide turbo module \"" << moduleName << "\"";
@@ -56,7 +56,7 @@ namespace rnoh {
                 ArkJS arkJs (env);
                 {
                     auto result =
-                        arkJs.get0bject(arkTsTurboModuleProviderRef).call("hasModule", {arkJs.createString(name)});
+                        arkJs.getObject(arkTsTurboModuleProviderRef).call("hasModule", {arkJs.createString(name)});
                     if (!arkJs.getBoolean(result)) {
                         return;
                     }

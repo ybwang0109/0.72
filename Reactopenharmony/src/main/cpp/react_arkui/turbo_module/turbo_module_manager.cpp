@@ -12,6 +12,7 @@
 const std::string instanceName = "testInstance";
 
 namespace rnoh {
+    
     turbo_module_manager::turbo_module_manager(aki::Value ArkTSThis, aki::Value arkTsTurboModuleProviderRef) {
         OH_LOG_ERROR(LOG_APP, "turbo_module_manager::turbo_module_manager constructor");
         delegate_ = arkTsTurboModuleProviderRef;
@@ -26,7 +27,7 @@ namespace rnoh {
 
 //         auto eventDispatcher = NativeCatalystInstance::instancesByName[instanceName]->m_eventDispatcher;
         napi_ref result;
-        auto status = napi_create _reference(aki::JSBind::GetScopedEnv(), delegate_.GetHandle(), 1, &result);
+        auto status = napi_create_reference(aki::JSBind::GetScopedEnv(), delegate_.GetHandle(), 1, &result);
 
         this->m_turboModuleFactory = new TurboModuleFactory(aki::JSBind::GetScopedEnv(), result, taskExecutor_,
                                                             this->instance_->getJSCallInvoker(), nullptr);

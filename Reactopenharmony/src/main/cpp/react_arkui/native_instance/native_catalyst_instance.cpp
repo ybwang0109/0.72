@@ -3,7 +3,7 @@
 #include "native_catalyst_instance.h"
 #include "react_arkui/NativeLogger.h"
 #include "react_arkui/MessageQueueThread.h"
-#include "react_arkui/isbundle.h"
+#include "react_arkui/jsbundle.h"
 #include "react_arkui/jsbundleBenchMark.h"
 
 using namespace facebook;
@@ -21,23 +21,23 @@ namespace rnoh {
         : instance_(std::make_shared<facebook::react::Instance>()),
           taskExecutor(std::make_shared<TaskExecutor>(
               aki::JSBind::GetScopedEnv())) { // todo:将来TaskExecutor可以被单独创建，作为参数传递进来。
-        LOG(INF0) << "NativeCatalystInstance::NativeCatalystInstance. instanceName is "<< instanceName << "\n";
+        LOG(INFO) << "NativeCatalystInstance::NativeCatalystInstance. instanceName is "<< instanceName << "\n";
         addInstanceToStaticMap(this, instanceName);
     }
 
     native_catalyst_instance::~native_catalyst_instance() {}
 
     void native_catalyst_instance::initializeBridge() {
-        LOG(INF0) << "NativeCatalystInstance::initializeBridge." 
+        LOG(INFO) << "NativeCatalystInstance::initializeBridge." 
                   << "\n";
 
         std::vector<std::unique_ptr<react::NativeModule>> modules;
         auto instanceCallback = 
-            std::make_unique<react::InstanceCallback>(); // todo:实现CallBack相关能力，保证同一时刻，只能有一个Jscal1
+            std::make_unique<react::InstanceCallback>(); // todo:实现CallBack相关能力，保证同一时刻，只能有一个JSCal1
         auto jsExecutorFactory = std::make_shared<react::HermesExecutorFactory> (
             // runtime installer, which is run when the runtime
             // is first initialized and provides access to the runtime
-            // before the is code is executed
+            // before the JS code is executed
             [](facebook::jsi::Runtime &rt) {
                 // install 'console.log' (etc.) implementation
                 react::bindNativeLogger(rt, nativeLogger);
@@ -52,7 +52,7 @@ namespace rnoh {
 
     void native_catalyst_instance::loadScriptFromFile(const std::string &fileName, const std::string &sourceURL,
                                                       bool loadSynchronously) {
-        LOG(INF0) << "NativeCatalystInstance::loadscriptFromFile().";
+        LOG(INFO) << "NativeCatalystInstance::loadscriptFromFile().";
         // todo:实现真实的文件加载能力
         //      auto unique_js_bundle = std::make_unique<facebook::react::JSBigStdstring>(JS_BUNDLE); //
         //      适配工程最早的Bundle文件，appkey=rnempty
@@ -62,7 +62,7 @@ namespace rnoh {
     }
 
     void rnoh::native_catalyst_instance::onMemoryLevel(size_t memoryLevel) {
-        L0G(INF0) << "NativeCatalystInstance::onMemoryLevel().";
+        LOG(INFO) << "NativeCatalystInstance::onMemoryLevel().";
             // Android memory levels are 5, 10, 15, while Ark's are 0, 1，2
         static const int memoryLevels[] = {5, 10, 15};
         if (this->instance_) {
@@ -70,14 +70,14 @@ namespace rnoh {
         }
     }
 
-    void native_catalyst_instance::callJSFunction(std::string &&module, std::string &&method, folly::dynamic &sparams) {
-        LOG(INF0) << "NativeCatalystInstance::callJsFunction(). module " << module << " method " << method << " params " 
+    void native_catalyst_instance::callJSFunction(std::string &&module, std::string &&method, folly::dynamic &&params) {
+        LOG(INFO) << "NativeCatalystInstance::callJsFunction(). module " << module << " method " << method << " params " 
                   << params;
         instance_->callJSFunction(std::move(module), std::move(method), std::move (params));
     }
 
     facebook::react::RuntimeExecutor native_catalyst_instance::getRuntimeExecutor() {
-        LOG(INF0) << "NativeCatalystInstance::getRuntimeExecutor().";
+        LOG(INFO) << "NativeCatalystInstance::getRuntimeExecutor().";
         if (!runtimeExecutor_) {
             runtimeExecutor_ = instance_->getRuntimeExecutor();
         }

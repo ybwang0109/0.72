@@ -2,7 +2,7 @@
 // Created on 2024/1/17.
 //
 // Node APIs are not fully supported. To solve the compilation error of the interface cannot be found,
-// Please include "napi/native_api.h".
+// please include "napi/native_api.h".
 #include <react/renderer/componentregistry/ComponentDescriptorProvider.h>
 #include <react/renderer/components/view/ViewComponentDescriptor.h>
 #include <react/renderer/components/image/ImageComponentDescriptor.h>
@@ -10,47 +10,47 @@
 #include <react/renderer/components/text/RawTextComponentDescriptor.h>
 #include <react/renderer/components/text/ParagraphComponentDescriptor.h>
 #include <react/renderer/components/textinput/TextInputComponentDescriptor.h>
-#include <react/renderer/components/scrollview/Scrol1ViewComponentDescriptor h>
+#include <react/renderer/components/scrollview/ScrollViewComponentDescriptor.h>
 #include <react/renderer/components/rncore/ComponentDescriptors.h>
 #include <react/renderer/components/modal/ModalHostViewComponentDescriptor.h>
 
 
 #include "RNOHFabricUIManager.h"
-#include "react_arkui/native_instance/natiye /catalyst_instance.h"
+#include "react_arkui/native_instance/native_catalyst_instance.h"
 
 #include "react_arkui/EventBeat.h"
 #include "react_arkui/ShadowViewRegistry.h"
 #include "react_arkui/NativeLogger.h"
 #include <hilog/log.h>
 
-#include "react arkui/LogSink.h"
+#include "react_arkui/LogSink.h"
 
-#define LOG TAG "RTNArkUI_CPP"
+#define LOG_TAG "RTNArkUI_CPP"
 
 const std::string instanceName = "testInstance";
 
 using namespace facebook;
 namespace rnoh {
 
-std::unique ptr<RNOHFabricUIManager> RNOHFabricUIManager::FabricInstances;
-void addInstanceToStaticVariable (RNOHFabricUIManager *inputInstance) {
-    std::unique ptr<RNOHFabricUIManager> temp;  
+std::unique_ptr<RNOHFabricUIManager> RNOHFabricUIManager::FabricInstances;
+void addInstanceToStaticVariable(RNOHFabricUIManager *inputInstance) {
+    std::unique_ptr<RNOHFabricUIManager> temp;  
     temp.reset(inputInstance);
-    RNOHFabricUIManager::FabricInstances = std: :move (temp);
+    RNOHFabricUIManager::FabricInstances = std::move(temp);
 }
 
 RNOHFabricUIManager::RNOHFabricUIManager(fabric_mounting_manager *mountingManager)
     : fabricMountingManager_(mountingManager),
-    m_contextContainer(std::make_shared<facebook::react::ContextContainer>()),
-    m_arkTsChannel (nullptr),
-    scheduler(nullptr),
-    m_shouldRelayUITick(false),
-    m_uiTicker(std::make_shared<UITicker>()) {
+      m_contextContainer(std::make_shared<facebook::react::ContextContainer>()),
+      m_arkTsChannel(nullptr),
+      scheduler(nullptr),
+      m_shouIdRelayUITick(false),
+      m_uiTicker(std::make_shared<UITicker>()) {
 
     LogSink::initializeLogging();
     OH_LOG_ERROR(LOG_APP, "RNOHFabricUIManager::RNOHFabricUIManager()");
 
-    this->unsubscribeUITickListener = this->m_uiTicker->subscribe(1,[this]() {
+    this->unsubscribeUITickListener = this->m_uiTicker->subscribe(1, [this]() {
         this->taskExecutor->runTask(TaskThread::MAIN, [this]() {
             this->onUITick();
         });
@@ -80,13 +80,13 @@ void RNOHFabricUIManager::registryMeasureTextFnRef(ArkMeasureTextFunc measureTex
 }
 
 void RNOHFabricUIManager::initializeScheduler(component_factory *componentFactory) {
-    LOG(ERROR) << "RNOHFabricUIManager:: initializescheduler component_factory this is " << componentFactory << "\n";
-    OH_LOG_ERROR(LOG_APP, "RNOHFabricUIManager::initlalizeScheduler()");
+    LOG(ERROR) << "RNOHFabricUIManager:: initializeScheduler component_factory this is " << componentFactory << "\n";
+    OH_LOG_ERROR(LOG_APP, "RNOHFabricUIManager::initializeScheduler()");
 
-    auto textMeasurer = std::make_shared<TextMeasurer>(aki::JSBind::GetScopedEnv(),measureTextFnRef, taskExecutor);
+    auto textMeasurer = std::make_shared<TextMeasurer>(aki::JSBind::GetScopedEnv(), m_measureTextFnRef, taskExecutor);
     m_contextContainer->insert("textLayoutManagerDelegate", textMeasurer);
 
-    auto reactconfig  = std::make _shared<react::EmptyReactNativeConfig>();
+    auto reactConfig = std::make_shared<react::EmptyReactNativeConfig>();
     m_contextContainer->insert("ReactNativeConfig", std::move(reactConfig)); 
 
     react::EventBeat::Factory eventBeatFactory = [taskExecutor = std::weak_ptr(taskExecutor), runtimeExecutor = this->instance->getRuntimeExecutor()](auto ownerBox) {
@@ -99,7 +99,7 @@ void RNOHFabricUIManager::initializeScheduler(component_factory *componentFactor
 
     react::SchedulerToolbox schedulerToolbox{
         .contextContainer = m_contextContainer,
-        .componentRegistryFactory = componentFactory->buildRegistryFunction,
+        .componentRegistryFactory = componentFactory->buiIdRegistryFunction,
         .runtimeExecutor = this->instance->getRuntimeExecutor(),
         .asynchronousEventBeatFactory = eventBeatFactory,
         .synchronousEventBeatFactory = eventBeatFactory,
@@ -116,17 +116,17 @@ void RNOHFabricUIManager::initializeScheduler(component_factory *componentFactor
 
 void RNOHFabricUIManager::startSurfaceWithConstraints(react::Tag surfaceId,
                                                       std::string const &appKey,
-                                                      napi value initialProps,
+                                                      napi_value initialProps,
                                                       float width,
                                                       float height,
-                                                      float viewportOffsetx,
-                                                      float viewportoffsetY,
+                                                      float viewportOffsetX,
+                                                      float viewportOffsetY,
                                                       float pixelRatio) {
     ArkJS arkJs(aki::JSBind: :GetScopedEnv());
-    OH_LOG_ERROR(LOG APP, "RNOHFabricUIManager::startSurfaceWithConstraints() ");
+    OH_LOG_ERROR(LOG_APP, "RNOHFabricUIManager::startSurfaceWithConstraints() ");
 
     if (surfaceHandlers.count(surfaceId)) {
-        LOG(ERROR) << "createsurface: Surface with surface id " << surfaceld << " already exists.";
+        LOG(ERROR) << "createSurface: Surface with surface id " << surfaceId << " already exists.";
         return;
     }
     auto surfaceHandler = std::make_shared<react::SurfaceHandler>(appKey, surfaceId);
@@ -150,9 +150,9 @@ void RNOHFabricUIManager::startSurfaceWithConstraints(react::Tag surfaceId,
             .height = height};
         auto layoutContext = surfaceHandler->getLayoutContext();
         surfaceHandler->setDisplayMode(react::DisplayMode::Suspended);
-        layoutContext.viewportOffset = {viewportOffsetX, viewportoffsetY};
-        layoutcontext.pointScaleFactor = pixelRatio;
-        surfaceHandler->constraintLayout(layoutConstraints, layoutcontext);
+        layoutContext.viewportOffset = {viewportOffsetX, viewportOffsetY};
+        layoutContext.pointScaleFactor = pixelRatio;
+        surfaceHandler->constraintLayout(layoutConstraints, layoutContext);
         LOG(INFO) << "startSurface::starting: surfaceId=" << surfaceId;
         surfaceHandler->start();
         LOG(INFO) << "startSurface::started surfaceId=" << surfaceId;
@@ -166,7 +166,7 @@ void RNOHFabricUIManager::startSurfaceWithConstraints(react::Tag surfaceId,
     this->setSurfaceDisplayMode(surfaceId, facebook::react::DisplayMode::Visible);
 }
 
-void RNOHFabricUIManager::setSurfaceProps(facebook::react::Tag surfaceld, folly::dynamic &&props) {
+void RNOHFabricUIManager::setSurfaceProps(facebook::react::Tag surfaceId, folly::dynamic &&props) {
     auto it = surfaceHandlers.find(surfaceId);
     if (it == surfaceHandlers.end()) {
         LOG(ERROR) << "setSurfaceProps: No surface with id " << surfaceId;
@@ -178,7 +178,7 @@ void RNOHFabricUIManager::setSurfaceProps(facebook::react::Tag surfaceld, folly:
 void RNOHFabricUIManager::stopSurface(react::Tag surfaceId) {
     auto it = surfaceHandlers.find(surfaceId);
     if (it == surfaceHandlers.end()) {
-    LOG (ERROR) << "stopSurface: No surface with id " << surfaceId;
+    LOG(ERROR) << "stopSurface: No surface with id " << surfaceId;
     return;
     }
     auto surfaceHandle = it->second;
@@ -186,9 +186,9 @@ void RNOHFabricUIManager::stopSurface(react::Tag surfaceId) {
     LOG(INFO) << "stopSurface: stopping " << surfaceId;
     try {
         surfaceHandle->stop();
-        LOG(INEO) << "stopSurface: stopped " << surfaceId;
+        LOG(INFO) << "stopSurface: stopped " << surfaceId;
     } catch (const std::exception &e) {
-        LOG(ERROR) << "stopSurface: failed - " << e.what() << "\n"
+        LOG(ERROR) << "stopSurface: failed - " << e.what() << "\n";
         throw e;
     };
 }
@@ -196,17 +196,17 @@ void RNOHFabricUIManager::stopSurface(react::Tag surfaceId) {
 void RNOHFabricUIManager::destroySurface (react: :Tag surfaceId) {
     auto it = surfaceHandlers.find(surfaceId);
     if (it == surfaceHandlers.end()) {
-        LOG(ERROR) << "destroySurface: No surface with id" << surfaceld;
+        LOG(ERROR) << "destroySurface: No surface with id" << surfaceId;
         return;
     }
-    Scheduler->unregisterSurface (*it->second);
+    scheduler->unregisterSurface (*it->second);
     surfaceHandlers.erase(it);
 }
 
-void RNOHFabricUIManager::setSurfaceDisplayMode(facebook::react::Tag surfacefa, facebook::react::DisplayMode displayMode) {
+void RNOHFabricUIManager::setSurfaceDisplayMode(facebook::react::Tag surfaceId, facebook::react::DisplayMode displayMode) {
     try {
-        auto surfacelt = surfaceHandlers.find(surfaceId);
-        if (surfacelt == surfaceHandlers.end()) {
+        auto surfaceIt = surfaceHandlers.find(surfaceId);
+        if (surfaceIt == surfaceHandlers.end()) {
             LOG(ERROR) << "setSurfaceDisplayMode: No surface with id" << surfaceId;
             return;
         }
@@ -220,19 +220,19 @@ void RNOHFabricUIManager::setSurfaceDisplayMode(facebook::react::Tag surfacefa, 
     }
 }
 
-void RNOHFabricUIManager::updateSurfaceConstraints(react::Tag surfaceld, float width, float height, float viewportoffsetX, float viewportoffsetY, float pixelRatio) {
+void RNOHFabricUIManager::updateSurfaceConstraints(react::Tag surfaceId, float width, float height, float viewportOffsetX, float viewportoffsetY, float pixelRatio) {
     try{
         if (surfaceHandlers.count(surfaceId)== 0) {
-        LOG(ERROR) << "updateSurfaceconstraints: No surface with id " << surfaceId;
+        LOG(ERROR) << "updateSurfaceConstraints: No surface with id " << surfaceId;
         return;
         }
-        taskExecutor->runTask(TaskThread::MAIN, [this, surfaceld, width, height, viewportoffsetX, viewportOffsetY, pixelRatio]() {
+        taskExecutor->runTask(TaskThread::MAIN, [this, surfaceId, width, height, viewportOffsetX, viewportOffsetY, pixelRatio]() {
             auto layoutConstraints = surfaceHandlers [surfaceId]->getLayoutConstraints();
             layoutConstraints.minimumSize = layoutConstraints.maximumSize = {
                 .width = width,
                 .height = height};
             auto layoutContext = surfaceHandlers[surfaceId]->getLayoutContext();
-            layoutContext.viewportOffset = {viewportOffsetx, viewportoffsetY};
+            layoutContext.viewportOffset = {viewportOffsetX, viewportOffsetY};
             layoutContext.pointScaleFactor = pixelRatio;
             surfaceHandlers[surfaceId]->constraintLayout(layoutConstraints, layoutContext);
         });
@@ -242,22 +242,22 @@ void RNOHFabricUIManager::updateSurfaceConstraints(react::Tag surfaceld, float w
     };
 }
 
-RNOHFabricUIManager::emitComponentEvent(napi_env env, react::Tag tag, std::string eventName, napi_value payload) {
+void RNOHFabricUIManager::emitComponentEvent(napi_env env, react::Tag tag, std::string eventName, napi_value payload) {
 
 }
 
 void RNOHFabricUIManager::onUITick() {
-    if (this->m shouldRelayUITick.load()) {
+    if (this->m_shouIdRelayUITick.load()) {
         this->scheduler->animationTick();
     }
 }
 
 void RNOHFabricUIManager::onAnimationStarted() {
-    m_shouldRelayUITick.store (true);
+    m_shouIdRelayUITick.store (true);
 }
 
 void RNOHFabricUIManager::onAllAnimationsComplete() {
-    m_shouldRelayUITick.store (false);
+    m_shouIdRelayUITick.store (false);
 }
 
 } //namespace rnoh

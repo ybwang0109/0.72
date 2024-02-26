@@ -2,11 +2,11 @@
 #include "napi/native_api.h"
 #include <jsi/jsi.h>
 #include <variant>
-#include <jsi/usiDynamic.h>
-#include <ReactCommon/callbackwrapper.h>
+#include <jsi/JSIDynamic.h>
+#include <ReactCommon/callbackWrapper.h>
 #include <ReactCommon/TurboModuleUtils.h>
 
-#include "react_arkui/Arkis.h"
+#include "react_arkui/ArkJS.h"
 #include "react_arkui/EventDispatcher.h"
 #include "react_arkui/turbo_module/TurboModule.h"
 #include "react_arkui/TaskExecutor/TaskExecutor.h"
@@ -14,7 +14,7 @@
 #define ARK_METHOD_CALLER(name)                                                                         \
     [](                                                                                                \
         facebook::jsi::Runtime &rt,                                                                     \
-        facebook::react::TurboModule &turboModule,                                                      \
+        facebook::react::TurboModule sturboModule,                                                      \
         const facebook::jsi::Value *args,                                                               \
         size_t count) {                                                                                 \
         return static_cast<ArkTSTurboModule &>(turboModule).call(rt, #name, args, count);               \
@@ -26,22 +26,22 @@
         facebook::react::TurboModule sturboModule,                                                      \
         const facebook::jsi::Value *args,                                                               \
         size_t count) {                                                                                 \
-        return static_cast<ArkTsTurboModule &>(turboModule).callAsync(rt, #name, args, count);          \
+        return static_cast<ArkTSTurboModule &>(turboModule).callAsync(rt, #name, args, count);          \
     }
 
-#define ARK_METHOD_METDATA(name, argc)                              \
+#define ARK_METHOD_METADATA(name, argc)                              \
     {                                                               \
-        #name, { arge, ARK_METHOD_CALLER(name) }                    \
+        #name, { argc, ARK_METHOD_CALLER(name) }                    \
     }
 
-#define ARK_ASYNC_METHD_METADATA(name, argc)                        \
+#define ARK_ASYNC_METHOD_METADATA(name, argc)                        \
     {                                                               \
         #name, { argc, ARK_ASYNC_METHOD_CALLER(name) }              \
     }
 
 namespace rnoh {
 
-class ArkTsTurboModule : public TurboModule {
+class ArkTSTurboModule : public TurboModule {
     public:
     struct Context : public TurboModule::Context {
         napi_env env;
@@ -50,7 +50,7 @@ class ArkTsTurboModule : public TurboModule {
         std::shared_ptr<EventDispatcher> eventDispatcher;
     };
 
-    ArkTsTurboModule(Context ctx, std::string name);
+    ArkTSTurboModule(Context ctx, std::string name);
 
     facebook::jsi::Value call(facebook::jsi::Runtime &runtime,
                               const std::string &methodName,
@@ -68,6 +68,6 @@ class ArkTsTurboModule : public TurboModule {
                                    size_t argsCount);
                                    
 protected:
-    Context_m_ctx;
+    Context m_ctx;
 };
 } // namespace rnoh

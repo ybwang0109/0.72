@@ -16,7 +16,7 @@
 #include <aki/jsbind.h>
 
 namespace rnoh {
-    class turbo _module_manager {
+    class turbo_module_manager {
 
         using TurboModuleCache = std::unordered_map<std::string, std::shared_ptr<facebook::react::TurboModule>>;
 
@@ -30,7 +30,7 @@ namespace rnoh {
 
         aki::Value ArkTSPart_;
         aki::Value delegate_;
-        std::shared_ptr<TurboModulecache> turboModuleCache_;
+        std::shared_ptr<TurboModuleCache> turboModuleCache_;
         rnoh::TurboModuleFactory *m_turboModuleFactory;
     };
 

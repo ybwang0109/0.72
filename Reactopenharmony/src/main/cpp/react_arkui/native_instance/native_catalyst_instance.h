@@ -4,8 +4,8 @@
 #include <cxxreact/Instance.h>
 #include <react/renderer/componentregistry/ComponentDescriptorProviderRegistry.h>
 #include "ReactCommon/RuntimeExecutor.h"
-#include "react_arkui/TaskExecutor/TaskExecutor.h'
-#include "react_arkui/fabric/schedulerDelegate.h"
+#include "react_arkui/TaskExecutor/TaskExecutor.h"
+#include "react_arkui/fabric/SchedulerDelegate.h"
 
 #include <aki/jsbind.h>
 
@@ -17,7 +17,7 @@ namespace rnoh {
         ~native_catalyst_instance();
 
         void initializeBridge();
-        void loadScriptFromFile(const std::string &fileName, const std::string &sourceURl, bool loadSynchronously);
+        void loadScriptFromFile(const std::string &fileName, const std::string &sourceURL, bool loadSynchronously);
         void callJSFunction(std::string &&module, std::string &&method, folly::dynamic &&params);
         void onMemoryLevel(size_t memoryLevel);
 
@@ -27,7 +27,7 @@ namespace rnoh {
         std::shared_ptr<facebook::react::Instance> instance_; // todo: 需要改成私有成员，不直接对外可见。
         
         // todo: 需要与Fabric共享的内容
-        std::shared_ptr<facebook::react::ComponentDescriptorProviderRegistry> m_component DescriptorProviderRegistry;
+        std::shared_ptr<facebook::react::ComponentDescriptorProviderRegistry> m_componentDescriptorProviderRegistry;
 
         static std::unordered_map<std::string, std::unique_ptr<native_catalyst_instance>>instancesByName;
 
@@ -38,8 +38,8 @@ namespace rnoh {
 
     JSBIND_CLASS(native_catalyst_instance) {
         JSBIND_CONSTRUCTOR<std::string>();
-        JSBIND_METHD(initializeBridge);
-        JSBIND_METHD(loadScriptFromFile);
+        JSBIND_METHOD(initializeBridge);
+        JSBIND_METHOD(loadScriptFromFile);
     }
 
 } // namespace rnoh

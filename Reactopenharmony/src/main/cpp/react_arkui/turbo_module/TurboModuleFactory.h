@@ -1,6 +1,6 @@
 #pragma once
 
-#include "napi/native_api.h'
+#include "napi/native_api.h"
 #include <ReactCommon/TurboModule.h>
 #include "react_arkui/turbo_module/ArkTSTurboModule.h"
 #include "react_arkui/defaults/DefaultTurboModuleManagerDelegate.h"

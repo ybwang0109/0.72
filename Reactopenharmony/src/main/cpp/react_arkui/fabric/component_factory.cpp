@@ -7,6 +7,6 @@
 #include "component_factory.h"
 namespace rnoh {
     component_factory::component_factory(){
-        LOG(ERROR) << "component _factory::component _factory this is " << this << "\n";
+        LOG(ERROR) << "component_factory::component_factory this is " << this << "\n";
     };
 }

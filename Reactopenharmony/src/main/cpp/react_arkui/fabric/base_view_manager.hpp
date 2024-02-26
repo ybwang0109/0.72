@@ -9,5 +9,7 @@
 #include "react_arkui/fabric/view_manager.hpp"
 
 namespace rnoh {
-    template <typename T> class base _view_manager : public view_manager<T> {};
+    
+    template <typename T> class base_view_manager : public view_manager<T> {};
+
 } // namespace rnoh

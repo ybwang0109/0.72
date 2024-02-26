@@ -11,9 +11,9 @@
 #include <linux/dvb/frontend.h>
 #include <unordered_map>
 #include "react_arkui/fabric/arkui_view.h"
-#include "react_arkui/fabric/view_state.h'
+#include "react_arkui/fabric/view_state.h"
 
-#include <react/renderer/mounting/shadowView.h>
+#include <react/renderer/mounting/ShadowView.h>
 
 
 using namespace facebook::react;
@@ -23,22 +23,22 @@ namespace rnoh {
     class surface_mounting_manager {
 
     public:
-        surface_mounting_manager(SurfaceId Surfaceld_);
-        ~surface mounting manager() {}
+        surface_mounting_manager(SurfaceId SurfaceId_);
+        ~surface_mounting manager() {}
 
-        void bindingArkTsParty(aki::Value arkTs);
+        void bindingArkTsParty(aki::Value arkTS);
 
         void registryViewManager(std::string managerName, view_manager<arkui_view> *viewManager);
 
-        bool isstopped();
+        bool isStopped();
 
         void preallocateView(Tag tag, ComponentName componentName, folly::dynamic props, State::Shared state,
-                             EventEmitter::Shared eventEmitter, bool islayoutable);
+                             EventEmitter::Shared eventEmitter, bool isLayoutable);
 
         void createView(Tag tag, ComponentName componentName, folly::dynamic props, State::Shared state,
                         EventEmitter::Shared eventEmitter,bool isLayoutable);
 
-        void deleteview(Tag tag);
+        void deleteView(Tag tag);
         void addViewAt(Tag parentTag, Tag tag, int index);
         void removeViewAt(Tag tag, Tag parentTag, int index) {}
         void removeDeleteTreeAt(Tag tag, Tag parentTag, int index) {}
@@ -46,12 +46,12 @@ namespace rnoh {
         void updateLayout(int reactTag, int parentTag, int x, int y, int width, int height, int displayType){}
         void updateState(int reactTag,State::Shared state){}
         void updatePadding(int reactTag, int left, int top, int right, int bottom){}
-        void updateOverflowInset(int reactTag, int overflowInsetleft, int overflowInsetTop, int overflowInsetRight, 
+        void updateOverflowInset(int reactTag, int overflowInsetLeft, int overflowInsetTop, int overflowInsetRight, 
                                  int overflowInsetBottom){}
         void updateEventEmitter(int reactTag, EventEmitter::Shared eventEmitter){}
 
     private:
-        void createViewOnMainThread(Tag tad, componentName componentName, folly: :dynamlcprops, State::Shared state,
+        void createViewOnMainThread(Tag tag, ComponentName componentName, folly: :dynamic props, State::Shared state,
                                     EventEmitter::Shared, bool isLayoutable);
         std::shared_ptr<view_state> getNullableViewState(Tag tag);
         void onViewStateDeleted(std::shared_ptr<view_state> viewState);
@@ -60,13 +60,13 @@ namespace rnoh {
         SurfaceId SurfaceId_;
         std::unordered_map<Tag, std::shared_ptr<view_state>> TagToViewState_;
         std::unordered_map<std::string, view_manager<arkui_view> *> ViewManagerRegistry_;
-        bool mIsstopped = false;
+        bool mIsStopped = false;
     };
 
-    JSBIND_CLASS(surface_mounting_anager) {
-        JSBIND_CONSTRUCTOR<Surfaceld>();
-        JSBIND_METHD(bindingArkTsParty);
-        JSBIND_METHD(registryViewManager);
+    JSBIND_CLASS(surface_mounting_manager) {
+        JSBIND_CONSTRUCTOR<SurfaceId>();
+        JSBIND_METHOD(bindingArkTsParty);
+        JSBIND_METHOD(registryViewManager);
     }
 } // namespace rnoh
 #endif // SURFACE_MOUNTING_MANAGER_H

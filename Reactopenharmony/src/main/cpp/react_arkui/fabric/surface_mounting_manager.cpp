@@ -5,8 +5,8 @@
 // please include "napi/native_api.h"
 
 #include "surface_mounting_manager.h"
-#include "react_arkui/Logsink.h"
-#include "react_arkui/fabric/arkui_view.h'
+#include "react_arkui/LogSink.h"
+#include "react_arkui/fabric/arkui_view.h"
 #include "react_arkui/fabric/view_state.h"
 
 namespace rnoh {
@@ -14,26 +14,26 @@ namespace rnoh {
     bool surface_mounting_manager::isStopped() { return mIsStopped; }
 
     surface_mounting_manager::surface_mounting_manager(SurfaceId SurfaceId): SurfaceId_(SurfaceId) {
-        L0G(ERROR) << "surface_mounting_manager::surface_mounting_manager. SurfaceId is " << Surfaceld << "\n";
+        LOG(ERROR) << "surface_mounting_manager::surface_mounting_manager. SurfaceId is  " << SurfaceId << "\n";
     }
 
     void surface_mounting_manager::bindingArkTsParty(aki::Value arkTS) {
         LOG(ERROR) << "surface_mounting_manager::bindingArkTsParty. this is " << this << "\n";
-        arkTsThis_= arkTS;
+        arkTsThis_ = arkTS;
     }
 
     void surface_mounting_manager::registryViewManager(std::string managerName, view_manager<arkui_view> *viewManager) {
-        L0G(ERROR) << "surface_mounting_manager::registryViewManager view_manager. name is " << managerName << "\n";
+        LOG(ERROR) << "surface_mounting_manager::registryViewManager view_manager. name is " << managerName << "\n";
         ViewManagerRegistry_.insert_or_assign(managerName, viewManager);
     }
 
     void surface_mounting_manager::preallocateView(Tag tag, ComponentName componentName, folly::dynamic props,
                                                    State::Shared state, EventEmitter::Shared eventEmitter,
                                                    bool isLayoutable) {
-        LOG(ERROR) << "surface_mounting_manager::preallocateView. this is " << this << "\n";
-        LOG(ERROR) << "surface_mounting_manager::preallocateView. reactTag is " << tag << "\n";
+        LOG(ERROR) << "surface_mounting_manager::preallocateView. this is  " << this << "\n";
+        LOG(ERROR) << "surface_mounting_manager::preallocateView. reactTag is  " << tag << "\n";
 
-        if (isstopped()) {
+        if (isStopped()) {
             return;
         }
         if (getNullableViewState(tag) !=nullptr) {
@@ -46,8 +46,8 @@ namespace rnoh {
     void surface_mounting_manager::createView(Tag tag, ComponentName componentName, folly::dynamic props,
                                                 State::Shared state, EventEmitter::Shared eventEmitter,bool isLayoutable) { 
         LOG(ERROR) << "surface_mounting_manager::createview. this is " << this << "\n";
-        L0G(ERROR) << "surface_mounting_manager::createView. reactTag is " << tag <<"\n";
-        if (isstopped()) {
+        LOG(ERROR) << "surface_mounting_manager::createView. reactTag is " << tag <<"\n";
+        if (isStopped()) {
             return;
         }
         std::shared_ptr<view_state> viewState = getNullableViewState(tag);
@@ -57,18 +57,18 @@ namespace rnoh {
         createViewOnMainThread(tag, componentName, props, state, eventEmitter, isLayoutable);
     }
 
-    void surface_mounting_manager::createViewOnMainThread(Tag reactTag, ComponentName conponentName,
+    void surface_mounting_manager::createViewOnMainThread(Tag reactTag, ComponentName componentName,
                                                             folly::dynamic props,State::Shared state,
-                                                            EventEmitter::Shared eventEmitter,boolisLayoutable) {
-        LOG(ERROR) << "surface_mounting_manager::createViewonMainThread. reactTag is " << reactTag << "\n";
+                                                            EventEmitter::Shared eventEmitter,bool isLayoutable) {
+        LOG(ERROR) << "surface_mounting_manager::createViewOnMainThread. reactTag is " << reactTag << "\n";
         view_manager<arkui_view> *viewManager = nullptr;
         arkui_view *view = nullptr;
 
         if (isLayoutable) {
-            L0G(ERROR) << "surface_mounting_manager::createViewOnMainThread get view_manager name is " <<componentName;
+            LOG(ERROR) << "surface_mounting_manager::createViewOnMainThread get view_manager name is " <<componentName;
             auto it = ViewManagerRegistry_.find(componentName);
             if (it == ViewManagerRegistry_.end()) { 
-                L0G(ERROR) << "surface_mounting_manager::createViewOnMainThread get view_manager error!";
+                LOG(ERROR) << "surface_mounting_manager::createViewOnMainThread get view_manager error!";
                 return;
             }
 
@@ -82,23 +82,23 @@ namespace rnoh {
         viewState->state = state;
         viewState->eventEmitter = eventEmitter;
 
-        TagToViewState_.insert_or_assign(reactTag, viewstate);
+        TagToViewState_.insert_or_assign(reactTag, viewState);
     }
 
     void surface_mounting_manager::deleteView(Tag reactTag) {
-        if (isstopped()) {
+        if (isStopped()) {
             return;
         }
-        std::shared_ptr<view state> viewState = getNullableViewState(reactTag);
+        std::shared_ptr<view_state> viewState = getNullableViewState(reactTag);
         if (viewState == nullptr) {
-//              ReactSoftExceptionLogqer.logsoftException(
+//              ReactSoftExceptionLogger.logSoftException(
 //                   MountingManager.TAG,
-//                   new IllegalStateException("Unable to find viewstate for tag: " + reactTag + " for deleteView"));
+//                   new IllegalStateException("Unable to find viewState for tag: " + reactTag + " for deleteView"));
             return;
         }
         // To delete we simply remove the tag from the registry.
         // We want to rely on the correct set of MountInstructions being sent to the platform,
-        //or Stopsurface being called, so we do not handle deleting descendents of the View
+        //or StopSurface being called, so we do not handle deleting descendents of the View
         TagToViewState_.erase(reactTag);
         onViewStateDeleted(std::move(viewState));
     }
@@ -114,7 +114,7 @@ namespace rnoh {
         return it->second;
     }
 
-    void surface_mounting_manager::onViewStateDeleted(std: :shared_ptr<view_state> viewState) {
+    void surface_mounting_manager::onViewStateDeleted(std::shared_ptr<view_state> viewState) {
         view_manager<arkui_view> *viewManager = viewState->ViewManager_;
         if (!viewState->mIsRoot && viewManager != nullptr) {
             //  viewManager->onDropViewInstance(viewState->View);

@@ -5,4 +5,3 @@
 // please include "napi/native_api.h"
 
 #include "view_state.h"
-

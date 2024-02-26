@@ -6,7 +6,7 @@
 #include "glog/logging.h"
 
 namespace rnoh {
-    
+
 class TurboModule : public facebook::react::TurboModule {
     public:
         struct Context {
@@ -20,7 +20,7 @@ class TurboModule : public facebook::react::TurboModule {
         void set(facebook::jsi::Runtime &rt, const facebook::jsi::PropNameID &name, const facebook::jsi::Value &value) override {
             LOG(INFO) << "Turbo Module: " << name_ << "::"
                       << "set("
-                      <<"_, \"" << name.utf8(rt) << "\",  \"" << value.toString(rt).utf8(rt) << "\")";
+                      <<"_, \"" << name.utf8(rt) << "\", \"" << value.toString(rt).utf8(rt) << "\")";
         }
 };
 

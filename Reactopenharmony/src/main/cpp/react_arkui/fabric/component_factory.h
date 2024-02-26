@@ -1,23 +1,23 @@
 // 
-// Created on 2024/2/8.
+// Created on 2024/2/7.
 // 
 // Node APIs are not fully supported. To solve the compilation error of the interface cannot be found,
 // please include "napi/native_api.h".
 
 #ifndef COMPONENTFACTORY_H
-#define COMPONENTFACTORY H
-#include<aki/jsbind.h>
+#define COMPONENTFACTORY_H
+#include <aki/jsbind.h>
 
 
-#include <react/renderer/componentregistry/ComponentDescriptorFactory,h>
+#include <react/renderer/componentregistry/ComponentDescriptorFactory.h>
 
 using namespace facebook::react;
 namespace rnoh {
-    class component factory {
+    class component_factory {
     public:
-        component factory();
+        component_factory();
         ComponentRegistryFactory buildRegistryFunction;
     };
-    JSBIND_CLASS (component factory) { JSBIND_CONSTRUCTOP<>(); }
+    JSBIND_CLASS(component_factory) { JSBIND_CONSTRUCTOR<>(); }
 } // namespace rnoh
-#endif //COMPONENTEACTORY_H
+#endif //COMPONENTFACTORY_H
