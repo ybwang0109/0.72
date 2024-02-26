@@ -6,7 +6,7 @@
 
 #pragma once
 
-#include "react_arkui/Logsink.h"
+#include "react_arkui/LogSink.h"
 #include <react/renderer/mounting/ShadowView.h>
 
 using namespace facebook::react;
@@ -23,9 +23,9 @@ namespace rnoh {
     };
 
     template <typename T>
-    T *view_manager<T>::createView(Tag reactTag, folly::dynamic props, State::shared state,
+    T *view_manager<T>::createView(Tag reactTag, folly::dynamic props, State::Shared state,
                                    EventEmitter::Shared eventEmitter) {
-        LoG(ERROR) << "view_manager::createView. this is " << this << "\n";
+        LOG(ERROR) << "view_manager::createView. this is " << this << "\n";
         auto a = createViewInstance();
         return a;
     }

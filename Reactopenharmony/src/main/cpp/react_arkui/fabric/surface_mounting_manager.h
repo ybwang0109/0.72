@@ -24,7 +24,7 @@ namespace rnoh {
 
     public:
         surface_mounting_manager(SurfaceId SurfaceId_);
-        ~surface_mounting manager() {}
+        ~surface_mounting_manager() {}
 
         void bindingArkTsParty(aki::Value arkTS);
 

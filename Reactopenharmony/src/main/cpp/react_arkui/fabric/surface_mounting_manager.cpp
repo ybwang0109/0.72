@@ -14,16 +14,16 @@ namespace rnoh {
     bool surface_mounting_manager::isStopped() { return mIsStopped; }
 
     surface_mounting_manager::surface_mounting_manager(SurfaceId SurfaceId): SurfaceId_(SurfaceId) {
-        LOG(ERROR) << "surface_mounting_manager::surface_mounting_manager. SurfaceId is  " << SurfaceId << "\n";
+        LOG(ERROR) << "surface_mounting_manager::surface_mounting_manager. SurfaceId is  " << SurfaceId_ << "\n";
     }
 
     void surface_mounting_manager::bindingArkTsParty(aki::Value arkTS) {
-        LOG(ERROR) << "surface_mounting_manager::bindingArkTsParty. this is " << this << "\n";
+        LOG(ERROR) << "surface_mounting_manager::bindingArkTsParty. this is  " << this << "\n";
         arkTsThis_ = arkTS;
     }
 
     void surface_mounting_manager::registryViewManager(std::string managerName, view_manager<arkui_view> *viewManager) {
-        LOG(ERROR) << "surface_mounting_manager::registryViewManager view_manager. name is " << managerName << "\n";
+        LOG(ERROR) << "surface_mounting_manager::registryViewManager view_manager. name is  " << managerName << "\n";
         ViewManagerRegistry_.insert_or_assign(managerName, viewManager);
     }
 
@@ -36,7 +36,7 @@ namespace rnoh {
         if (isStopped()) {
             return;
         }
-        if (getNullableViewState(tag) !=nullptr) {
+        if (getNullableViewState(tag) != nullptr) {
             return;
         }
 
@@ -44,9 +44,9 @@ namespace rnoh {
     }
 
     void surface_mounting_manager::createView(Tag tag, ComponentName componentName, folly::dynamic props,
-                                                State::Shared state, EventEmitter::Shared eventEmitter,bool isLayoutable) { 
-        LOG(ERROR) << "surface_mounting_manager::createview. this is " << this << "\n";
-        LOG(ERROR) << "surface_mounting_manager::createView. reactTag is " << tag <<"\n";
+                                                State::Shared state, EventEmitter::Shared eventEmitter, bool isLayoutable) { 
+        LOG(ERROR) << "surface_mounting_manager::createView. this is  " << this << "\n";
+        LOG(ERROR) << "surface_mounting_manager::createView. reactTag is  " << tag <<"\n";
         if (isStopped()) {
             return;
         }
@@ -60,7 +60,7 @@ namespace rnoh {
     void surface_mounting_manager::createViewOnMainThread(Tag reactTag, ComponentName componentName,
                                                             folly::dynamic props,State::Shared state,
                                                             EventEmitter::Shared eventEmitter,bool isLayoutable) {
-        LOG(ERROR) << "surface_mounting_manager::createViewOnMainThread. reactTag is " << reactTag << "\n";
+        LOG(ERROR) << "surface_mounting_manager::createViewOnMainThread. reactTag is  " << reactTag << "\n";
         view_manager<arkui_view> *viewManager = nullptr;
         arkui_view *view = nullptr;
 

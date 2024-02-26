@@ -44,7 +44,7 @@ RNOHFabricUIManager::RNOHFabricUIManager(fabric_mounting_manager *mountingManage
       m_contextContainer(std::make_shared<facebook::react::ContextContainer>()),
       m_arkTsChannel(nullptr),
       scheduler(nullptr),
-      m_shouIdRelayUITick(false),
+      m_shouldRelayUITick(false),
       m_uiTicker(std::make_shared<UITicker>()) {
 
     LogSink::initializeLogging();
@@ -99,7 +99,7 @@ void RNOHFabricUIManager::initializeScheduler(component_factory *componentFactor
 
     react::SchedulerToolbox schedulerToolbox{
         .contextContainer = m_contextContainer,
-        .componentRegistryFactory = componentFactory->buiIdRegistryFunction,
+        .componentRegistryFactory = componentFactory->buildRegistryFunction,
         .runtimeExecutor = this->instance->getRuntimeExecutor(),
         .asynchronousEventBeatFactory = eventBeatFactory,
         .synchronousEventBeatFactory = eventBeatFactory,
@@ -196,7 +196,7 @@ void RNOHFabricUIManager::stopSurface(react::Tag surfaceId) {
 void RNOHFabricUIManager::destroySurface (react: :Tag surfaceId) {
     auto it = surfaceHandlers.find(surfaceId);
     if (it == surfaceHandlers.end()) {
-        LOG(ERROR) << "destroySurface: No surface with id" << surfaceId;
+        LOG(ERROR) << "destroySurface: No surface with id " << surfaceId;
         return;
     }
     scheduler->unregisterSurface (*it->second);
@@ -207,7 +207,7 @@ void RNOHFabricUIManager::setSurfaceDisplayMode(facebook::react::Tag surfaceId, 
     try {
         auto surfaceIt = surfaceHandlers.find(surfaceId);
         if (surfaceIt == surfaceHandlers.end()) {
-            LOG(ERROR) << "setSurfaceDisplayMode: No surface with id" << surfaceId;
+            LOG(ERROR) << "setSurfaceDisplayMode: No surface with id " << surfaceId;
             return;
         }
         auto surfaceHandler = surfaceIt->second;
@@ -220,7 +220,7 @@ void RNOHFabricUIManager::setSurfaceDisplayMode(facebook::react::Tag surfaceId, 
     }
 }
 
-void RNOHFabricUIManager::updateSurfaceConstraints(react::Tag surfaceId, float width, float height, float viewportOffsetX, float viewportoffsetY, float pixelRatio) {
+void RNOHFabricUIManager::updateSurfaceConstraints(react::Tag surfaceId, float width, float height, float viewportOffsetX, float viewportOffsetY, float pixelRatio) {
     try{
         if (surfaceHandlers.count(surfaceId)== 0) {
         LOG(ERROR) << "updateSurfaceConstraints: No surface with id " << surfaceId;
@@ -247,17 +247,17 @@ void RNOHFabricUIManager::emitComponentEvent(napi_env env, react::Tag tag, std::
 }
 
 void RNOHFabricUIManager::onUITick() {
-    if (this->m_shouIdRelayUITick.load()) {
+    if (this->m_shouldRelayUITick.load()) {
         this->scheduler->animationTick();
     }
 }
 
 void RNOHFabricUIManager::onAnimationStarted() {
-    m_shouIdRelayUITick.store (true);
+    m_shouldRelayUITick.store (true);
 }
 
 void RNOHFabricUIManager::onAllAnimationsComplete() {
-    m_shouIdRelayUITick.store (false);
+    m_shouldRelayUITick.store (false);
 }
 
 } //namespace rnoh

@@ -2,7 +2,7 @@
 // Created on 2024/1/17.
 //
 // Node APIs are not fully supported. To solve the compilation error of the interface cannot be found,
-// Please include "napi/native_api.h".
+// please include "napi/native_api.h".
 
 #ifndef HARMONY_RNOHFABRICUIMANAGER_H
 #define HARMONY_RNOHFABRICUIMANAGER_H
@@ -34,27 +34,27 @@ namespace rnoh {
 
     public:
         RNOHFabricUIManager(fabric_mounting_manager* mountingManager);
-        ~RNOHFabricUIManager ();
+        ~RNOHFabricUIManager();
 
         void initializeScheduler(component_factory *componentFactory);
         void registryMeasureTextFnRef(std::function<napi_value(napi_value, napi_value, napi_value)> measureTextFnRef);
         void startSurfaceWithConstraints(facebook::react::SurfaceId surfaceId, std::string const &moduleName,
-                                        napi _value initialProps, float width, float height, float viewportOffsetX,
+                                        napi_value initialProps, float width, float height, float viewportOffsetX,
                                         float viewportOffsetY, float pixelRatio); 
         void setSurfaceProps(facebook::react::SurfaceId surfaceId, folly::dynamic &&props);
         void stopSurface(facebook::react::SurfaceId surfaceId);
         void destroySurface(facebook::react::SurfaceId surfaceId);
-        void updateSurfaceConstraints(facebook::react::SurfaceId surfaceId, float width, float height, float viewportOffsetX
+        void updateSurfaceConstraints(facebook::react::SurfaceId surfaceId, float width, float height, float viewportOffsetX,
                                         float viewportOffsetY, float pixelRatio);
         void setSurfaceDisplayMode(facebook::react::SurfaceId surfaceId, facebook::react::DisplayMode displayMode);
         void updateState(napi_env env, std::string const &componentName, facebook::react::Tag tag, napi_value newState);
         void emitComponentEvent(napi_env env, facebook::react::Tag tag, std::string eventName, napi_value payload);
 
         void registryeventDispatcher(napi_env env, napi_ref napiEventDispatcherRef) {
-        m_arkTsChannel - std::make shared<ArkTSChannel>(taskExecutor, ArkJS (env),napiEventDispatcherRef);
+        m_arkTsChannel = std::make shared<ArkTSChannel>(taskExecutor, ArkJS (env),napiEventDispatcherRef);
         }
 
-        static std::unique ptr<RNOHFabricUIManager> FabricInstances;
+        static std::unique_ptr<RNOHFabricUIManager> FabricInstances;
 
     private:
         napi_env env;
@@ -72,7 +72,7 @@ namespace rnoh {
         ArkMeasureTextFunc m_measureTextFnRef;
 
         UITicker::Shared m_uiTicker;
-        std::atomic<bool> m_shouIdRelayUITick;
+        std::atomic<bool> m_shouldRelayUITick;
         std::function<void()> unsubscribeUITickListener = nullptr;
 
         void onUITick();
@@ -90,7 +90,3 @@ namespace rnoh {
     
 }// namespace rnoh
 #endif // HARMONY_RNOHFABRICUIMANAGER_H
-
-
-
-

@@ -19,7 +19,7 @@ TextMeasurement TextLayoutManager::measure(
     ParagraphAttributes paragraphAttributes,
     LayoutConstraints layoutConstraints) const {
     auto &attributedString = attributedStringBox.getValue();
-    auto measurement m_measureCache.get(
+    auto measurement = m_measureCache.get(
         {attributedString, paragraphAttributes, layoutConstraints},
         [&](TextMeasureCacheKey const & /*key*/) {
             return m_textLayoutManagerDelegate->measure(attributedString, paragraphAttributes, layoutConstraints);

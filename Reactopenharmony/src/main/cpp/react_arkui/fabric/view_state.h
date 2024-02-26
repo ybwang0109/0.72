@@ -9,7 +9,7 @@
 
 #include "react_arkui/fabric/arkui_view.h"
 #include "react_arkui/fabric/base_view_manager.hpp"
-#include <react/renderer/mounting/shadowView.h>
+#include <react/renderer/mounting/ShadowView.h>
 
 using namespace facebook::react;
 

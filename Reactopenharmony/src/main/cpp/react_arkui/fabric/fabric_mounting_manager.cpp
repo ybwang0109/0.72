@@ -25,7 +25,7 @@ namespace rnoh {
         surfaceMountingManagerByID_.insert_or_assign(surfaceId, surface_manager);
     }
 
-    void fabric_mounting_manager::preallocateShadoVwiew(SurfaceId surfaceId, ShadowView const &shadowView) {
+    void fabric_mounting_manager::preallocateShadowView(SurfaceId surfaceId, ShadowView const &shadowView) {
 
         LOG(ERROR) << "fabric_mounting_manager::preallocateShadowView begin. surfaceId: " << surfaceId << "\n";
         {
@@ -228,7 +228,7 @@ namespace rnoh {
         mutation.Insert childTag=4 parentTag=6 index=0
         mutation.Create Tag=10 {"selectionColor":null,"color":4294967295,"allowFontScaling":true,"fontWeight":"bold","ellipsizeMode":"tail","lineHeight":20,"fontSize":16,"letterSpacing":0.25,"isHighlighted":false,"numberOfLines":2}
         mutation.Insert childTag=10 parentTag=12 index=0
-        mutation.Create Tag=16 {"selectionColor":null,"color":4294967295,"allowFontScaling":true,"fontWeight":"bold","ellipsizeMode":"tail","lineHeight":20,"fontsize":16,"letterSpacing":0.25,"isHighlighted":false,"numberOfLines":2}
+        mutation.Create Tag=16 {"selectionColor":null,"color":4294967295,"allowFontScaling":true,"fontWeight":"bold","ellipsizeMode":"tail","lineHeight":20,"fontSize":16,"letterSpacing":0.25,"isHighlighted":false,"numberOfLines":2}
         mutation.Insert childTag=16 parentTag=18 index=0
         mutation.Create Tag=22 {"selectionColor":null,"color":4294967295,"allowFontScaling":true,"fontWeight":"bold","ellipsizeMode":"tail","lineHeight":20,"fontSize":16,"letterSpacing":0.25,"isHighlighted":false,"numberOfLines":2}
         mutation.Insert childTag=22 parentTag=24 index=0
