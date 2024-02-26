@@ -1,0 +1,102 @@
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/folly"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/folly
+	url = https://github.com/facebook/folly
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/fmt"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/fmt
+	url = https://github.com/fmtlib/fmt
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/hermes"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/hermes
+	url = https://github.com/facebook/hermes
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/libevent"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/libevent
+	url = https://github.com/libevent/libevent
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/algorithm"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/algorithm
+	url = https://github.com/boostorg/algorithm.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/assert"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/assert
+	url = https://github.com/boostorg/assert.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/bind"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/bind
+	url = https://github.com/boostorg/bind.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/concept_check"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/concept_check
+	url = https://github.com/boostorg/concept_check.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/config"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/config
+	url = https://github.com/boostorg/config.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/container_hash"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/container_hash
+	url = https://github.com/boostorg/container_hash.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/context"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/context
+	url = https://github.com/boostorg/context.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/core"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/core
+	url = https://github.com/boostorg/core.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/describe"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/describe
+	url = https://github.com/boostorg/describe.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/detail"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/detail
+	url = https://github.com/boostorg/detail.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/function"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/function
+	url = https://github.com/boostorg/function.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/integer"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/integer
+	url = https://github.com/boostorg/integer.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/intrusive"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/intrusive
+	url = https://github.com/boostorg/intrusive.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/move"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/move
+	url = https://github.com/boostorg/move.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/mp11"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/mp11
+	url = https://github.com/boostorg/mp11.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/mpl"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/mpl
+	url = https://github.com/boostorg/mpl.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/pool"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/pool
+	url = https://github.com/boostorg/pool.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/predef"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/predef
+	url = https://github.com/boostorg/predef.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/iterator"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/iterator
+	url = https://github.com/boostorg/iterator.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/preprocessor"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/preprocessor
+	url = https://github.com/boostorg/preprocessor.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/smart_ptr"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/smart_ptr
+	url = https://github.com/boostorg/smart_ptr.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/range"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/range
+	url = https://github.com/boostorg/range.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/static_assert"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/static_assert
+	url = https://github.com/boostorg/static_assert.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/throw_exception"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/throw_exception
+	url = https://github.com/boostorg/throw_exception.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/type_index"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/type_index
+	url = https://github.com/boostorg/type_index.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/type_traits"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/type_traits
+	url = https://github.com/boostorg/type_traits.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/utility"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/utility
+	url = https://github.com/boostorg/utility.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/variant"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/variant
+	url = https://github.com/boostorg/variant.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/winapi"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/winapi
+	url = https://github.com/boostorg/winapi.git
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/spirit"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/spirit
+	url = https://github.com/boostorg/spirit.git 
