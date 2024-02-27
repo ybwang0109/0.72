@@ -32,16 +32,16 @@ namespace rnoh {
                ContextContainer::Shared const &contextContainer) -> ComponentDescriptorRegistry::Shared {
             auto registry = default_components_registry::sharedProviderRegistry()->createComponentDescriptorRegistry(
                 {eventDispatcher, contextContainer});
-                    
+
             // auto mutableRegistry = std::const_pointer_cast<ComponentDescriptorRegistry>(registry);
 
             // mutableRegistry->setFallbackComponentDescriptor(
             //     std::make_shared<UnimplementedNativeViewComponentDescriptor>(
-            //         ComponentDescriptorParameters{eventDispatcher, ContextContainer, nullptr}));
+            //         ComponentDescriptorParameters{eventDispatcher, contextContainer, nullptr}));
 
-            return registry; 
-                    
+            return registry;
         };
+
         delegate->buildRegistryFunction = buildRegistryFunction;
         return;
     }

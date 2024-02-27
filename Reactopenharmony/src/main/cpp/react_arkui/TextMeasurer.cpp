@@ -1,6 +1,6 @@
-#include "RNOH/TextMeasurer.h"
-#include "RNOH/ArkJS.h"
-#include "RNOH/OHOSTextMeasurer.h"
+#include "react_arkui/TextMeasurer.h"
+#include "react_arkui/ArkJS.h"
+#include "react_arkui/OHOSTextMeasurer.h"
 
 using namespace facebook;
 using namespace rnoh;
@@ -31,7 +31,7 @@ react::TextMeasurement TextMeasurer::measure(react::AttributedString attributedS
     } else {
         m_taskExecutor->runSyncTask(TaskThread::MAIN, [&result, measureTextRef = m_measureTextFnRef, env = m_env, &attributedString, &paragraphAttributes, &layoutConstraints]() {
             ArkJS arkJs(env);
-            auto napiMeasureText = arkJs.getReferenceValue(measureTextRef);
+            ArkMeasureTextFunc napiMeasureText = measureTextRef;
             auto napiAttributedStringBuilder = arkJs.createObjectBuilder();
             napiAttributedStringBuilder.addProperty("string", attributedString.getString());
             std::vector<napi_value> napiFragments = {};
@@ -77,7 +77,7 @@ react::TextMeasurement TextMeasurer::measure(react::AttributedString attributedS
                                                                         .addProperty("height", layoutConstraints.maximumSize.height)
                                                                         .build());
 
-            auto resultNapiValue = arkJs.call(napiMeasureText, {napiAttributedStringBuilder.build(), napiParagraphAttributesBuilder.build(), napiLayoutConstraintsBuilder.build()});
+            auto resultNapiValue = napiMeasureText(napiAttributedStringBuilder.build(), napiParagraphAttributesBuilder.build(), napiLayoutConstraintsBuilder.build());
 
             result.size.width = arkJs.getDouble(arkJs.getObjectProperty(arkJs.getObjectProperty(resultNapiValue, "size"), "width"));
             result.size.height = arkJs.getDouble(arkJs.getObjectProperty(arkJs.getObjectProperty(resultNapiValue, "size"), "height"));

@@ -1,6 +1,6 @@
 #include <hilog/log.h>
 #include <pthread.h>
-#include "RNOH/LogSink.h"
+#include "react_arkui/LogSink.h"
 
 #define LOG_DOMAIN 0xBEEF
 #define LOG_TAG "#RNOH_CPP"

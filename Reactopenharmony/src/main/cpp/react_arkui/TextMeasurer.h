@@ -3,13 +3,16 @@
 #include <react/renderer/textlayoutmanager/TextLayoutManager.h>
 #include <string>
 #include "napi/native_api.h"
-#include "RNOH/TaskExecutor/TaskExecutor.h"
+#include "react_arkui/TaskExecutor/TaskExecutor.h"
 
 namespace rnoh {
+
+using ArkMeasureTextFunc = std::function< npi_value(napi_value, napi_value, napi_value)>;
+
 class TextMeasurer : public facebook::react::TextLayoutManagerDelegate {
 
   public:
-    TextMeasurer(napi_env env, napi_ref measureTextFnRef, std::shared_ptr<TaskExecutor> taskExecutor)
+    TextMeasurer(napi_env env, ArkMeasureTextFunc measureTextFnRef, std::shared_ptr<TaskExecutor> taskExecutor)
         : m_env(env),
           m_measureTextFnRef(measureTextFnRef),
           m_taskExecutor(taskExecutor) {}
@@ -20,7 +23,7 @@ class TextMeasurer : public facebook::react::TextLayoutManagerDelegate {
 
   private:
     napi_env m_env;
-    napi_ref m_measureTextFnRef;
+    ArkMeasureTextFunc m_measureTextFnRef;
     std::shared_ptr<TaskExecutor> m_taskExecutor;
 };
 } // namespace rnoh

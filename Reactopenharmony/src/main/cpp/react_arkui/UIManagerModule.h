@@ -1,5 +1,5 @@
 #pragma once
-#include "RNOH/TurboModule.h"
+#include "react_arkui/turbo_module/TurboModule.h"
 
 namespace rnoh {
 class ComponentJSIBinder {
@@ -11,7 +11,7 @@ using ComponentJSIBinderByString = std::unordered_map<std::string, std::shared_p
 
 class UIManagerModule : public TurboModule {
   public:
-    UIManagerModule(TurboModule::Context context, std::string name, const ComponentJSIBinderByString &&componentJSIBinderByName);
+    UIManagerModule(TurboModule::Context context, std::string name);
 
     std::vector<facebook::jsi::PropNameID> getPropertyNames(facebook::jsi::Runtime &rt) override;
 

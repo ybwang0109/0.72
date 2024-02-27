@@ -12,18 +12,18 @@ namespace rnoh {
                                            std::shared_ptr<facebook::react::CallInvoker> jsInvoker,
                                            std::shared_ptr<EventDispatcher> eventDispatcher)
         : m_env(env), m_arkTsTurboModuleProviderRef(arkTsTurboModuleProviderRef), m_taskExecutor(taskExecutor),
-        m_delegate(std::shared_ptr<DefaultTurboModuleManagerDelegate>()), m_jsInvoker(jsInvoker),
-        m_eventDispatcher(eventDispatcher) {}
+          m_delegate(std::shared_ptr<DefaultTurboModuleManagerDelegate>()), m_jsInvoker(jsInvoker),
+          m_eventDispatcher(eventDispatcher) {}
 
     std::shared_ptr<facebook::react::TurboModule> TurboModuleFactory::getTurboModule(std::string const &moduleName) {
         if (m_cache.contains(moduleName)) {
             LOG(INFO) << "Cache hit. Providing '" << moduleName << "' Turbo Module";
             return m_cache[moduleName];
         }
-            
+ 
         LOG(INFO) << "Providing Turbo Module: " << moduleName;
         SharedTurboModule turboModule;
-        
+
         Context ctx{{.jsInvoker = m_jsInvoker},
                     .env = m_env,
                     .arkTsTurboModuleInstanceRef = this->maybeGetArkTsTurboModuleInstanceRef(moduleName),
@@ -40,20 +40,20 @@ namespace rnoh {
             }
         }
 
-        if (TurboModule != nullptr) {
+        if (turboModule != nullptr) {
             m_cache[moduleName] = turboModule;
             return turboModule;
         }
         LOG(ERROR) << "Couldn't provide turbo module \"" << moduleName << "\"";
         return nullptr;
     }
-    
+
     napi_ref TurboModuleFactory::maybeGetArkTsTurboModuleInstanceRef(const std::string &name) const {
         napi_ref result;
         m_taskExecutor->runSyncTask(
             TaskThread::MAIN,
             [env = m_env, arkTsTurboModuleProviderRef = m_arkTsTurboModuleProviderRef, name, &result]() {
-                ArkJS arkJs (env);
+                ArkJS arkJs(env);
                 {
                     auto result =
                         arkJs.getObject(arkTsTurboModuleProviderRef).call("hasModule", {arkJs.createString(name)});
@@ -61,7 +61,7 @@ namespace rnoh {
                         return;
                     }
                 }
-                auto n_turboModuleInstance = 
+                auto n_turboModuleInstance =
                     arkJs.getObject(arkTsTurboModuleProviderRef).call("getModule", {arkJs.createString(name)});
                 result = arkJs.createReference(n_turboModuleInstance);
             });

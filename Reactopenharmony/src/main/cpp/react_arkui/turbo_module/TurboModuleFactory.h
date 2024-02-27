@@ -19,9 +19,9 @@ namespace rnoh {
         std::shared_ptr<facebook::react::TurboModule> getTurboModule(std::string const &moduleName);
 
     protected:
-        
+
         napi_ref maybeGetArkTsTurboModuleInstanceRef(const std::string &name) const;
-        
+
         napi_env m_env;
         napi_ref m_arkTsTurboModuleProviderRef;
         std::shared_ptr<TaskExecutor> m_taskExecutor;
@@ -32,5 +32,5 @@ namespace rnoh {
         facebook::butter::map<std::string, std::shared_ptr<facebook::react::TurboModule>> m_cache;
         std::shared_ptr<EventDispatcher> m_eventDispatcher;
     };
-    
+
 } // namespace rnoh

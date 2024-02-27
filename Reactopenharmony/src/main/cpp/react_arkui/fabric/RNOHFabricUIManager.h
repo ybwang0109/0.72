@@ -39,19 +39,19 @@ namespace rnoh {
         void initializeScheduler(component_factory *componentFactory);
         void registryMeasureTextFnRef(std::function<napi_value(napi_value, napi_value, napi_value)> measureTextFnRef);
         void startSurfaceWithConstraints(facebook::react::SurfaceId surfaceId, std::string const &moduleName,
-                                        napi_value initialProps, float width, float height, float viewportOffsetX,
-                                        float viewportOffsetY, float pixelRatio); 
+                                         napi_value initialProps, float width, float height, float viewportOffsetX,
+                                         float viewportOffsetY, float pixelRatio);
         void setSurfaceProps(facebook::react::SurfaceId surfaceId, folly::dynamic &&props);
         void stopSurface(facebook::react::SurfaceId surfaceId);
         void destroySurface(facebook::react::SurfaceId surfaceId);
         void updateSurfaceConstraints(facebook::react::SurfaceId surfaceId, float width, float height, float viewportOffsetX,
-                                        float viewportOffsetY, float pixelRatio);
+                                      float viewportOffsetY, float pixelRatio);
         void setSurfaceDisplayMode(facebook::react::SurfaceId surfaceId, facebook::react::DisplayMode displayMode);
         void updateState(napi_env env, std::string const &componentName, facebook::react::Tag tag, napi_value newState);
         void emitComponentEvent(napi_env env, facebook::react::Tag tag, std::string eventName, napi_value payload);
 
         void registryeventDispatcher(napi_env env, napi_ref napiEventDispatcherRef) {
-        m_arkTsChannel = std::make shared<ArkTSChannel>(taskExecutor, ArkJS (env),napiEventDispatcherRef);
+            m_arkTsChannel = std::make_shared<ArkTSChannel>(taskExecutor, ArkJS(env), napiEventDispatcherRef);
         }
 
         static std::unique_ptr<RNOHFabricUIManager> FabricInstances;
@@ -68,7 +68,7 @@ namespace rnoh {
         std::unique_ptr<SchedulerDelegate> schedulerDelegate;
         facebook::react::ContextContainer::Shared m_contextContainer;
         std::shared_ptr<facebook::react::LayoutAnimationDriver> m_animationDriver;
-
+        
         ArkMeasureTextFunc m_measureTextFnRef;
 
         UITicker::Shared m_uiTicker;
@@ -77,8 +77,8 @@ namespace rnoh {
 
         void onUITick();
 
-        virtual void onAnimationStarted() override;       // react::LayoutAnimationStatusDelegate
-        virtual void onAllAnimationsComplete() override;  // react::LayoutAnimationStatusDelegate
+        virtual void onAnimationStarted() override;      // react::LayoutAnimationStatusDelegate
+        virtual void onAllAnimationsComplete() override; // react::LayoutAnimationStatusDelegate
     };
 
     JSBIND_CLASS(RNOHFabricUIManager) {
@@ -87,6 +87,6 @@ namespace rnoh {
         JSBIND_METHOD(registryMeasureTextFnRef);
         JSBIND_METHOD(startSurfaceWithConstraints);
     }
-    
-}// namespace rnoh
+
+} // namespace rnoh
 #endif // HARMONY_RNOHFABRICUIMANAGER_H

@@ -3,7 +3,7 @@
 #include <memory>
 #include <vector>
 #include <napi/native_api.h>
-#include "RNOH/ShadowViewRegistry.h"
+#include "react_arkui/ShadowViewRegistry.h"
 namespace rnoh {
 
 class EventEmitRequestHandler {

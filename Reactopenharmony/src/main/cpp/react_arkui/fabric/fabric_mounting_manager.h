@@ -1,8 +1,8 @@
 //
-//Created on 2024/2/4.
+// Created on 2024/2/4.
 //
-// Node APIs are not fully supported, To solve the compilation error of the interface cannot be found,
-// please include "napi/native_api.h"
+// Node APIs are not fully supported. To solve the compilation error of the interface cannot be found,
+// please include "napi/native_api.h".
 
 #ifndef FABRIC_MOUNTING_MANAGER_H
 #define FABRIC_MOUNTING_MANAGER_H
@@ -41,7 +41,7 @@ namespace rnoh {
         std::unordered_map<facebook::react::SurfaceId, surface_mounting_manager*> surfaceMountingManagerByID_;
         std::recursive_mutex allocatedViewsMutex_;
     };
-    
+
     JSBIND_CLASS(fabric_mounting_manager) {
         JSBIND_CONSTRUCTOR<>();
         JSBIND_METHOD(bindingArkTsParty);

@@ -15,7 +15,7 @@ using namespace facebook::react;
 
 namespace rnoh {
     class default_components_registry {
-    public: 
+    public:
         static std::function<void(std::shared_ptr<ComponentDescriptorProviderRegistry const>)>
             registerComponentDescriptorsFromEntryPoint; //用于导入开发者自定义Component
         default_components_registry(component_factory *delegate);

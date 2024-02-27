@@ -1,6 +1,6 @@
-// 
+//
 // Created on 2024/2/4.
-// 
+//
 // Node APIs are not fully supported. To solve the compilation error of the interface cannot be found,
 // please include "napi/native_api.h".
 
@@ -10,7 +10,7 @@ namespace rnoh {
     fabric_mounting_manager::fabric_mounting_manager() {
         LOG(ERROR) << "fabric_mounting_manager::fabric_mounting_manager begin. this is " << this << "\n";
     }
-    
+
     void fabric_mounting_manager::bindingArkTsParty(aki::Value arkTS) {
         LOG(ERROR) << "fabric_mounting_manager::bindingArkTsParty. this is  " << this << "\n";
         arkTsThis_ = arkTS;
@@ -143,50 +143,50 @@ namespace rnoh {
                                                parentTag = parentShadowView.tag,
                                                index] { surfaceMountingManager->addViewAt(parentTag, Tag, index); });
 
-                        //                          bool allocationCheck =
-                        //                              allocatedViewTags.find(newChildShadowView.tag) ==
-                        //                              allocatedViewTags.end();
-                        //                          bool shouldCreateView = allocationCheck;
-                        //                          if (shouldCreateView) {
-                        //                              cppUpdatePropsMountItems.push_back(
-                        //                                  CppMountItem::UpdatePropsMountItem({}, newChildShadowView));
-                        //                          }
-                        // 
-                        //                          // State
-                        //                          if (newChildShadowView.state) {
-                        //                              cppUpdateStateMountItems.push_back(CppMountItem::UpdateStateMountItem(newChildShadowView));
-                        //                          }
+                        //                         bool allocationCheck =
+                        //                             allocatedViewTags.find(newChildShadowView.tag) ==
+                        //                             allocatedViewTags.end();
+                        //                         bool shouldCreateView = allocationCheck;
+                        //                         if (shouldCreateView) {
+                        //                             cppUpdatePropsMountItems.push_back(
+                        //                                 CppMountItem::UpdatePropsMountItem({}, newChildShadowView));
+                        //                         }
                         //
-                        //                          // Padding: padding mountItems must be executed before layout props 
-                        //                          //are updated in the view. This is necessary to ensure that events
-                        //                          // (resulting from layout changes) are dispatched with the correct 
-                        //                          // padding information.
-                        //                          if (newChildShadowView.layoutMetrics.contentInsets!=
-                        //                          EdgeInsets::ZERO) {
-                        //                              cppUpdatePaddingMountItems.push_back(
-                        //                                  CppMountItem::UpdatePaddingMountItem(newChildShadowView));
-                        //                          }
-                        // 
-                        //                          // Layout
-                        //                          cppUpdateLayoutMountItems.push_back(
-                        //                              CppMountItem::UpdateLayoutMountItem(newChildShadowView,
-                        //                              parentShadowView));
+                        //                         // State
+                        //                         if (newChildShadowView.state) {
+                        //                             cppUpdateStateMountItems.push_back(CppMountItem::UpdateStateMountItem(newChildShadowView));
+                        //                         }
                         //
-                        //                          // OverflowInset: This is the values indicating boundaries including
-                        //                          // children of the current view. The layout of current view may not
-                        //                          // change, and we separate this part from layout mount items to not 
-                        //                          // pack too much data there.
-                        //                          if (newChildShadowView.layoutMetrics.overflowInset !=
-                        //                          EdgeInsets::ZERO) {
-                        //                              cppUpdateOverflowInsetMountItems.push_back(
-                        //                                  CppMountItem::UpdateOverflowInsetMountItem(newChildShadowView));
-                        //                           }
-                        //                        }  
+                        //                         // Padding: padding mountItems must be executed before layout props
+                        //                         // are updated in the view. This is necessary to ensure that events
+                        //                         // (resulting from layout changes) are dispatched with the correct
+                        //                         // padding information.
+                        //                         if (newChildShadowView.layoutMetrics.contentInsets !=
+                        //                         EdgeInsets::ZERO) {
+                        //                             cppUpdatePaddingMountItems.push_back(
+                        //                                 CppMountItem::UpdatePaddingMountItem(newChildShadowView));
+                        //                         }
+                        //
+                        //                         // Layout
+                        //                         cppUpdateLayoutMountItems.push_back(
+                        //                             CppMountItem::UpdateLayoutMountItem(newChildShadowView,
+                        //                             parentShadowView));
+                        //
+                        //                         // OverflowInset: This is the values indicating boundaries including
+                        //                         // children of the current view. The layout of current view may not
+                        //                         // change, and we separate this part from layout mount items to not
+                        //                         // pack too much data there.
+                        //                         if (newChildShadowView.layoutMetrics.overflowInset !=
+                        //                         EdgeInsets::ZERO) {
+                        //                             cppUpdateOverflowInsetMountItems.push_back(
+                        //                                 CppMountItem::UpdateOverflowInsetMountItem(newChildShadowView));
+                        //                         }
+                        //                     }
 
-                        //                          // EventEmitter
-                        //                          cppUpdateEventEmitterMountItems.push_back(
-                        //                              CppMountItem::UpdateEventEmitterMountItem(mutation.newChildShadowView));
-                        
+                        //                     // EventEmitter
+                        //                     cppUpdateEventEmitterMountItems.push_back(
+                        //                         CppMountItem::UpdateEventEmitterMountItem(mutation.newChildShadowView));
+
                         break;
                     }
                 }
@@ -237,15 +237,15 @@ namespace rnoh {
         mutation.Create Tag=34 {"selectionColor":null,"color":4294967295,"allowFontScaling":true,"fontWeight":"bold","ellipsizeMode":"tail","lineHeight":20,"fontSize":16,"letterSpacing":0.25,"isHighlighted":false,"numberOfLines":2}
         mutation.Insert childTag=34 parentTag=36 index=0
         mutation.Create Tag=40 {"selectionColor":null,"color":4294967295,"allowFontScaling":true,"fontWeight":"bold","ellipsizeMode":"tail","lineHeight":20,"fontSize":16,"letterSpacing":0.25,"isHighlighted":false,"numberOfLines":2}
-        mutation.Insert childTag=40 parentTag=42 index=0 
-        mutation.Insert childTag=6 parentTag=44 index=0 
-        mutation.Insert childTag=12 parentTag=44 index=1 
-        mutation.Insert childTag=18 parentTag=44 index=2 
-        mutation.Insert childTag=24 parentTag=44 index=3 
-        mutation.Insert childTag=30 parentTag=44 index=4 
-        mutation.Insert childTag=36 parentTag=44 index=5 
-        mutation.Insert childTag=42 parentTag=44 index=6 
-        mutation.Insert childTag=44 parentTag=46 index=0 
+        mutation.Insert childTag=40 parentTag=42 index=0
+        mutation.Insert childTag=6 parentTag=44 index=0
+        mutation.Insert childTag=12 parentTag=44 index=1
+        mutation.Insert childTag=18 parentTag=44 index=2
+        mutation.Insert childTag=24 parentTag=44 index=3
+        mutation.Insert childTag=30 parentTag=44 index=4
+        mutation.Insert childTag=36 parentTag=44 index=5
+        mutation.Insert childTag=42 parentTag=44 index=6
+        mutation.Insert childTag=44 parentTag=46 index=0
         mutation.Insert childTag=46 parentTag=1 index=0
         */
 

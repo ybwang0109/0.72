@@ -2,7 +2,7 @@
 // Created on 2024/2/5.
 //
 // Node APIs are not fully supported. To solve the compilation error of the interface cannot be found,
-// please include "napi/native_api.h"
+// please include "napi/native_api.h".
 
 #ifndef VIEW_STATE_H
 #define VIEW_STATE_H
@@ -19,7 +19,7 @@ using WeakState = std::weak_ptr<facebook::react::State const>;
 namespace rnoh {
     class view_state {
     public:
-        view_state(Tag ReactTag, arkui_view *View, view_manager<arkui_view> *ViewManager) 
+        view_state(Tag ReactTag, arkui_view *View, view_manager<arkui_view> *ViewManager)
             : ReactTag_(ReactTag), View_(View), ViewManager_(ViewManager){};
 
         arkui_view *View_;

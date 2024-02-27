@@ -12,7 +12,7 @@
 const std::string instanceName = "testInstance";
 
 namespace rnoh {
-    
+
     turbo_module_manager::turbo_module_manager(aki::Value ArkTSThis, aki::Value arkTsTurboModuleProviderRef) {
         OH_LOG_ERROR(LOG_APP, "turbo_module_manager::turbo_module_manager constructor");
         delegate_ = arkTsTurboModuleProviderRef;
@@ -34,7 +34,7 @@ namespace rnoh {
 
         auto TurboModuleProviderFunction =
             [ModuleProvider =
-                m_turboModuleFactory](const std::string &name) -> std::shared_ptr<facebook::react::TurboModule> {
+                 m_turboModuleFactory](const std::string &name) -> std::shared_ptr<facebook::react::TurboModule> {
             std::shared_ptr<facebook::react::TurboModule> turboModule = ModuleProvider->getTurboModule(name);
             return turboModule;
         };
@@ -42,7 +42,7 @@ namespace rnoh {
         this->instance_->getRuntimeExecutor()(
             [turboModuleProvider = std::move(TurboModuleProviderFunction)](facebook::jsi::Runtime &runtime) {
                 facebook::react::TurboModuleBinding::install(
-                    runtime, facebook::react::TurboModuleBindingMode::HostObject, std::move (turboModuleProvider));
+                    runtime, facebook::react::TurboModuleBindingMode::HostObject, std::move(turboModuleProvider));
             });
     }
 } // namespace rnoh

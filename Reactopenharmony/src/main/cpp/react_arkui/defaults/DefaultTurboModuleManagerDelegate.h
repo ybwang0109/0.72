@@ -21,9 +21,8 @@ namespace rnoh {
         DefaultTurboModuleManagerDelegate();
 
         std::shared_ptr<facebook::react::TurboModule> getTurboModule(ArkTSTurboModule::Context &ctx,
-                                                                        const std::string &name) ;
+                                                                     const std::string &name) ;
     };
 } // namespace rnoh
 
 #endif // DEFAULTTURBOMODULEMANAGERDELEGATE_H
-

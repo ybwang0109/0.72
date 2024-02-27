@@ -25,11 +25,11 @@ namespace rnoh {
 
         std::shared_ptr<TaskExecutor> taskExecutor;
         std::shared_ptr<facebook::react::Instance> instance_; // todo: 需要改成私有成员，不直接对外可见。
-        
+
         // todo: 需要与Fabric共享的内容
         std::shared_ptr<facebook::react::ComponentDescriptorProviderRegistry> m_componentDescriptorProviderRegistry;
-
-        static std::unordered_map<std::string, std::unique_ptr<native_catalyst_instance>>instancesByName;
+    
+        static std::unordered_map<std::string, std::unique_ptr<native_catalyst_instance>> instancesByName;
 
     private:
         std::string instanceName;
@@ -44,4 +44,3 @@ namespace rnoh {
 
 } // namespace rnoh
 #endif // native_CatalystInstance_H
-

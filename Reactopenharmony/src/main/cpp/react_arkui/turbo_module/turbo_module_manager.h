@@ -38,5 +38,6 @@ namespace rnoh {
         JSBIND_CONSTRUCTOR<aki::Value, aki::Value>();
         JSBIND_METHOD(installJSIBindings);
     }
-} //namespace rnoh
+} // namespace rnoh
+
 #endif // NEW_DEV_TURBO_MODULE_MANAGER_H

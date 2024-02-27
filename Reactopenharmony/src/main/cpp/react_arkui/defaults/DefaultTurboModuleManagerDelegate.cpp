@@ -15,6 +15,7 @@ namespace rnoh {
 
     std::shared_ptr<facebook::react::TurboModule>
     DefaultTurboModuleManagerDelegate::getTurboModule(ArkTSTurboModule::Context &ctx, const std::string &name) {
+
         auto moduleProvider = DefaultTurboModuleManagerDelegate::ArkTSModuleProvider;
         if (moduleProvider) {
             if (auto resolvedModule = moduleProvider(name, ctx)) {

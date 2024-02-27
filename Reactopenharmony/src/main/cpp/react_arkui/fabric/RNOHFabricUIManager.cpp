@@ -74,7 +74,7 @@ RNOHFabricUIManager::~RNOHFabricUIManager() {
 }
 
 void RNOHFabricUIManager::registryMeasureTextFnRef(ArkMeasureTextFunc measureTextFnRef) {
-    //todo：临时先人为保证在initializeScheduler前注册相关的方法，后面应该改为与FabricUIManager方法直接绑定。
+    //todo: 临时先人为保证在initializeScheduler前注册相关的方法，后面应该改为与FabricUIManager方法直接绑定。
     OH_LOG_ERROR(LOG_APP, "RNOHFabricUIManager::registrymeasureTextFnRef()");
     m_measureTextFnRef = measureTextFnRef;
 }
@@ -87,13 +87,13 @@ void RNOHFabricUIManager::initializeScheduler(component_factory *componentFactor
     m_contextContainer->insert("textLayoutManagerDelegate", textMeasurer);
 
     auto reactConfig = std::make_shared<react::EmptyReactNativeConfig>();
-    m_contextContainer->insert("ReactNativeConfig", std::move(reactConfig)); 
+    m_contextContainer->insert("ReactNativeConfig", std::move(reactConfig));
 
     react::EventBeat::Factory eventBeatFactory = [taskExecutor = std::weak_ptr(taskExecutor), runtimeExecutor = this->instance->getRuntimeExecutor()](auto ownerBox) {
         return std::make_unique<EventBeat>(taskExecutor, runtimeExecutor, ownerBox);
     };
 
-    auto backgroundExecutor = [executor = this->taskExecutor](std::function<void()> && callback) {
+    auto backgroundExecutor = [executor = this->taskExecutor](std::function<void()> &&callback) {
         executor->runTask(TaskThread::BACKGROUND, std::move(callback));
     };
 
@@ -122,16 +122,16 @@ void RNOHFabricUIManager::startSurfaceWithConstraints(react::Tag surfaceId,
                                                       float viewportOffsetX,
                                                       float viewportOffsetY,
                                                       float pixelRatio) {
-    ArkJS arkJs(aki::JSBind: :GetScopedEnv());
+    ArkJS arkJs(aki::JSBind::GetScopedEnv());
     OH_LOG_ERROR(LOG_APP, "RNOHFabricUIManager::startSurfaceWithConstraints() ");
-
+    
     if (surfaceHandlers.count(surfaceId)) {
         LOG(ERROR) << "createSurface: Surface with surface id " << surfaceId << " already exists.";
         return;
     }
     auto surfaceHandler = std::make_shared<react::SurfaceHandler>(appKey, surfaceId);
 
-    this->scheduler->registerSurface (*surfaceHandler);
+    this->scheduler->registerSurface(*surfaceHandler);
     surfaceHandlers.insert({surfaceId, std::move(surfaceHandler)});
 
     try {
@@ -162,7 +162,7 @@ void RNOHFabricUIManager::startSurfaceWithConstraints(react::Tag surfaceId,
         LOG(ERROR) << "startSurface: " << e.what() << "\n";
         throw e;
     };
-
+    
     this->setSurfaceDisplayMode(surfaceId, facebook::react::DisplayMode::Visible);
 }
 
@@ -178,8 +178,8 @@ void RNOHFabricUIManager::setSurfaceProps(facebook::react::Tag surfaceId, folly:
 void RNOHFabricUIManager::stopSurface(react::Tag surfaceId) {
     auto it = surfaceHandlers.find(surfaceId);
     if (it == surfaceHandlers.end()) {
-    LOG(ERROR) << "stopSurface: No surface with id " << surfaceId;
-    return;
+        LOG(ERROR) << "stopSurface: No surface with id " << surfaceId;
+        return;
     }
     auto surfaceHandle = it->second;
     // stopping on main thread asynchronously caused dead lock
@@ -193,13 +193,13 @@ void RNOHFabricUIManager::stopSurface(react::Tag surfaceId) {
     };
 }
 
-void RNOHFabricUIManager::destroySurface (react: :Tag surfaceId) {
+void RNOHFabricUIManager::destroySurface(react::Tag surfaceId) {
     auto it = surfaceHandlers.find(surfaceId);
     if (it == surfaceHandlers.end()) {
         LOG(ERROR) << "destroySurface: No surface with id " << surfaceId;
         return;
     }
-    scheduler->unregisterSurface (*it->second);
+    scheduler->unregisterSurface(*it->second);
     surfaceHandlers.erase(it);
 }
 
@@ -221,13 +221,13 @@ void RNOHFabricUIManager::setSurfaceDisplayMode(facebook::react::Tag surfaceId, 
 }
 
 void RNOHFabricUIManager::updateSurfaceConstraints(react::Tag surfaceId, float width, float height, float viewportOffsetX, float viewportOffsetY, float pixelRatio) {
-    try{
-        if (surfaceHandlers.count(surfaceId)== 0) {
-        LOG(ERROR) << "updateSurfaceConstraints: No surface with id " << surfaceId;
-        return;
+    try {
+        if (surfaceHandlers.count(surfaceId) == 0) {
+            LOG(ERROR) << "updateSurfaceConstraints: No surface with id " << surfaceId;
+            return;
         }
         taskExecutor->runTask(TaskThread::MAIN, [this, surfaceId, width, height, viewportOffsetX, viewportOffsetY, pixelRatio]() {
-            auto layoutConstraints = surfaceHandlers [surfaceId]->getLayoutConstraints();
+            auto layoutConstraints = surfaceHandlers[surfaceId]->getLayoutConstraints();
             layoutConstraints.minimumSize = layoutConstraints.maximumSize = {
                 .width = width,
                 .height = height};
@@ -253,11 +253,11 @@ void RNOHFabricUIManager::onUITick() {
 }
 
 void RNOHFabricUIManager::onAnimationStarted() {
-    m_shouldRelayUITick.store (true);
+    m_shouldRelayUITick.store(true);
 }
 
 void RNOHFabricUIManager::onAllAnimationsComplete() {
-    m_shouldRelayUITick.store (false);
+    m_shouldRelayUITick.store(false);
 }
 
-} //namespace rnoh
+} // namespace rnoh

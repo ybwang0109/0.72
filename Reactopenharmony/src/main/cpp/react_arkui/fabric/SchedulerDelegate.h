@@ -21,7 +21,7 @@ class SchedulerDelegate : public facebook::react::SchedulerDelegate {
     }
 
     void schedulerDidRequestPreliminaryViewAllocation(facebook::react::SurfaceId surfaceId, const facebook::react::ShadowNode &shadowNode) override {
-        
+
         if (!shadowNode.getTraits().check(ShadowNodeTraits::Trait::FormsView)) {
             return;
         }
@@ -29,7 +29,7 @@ class SchedulerDelegate : public facebook::react::SchedulerDelegate {
         fabricMountingManager_->preallocateShadowView(surfaceId, shadowView);
     }
 
-    void schedulerDidDispatchCommand(const facebook::react::ShadowView &shadowView, std::string const &commandName, folly::dynamic const &args) override {   
+    void schedulerDidDispatchCommand(const facebook::react::ShadowView &shadowView, std::string const &commandName, folly::dynamic const &args) override {
     }
 
     void schedulerDidSendAccessibilityEvent(const facebook::react::ShadowView &shadowView, std::string const &eventType) override {
@@ -38,7 +38,7 @@ class SchedulerDelegate : public facebook::react::SchedulerDelegate {
     void schedulerDidSetIsJSResponder(
         facebook::react::ShadowView const &shadowView, bool isJSResponder, bool blockNativeResponder) override {
         folly::dynamic payload = folly::dynamic::object;
-        payload["tag"]= shadowView.tag;
+        payload["tag"] = shadowView.tag;
         payload["isJSResponder"] = isJSResponder;
         payload["blockNativeResponder"] = blockNativeResponder;
         m_arkTsChannel->postMessage("SCHEDULER_DID_SET_IS_JS_RESPONDER", payload);
