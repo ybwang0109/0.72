@@ -7,7 +7,7 @@
 
 namespace rnoh {
 
-using ArkMeasureTextFunc = std::function< npi_value(napi_value, napi_value, napi_value)>;
+using ArkMeasureTextFunc = std::function< napi_value(napi_value, napi_value, napi_value)>;
 
 class TextMeasurer : public facebook::react::TextLayoutManagerDelegate {
 
