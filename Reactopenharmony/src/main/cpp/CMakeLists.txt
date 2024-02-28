@@ -438,31 +438,31 @@ target_compile_options(glog_target PRIVATE
 # BOOST
 #set(boost_libs_dir "${third_party_dir}/boost/libs")
 #file(GLOB boost_include_dirs "${boost_libs_dir}/*/include")
-set(boost_libs_dir "${third_party_dir}/include/boost/libs")
-file(GLOB boost_include_dirs "${boost_libs_dir}/*/include")
-add_library(Boost::context SHARED IMPORTED)
-set_property(TARGET Boost::context PROPERTY
+#set(boost_libs_dir "${third_party_dir}/include/boost/libs")
+#file(GLOB boost_include_dirs "${boost_libs_dir}/*/include")
+#add_library(Boost::context SHARED IMPORTED)
+#set_property(TARGET Boost::context PROPERTY
 				IMPORTED_LOCATION "${third_party_dir}/prebuilt/${OHOS_ARCH}/libboost_context.a")
 
 
 # BOOST
-#set(boost_libs_dir "${third_party_dir}/boost/libs")
-#file(GLOB boost_include_dirs "${boost_libs_dir}/*/include")
-#set(BOOST_ENABLE_CMAKE On)
-#add_subdirectory("${boost_libs_dir}/core")
-#add_subdirectory("${boost_libs_dir}/config")
-#add_subdirectory("${boost_libs_dir}/assert")
-#add_subdirectory("${boost_libs_dir}/static_assert")
-#add_subdirectory("${boost_libs_dir}/type_traits")
-#add_subdirectory("${boost_libs_dir}/throw_exception")
-#add_subdirectory("${boost_libs_dir}/move")
-#add_subdirectory("${boost_libs_dir}/predef")
-#add_subdirectory("${boost_libs_dir}/pool")
-#add_subdirectory("${boost_libs_dir}/mp11")
-#add_subdirectory("${boost_libs_dir}/smart_ptr")
-#add_subdirectory("${boost_libs_dir}/winapi")
-#add_subdirectory("${boost_libs_dir}/integer")
-#add_subdirectory("${boost_libs_dir}/context")
+set(boost_libs_dir "${third_party_dir}/boost/libs")
+file(GLOB boost_include_dirs "${boost_libs_dir}/*/include")
+set(BOOST_ENABLE_CMAKE On)
+add_subdirectory("${boost_libs_dir}/core")
+add_subdirectory("${boost_libs_dir}/config")
+add_subdirectory("${boost_libs_dir}/assert")
+add_subdirectory("${boost_libs_dir}/static_assert")
+add_subdirectory("${boost_libs_dir}/type_traits")
+add_subdirectory("${boost_libs_dir}/throw_exception")
+add_subdirectory("${boost_libs_dir}/move")
+add_subdirectory("${boost_libs_dir}/predef")
+add_subdirectory("${boost_libs_dir}/pool")
+add_subdirectory("${boost_libs_dir}/mp11")
+add_subdirectory("${boost_libs_dir}/smart_ptr")
+add_subdirectory("${boost_libs_dir}/winapi")
+add_subdirectory("${boost_libs_dir}/integer")
+add_subdirectory("${boost_libs_dir}/context")
 
 # LIBEVENT
 add_library(libevent)
@@ -549,119 +549,119 @@ target_link_libraries(folly_target PUBLIC
 )
 
 # FOLLY FUTURES
-#add_library(folly_futures)
-#target_include_directories(folly_futures PUBLIC
-#    "${folly_include_dir}"
-#    "${boost_include_dirs}"
-#    "${double_conversion_include_dir}"
-#    "${glog_include_dir}"
-#    "${fmt_include_dir}"
-#    "${libevent_include_dirs}"
-#)
-#target_compile_options(folly_futures PRIVATE
-#    ${folly_compile_options}
-#    "-Wno-nullability-completeness"
-#    "-std=c++17"
-#)
-#target_sources(folly_futures PRIVATE
-#    "${patches_dir}/folly/Demangle.cpp"
-#    "${folly_src_dir}/ExceptionString.cpp"
-#    "${folly_src_dir}/ExceptionWrapper.cpp"
-#    "${folly_src_dir}/Executor.cpp"
-#    "${folly_src_dir}/FileUtil.cpp"
-#    "${folly_src_dir}/ScopeGuard.cpp"
-#    "${folly_src_dir}/String.cpp"
-#    "${folly_src_dir}/Singleton.cpp"
-#    "${folly_src_dir}/Try.cpp"
-#    # "${folly_src_dir}/concurrency/CacheLocality.cpp"
-#    "${folly_src_dir}/concurrency/DeadlockDetector.cpp"
-#    "${folly_src_dir}/concurrency/QueueObserver.cpp"
-#    "${folly_src_dir}/detail/AsyncTrace.cpp"
-#    "${folly_src_dir}/detail/AtFork.cpp"
-#    # "${folly_src_dir}/detail/Futex.cpp"
-#    "${folly_src_dir}/detail/MemoryIdler.cpp"
-#    "${folly_src_dir}/detail/SingletonStackTrace.cpp"
-#    "${folly_src_dir}/detail/StaticSingletonManager.cpp"
-#    "${folly_src_dir}/detail/ThreadLocalDetail.cpp"
-#    "${folly_src_dir}/detail/UniqueInstance.cpp"
-#    "${folly_src_dir}/executors/CPUThreadPoolExecutor.cpp"
-#    "${folly_src_dir}/executors/Codel.cpp"
-#    "${folly_src_dir}/executors/EDFThreadPoolExecutor.cpp"
-#    "${folly_src_dir}/executors/ExecutorWithPriority.cpp"
-#    "${folly_src_dir}/executors/GlobalExecutor.cpp"
-#    "${folly_src_dir}/executors/GlobalThreadPoolList.cpp"
-#    "${folly_src_dir}/executors/IOThreadPoolDeadlockDetectorObserver.cpp"
-#    "${folly_src_dir}/executors/IOThreadPoolExecutor.cpp"
-#    "${folly_src_dir}/executors/InlineExecutor.cpp"
-#    "${folly_src_dir}/executors/ManualExecutor.cpp"
-#    "${folly_src_dir}/executors/MeteredExecutor.cpp"
-#    "${folly_src_dir}/executors/QueuedImmediateExecutor.cpp"
-#    "${folly_src_dir}/executors/SerialExecutor.cpp"
-#    "${folly_src_dir}/executors/StrandExecutor.cpp"
-#    "${folly_src_dir}/executors/ThreadPoolExecutor.cpp"
-#    "${folly_src_dir}/executors/ThreadedExecutor.cpp"
-#    "${folly_src_dir}/executors/TimedDrivableExecutor.cpp"
-#    "${folly_src_dir}/executors/TimekeeperScheduledExecutor.cpp"
-#    "${folly_src_dir}/fibers/BatchSemaphore.cpp"
-#    "${folly_src_dir}/fibers/Baton.cpp"
-#    "${folly_src_dir}/fibers/Fiber.cpp"
-#    "${folly_src_dir}/fibers/FiberManager.cpp"
-#    "${folly_src_dir}/fibers/GuardPageAllocator.cpp"
-#    "${folly_src_dir}/fibers/Semaphore.cpp"
-#    "${folly_src_dir}/fibers/SemaphoreBase.cpp"
-#    "${folly_src_dir}/fibers/SimpleLoopController.cpp"
-#    "${folly_src_dir}/futures/Barrier.cpp"
-#    "${folly_src_dir}/futures/Future.cpp"
-#    "${folly_src_dir}/futures/ManualTimekeeper.cpp"
-#    "${folly_src_dir}/futures/Promise.cpp"
-#    "${folly_src_dir}/futures/SharedPromise.cpp"
-#    "${folly_src_dir}/futures/ThreadWheelTimekeeper.cpp"
-#    "${folly_src_dir}/futures/detail/Core.cpp"
-#    "${folly_src_dir}/io/Cursor.cpp"
-#    "${folly_src_dir}/io/IOBuf.cpp"
-#    "${folly_src_dir}/io/IOBufQueue.cpp"
-#    "${folly_src_dir}/io/async/AsyncTimeout.cpp"
-#    "${folly_src_dir}/io/async/EventBase.cpp"
-#    "${folly_src_dir}/io/async/EventBaseBackendBase.cpp"
-#    "${folly_src_dir}/io/async/EventBaseLocal.cpp"
-#    "${folly_src_dir}/io/async/EventBaseManager.cpp"
-#    "${folly_src_dir}/io/async/EventHandler.cpp"
-#    "${folly_src_dir}/io/async/HHWheelTimer.cpp"
-#    "${folly_src_dir}/io/async/Request.cpp"
-#    "${folly_src_dir}/io/async/TimeoutManager.cpp"
-#    "${folly_src_dir}/io/async/VirtualEventBase.cpp"
-#    "${folly_src_dir}/lang/CString.cpp"
-#    "${folly_src_dir}/lang/Exception.cpp"
-#    "${folly_src_dir}/memory/MallctlHelper.cpp"
-#    "${folly_src_dir}/net/NetOps.cpp"
-#    "${folly_src_dir}/net/NetOpsDispatcher.cpp"
-#    "${folly_src_dir}/net/TcpInfo.cpp"
-#    "${folly_src_dir}/net/detail/SocketFileDescriptorMap.cpp"
-#    "${folly_src_dir}/portability/SysMembarrier.cpp"
-#    "${folly_src_dir}/portability/SysUio.cpp"
-#    "${folly_src_dir}/synchronization/AsymmetricMemoryBarrier.cpp"
-#    "${folly_src_dir}/synchronization/AtomicNotification.cpp"
-#    "${folly_src_dir}/synchronization/DistributedMutex.cpp"
-#    "${folly_src_dir}/synchronization/Hazptr.cpp"
-#    "${folly_src_dir}/synchronization/HazptrThreadPoolExecutor.cpp"
-#    # "${folly_src_dir}/synchronization/ParkingLot.cpp"
-#    "${folly_src_dir}/synchronization/Rcu.cpp"
-#    "${folly_src_dir}/synchronization/SanitizeThread.cpp"
-#    "${folly_src_dir}/synchronization/WaitOptions.cpp"
-#    "${folly_src_dir}/synchronization/detail/Hardware.cpp"
-#    "${folly_src_dir}/synchronization/detail/Sleeper.cpp"
-#    "${folly_src_dir}/system/HardwareConcurrency.cpp"
-#    "${folly_src_dir}/system/Pid.cpp"
-#    # "${folly_src_dir}/system/ThreadId.cpp"
-#    "${folly_src_dir}/system/ThreadName.cpp"
-#    "${folly_src_dir}/tracing/AsyncStack.cpp"
-#)
-#target_link_libraries(folly_futures libevent)
+add_library(folly_futures)
+target_include_directories(folly_futures PUBLIC
+    "${folly_include_dir}"
+    "${boost_include_dirs}"
+    "${double_conversion_include_dir}"
+    "${glog_include_dir}"
+    "${fmt_include_dir}"
+    "${libevent_include_dirs}"
+)
+target_compile_options(folly_futures PRIVATE
+    ${folly_compile_options}
+    "-Wno-nullability-completeness"
+    "-std=c++17"
+)
+target_sources(folly_futures PRIVATE
+    "${patches_dir}/folly/Demangle.cpp"
+    "${folly_src_dir}/ExceptionString.cpp"
+    "${folly_src_dir}/ExceptionWrapper.cpp"
+    "${folly_src_dir}/Executor.cpp"
+    "${folly_src_dir}/FileUtil.cpp"
+    "${folly_src_dir}/ScopeGuard.cpp"
+    "${folly_src_dir}/String.cpp"
+    "${folly_src_dir}/Singleton.cpp"
+    "${folly_src_dir}/Try.cpp"
+    # "${folly_src_dir}/concurrency/CacheLocality.cpp"
+    "${folly_src_dir}/concurrency/DeadlockDetector.cpp"
+    "${folly_src_dir}/concurrency/QueueObserver.cpp"
+    "${folly_src_dir}/detail/AsyncTrace.cpp"
+    "${folly_src_dir}/detail/AtFork.cpp"
+    # "${folly_src_dir}/detail/Futex.cpp"
+    "${folly_src_dir}/detail/MemoryIdler.cpp"
+    "${folly_src_dir}/detail/SingletonStackTrace.cpp"
+    "${folly_src_dir}/detail/StaticSingletonManager.cpp"
+    "${folly_src_dir}/detail/ThreadLocalDetail.cpp"
+    "${folly_src_dir}/detail/UniqueInstance.cpp"
+    "${folly_src_dir}/executors/CPUThreadPoolExecutor.cpp"
+    "${folly_src_dir}/executors/Codel.cpp"
+    "${folly_src_dir}/executors/EDFThreadPoolExecutor.cpp"
+    "${folly_src_dir}/executors/ExecutorWithPriority.cpp"
+    "${folly_src_dir}/executors/GlobalExecutor.cpp"
+    "${folly_src_dir}/executors/GlobalThreadPoolList.cpp"
+    "${folly_src_dir}/executors/IOThreadPoolDeadlockDetectorObserver.cpp"
+    "${folly_src_dir}/executors/IOThreadPoolExecutor.cpp"
+    "${folly_src_dir}/executors/InlineExecutor.cpp"
+    "${folly_src_dir}/executors/ManualExecutor.cpp"
+    "${folly_src_dir}/executors/MeteredExecutor.cpp"
+    "${folly_src_dir}/executors/QueuedImmediateExecutor.cpp"
+    "${folly_src_dir}/executors/SerialExecutor.cpp"
+    "${folly_src_dir}/executors/StrandExecutor.cpp"
+    "${folly_src_dir}/executors/ThreadPoolExecutor.cpp"
+    "${folly_src_dir}/executors/ThreadedExecutor.cpp"
+    "${folly_src_dir}/executors/TimedDrivableExecutor.cpp"
+    "${folly_src_dir}/executors/TimekeeperScheduledExecutor.cpp"
+    "${folly_src_dir}/fibers/BatchSemaphore.cpp"
+    "${folly_src_dir}/fibers/Baton.cpp"
+    "${folly_src_dir}/fibers/Fiber.cpp"
+    "${folly_src_dir}/fibers/FiberManager.cpp"
+    "${folly_src_dir}/fibers/GuardPageAllocator.cpp"
+    "${folly_src_dir}/fibers/Semaphore.cpp"
+    "${folly_src_dir}/fibers/SemaphoreBase.cpp"
+    "${folly_src_dir}/fibers/SimpleLoopController.cpp"
+    "${folly_src_dir}/futures/Barrier.cpp"
+    "${folly_src_dir}/futures/Future.cpp"
+    "${folly_src_dir}/futures/ManualTimekeeper.cpp"
+    "${folly_src_dir}/futures/Promise.cpp"
+    "${folly_src_dir}/futures/SharedPromise.cpp"
+    "${folly_src_dir}/futures/ThreadWheelTimekeeper.cpp"
+    "${folly_src_dir}/futures/detail/Core.cpp"
+    "${folly_src_dir}/io/Cursor.cpp"
+    "${folly_src_dir}/io/IOBuf.cpp"
+    "${folly_src_dir}/io/IOBufQueue.cpp"
+    "${folly_src_dir}/io/async/AsyncTimeout.cpp"
+    "${folly_src_dir}/io/async/EventBase.cpp"
+    "${folly_src_dir}/io/async/EventBaseBackendBase.cpp"
+    "${folly_src_dir}/io/async/EventBaseLocal.cpp"
+    "${folly_src_dir}/io/async/EventBaseManager.cpp"
+    "${folly_src_dir}/io/async/EventHandler.cpp"
+    "${folly_src_dir}/io/async/HHWheelTimer.cpp"
+    "${folly_src_dir}/io/async/Request.cpp"
+    "${folly_src_dir}/io/async/TimeoutManager.cpp"
+    "${folly_src_dir}/io/async/VirtualEventBase.cpp"
+    "${folly_src_dir}/lang/CString.cpp"
+    "${folly_src_dir}/lang/Exception.cpp"
+    "${folly_src_dir}/memory/MallctlHelper.cpp"
+    "${folly_src_dir}/net/NetOps.cpp"
+    "${folly_src_dir}/net/NetOpsDispatcher.cpp"
+    "${folly_src_dir}/net/TcpInfo.cpp"
+    "${folly_src_dir}/net/detail/SocketFileDescriptorMap.cpp"
+    "${folly_src_dir}/portability/SysMembarrier.cpp"
+    "${folly_src_dir}/portability/SysUio.cpp"
+    "${folly_src_dir}/synchronization/AsymmetricMemoryBarrier.cpp"
+    "${folly_src_dir}/synchronization/AtomicNotification.cpp"
+    "${folly_src_dir}/synchronization/DistributedMutex.cpp"
+    "${folly_src_dir}/synchronization/Hazptr.cpp"
+    "${folly_src_dir}/synchronization/HazptrThreadPoolExecutor.cpp"
+    # "${folly_src_dir}/synchronization/ParkingLot.cpp"
+    "${folly_src_dir}/synchronization/Rcu.cpp"
+    "${folly_src_dir}/synchronization/SanitizeThread.cpp"
+    "${folly_src_dir}/synchronization/WaitOptions.cpp"
+    "${folly_src_dir}/synchronization/detail/Hardware.cpp"
+    "${folly_src_dir}/synchronization/detail/Sleeper.cpp"
+    "${folly_src_dir}/system/HardwareConcurrency.cpp"
+    "${folly_src_dir}/system/Pid.cpp"
+    # "${folly_src_dir}/system/ThreadId.cpp"
+    "${folly_src_dir}/system/ThreadName.cpp"
+    "${folly_src_dir}/tracing/AsyncStack.cpp"
+)
+target_link_libraries(folly_futures libevent)
 
 ## FOLLY FUTURES
-add_library(folly_futures SHARED IMPORTED)
-set_property(TARGET folly_futures PROPERTY
-				IMPORTED_LOCATION "${third_party_dir}/prebuilt/${OHOS_ARCH}/libfolly_futures.a")
+#add_library(folly_futures SHARED IMPORTED)
+#set_property(TARGET folly_futures PROPERTY
+#				IMPORTED_LOCATION "${third_party_dir}/prebuilt/${OHOS_ARCH}/libfolly_futures.a")
 
 # HERMES
 add_library(hermes-engine::libhermes SHARED IMPORTED)
