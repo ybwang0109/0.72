@@ -6,11 +6,11 @@ export interface UIManager extends JSIModule {
 
   /** Registers a new root view with width and height. */
   startSurface(
-	rootView: ReactRoot,
-	moduleName: string,
-	initialProps: string,
-	widthMeasureSpec: number,
-	heightMeasureSpec: number): number;
+    rootView: ReactRoot,
+    moduleName: string,
+    initialProps: string,
+    widthMeasureSpec: number,
+    heightMeasureSpec: number): number;
 
   /**
    * Stop a surface from running in JS and clears up native memory usage. Assumes that the native
@@ -23,7 +23,7 @@ export interface UIManager extends JSIModule {
    * parameters. offsetX and offsetY are the position of the RootView within the screen.
    */
   updateRootLayoutSpecs(
-	rootTag: number, widthMeasureSpec: number, heightMeasureSpec: number, offsetX: number, offsetY: number): void;
+    rootTag: number, widthMeasureSpec: number, heightMeasureSpec: number, offsetX: number, offsetY: number): void;
 
   /**
    * Dispatches the commandId received by parameter to the view associated with the reactTag. The

@@ -6,20 +6,20 @@ export class JSIModuleHolder {
   private mSpec: JSIModuleSpec<JSIModule>;
 
   constructor(spec: JSIModuleSpec<JSIModule>) {
-	this.mSpec = spec;
+    this.mSpec = spec;
   }
 
   public getJSIModule() {
-	if (this.mModule == null) {
-	  this.mModule = this.mSpec.getJSIModuleProvider().get();
-	  this.mModule.initialize();
-	}
-	return this.mModule;
+    if (this.mModule == null) {
+      this.mModule = this.mSpec.getJSIModuleProvider().get();
+      this.mModule.initialize();
+    }
+    return this.mModule;
   }
 
   public notifyJSInstanceDestroy() {
-	if (this.mModule != null) {
-	  this.mModule.onCatalystInstanceDestroy();
-	}
+    if (this.mModule != null) {
+      this.mModule.onCatalystInstanceDestroy();
+    }
   }
 }

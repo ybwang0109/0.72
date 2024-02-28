@@ -132,7 +132,7 @@ console.log(woman.name);
     add_subdirectory(aki)
     target_link_libraries(hello PUBLIC aki_jsbind)
     ```
-  
+    
 * **ohpm har包依赖**
 
   指定路径下（如：项目根路径/entry），输入如下命令安装ohpm har包依赖
@@ -146,9 +146,9 @@ console.log(woman.name);
     set(AKI_ROOT_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../../../oh_modules/@ohos/aki) # 设置AKI根路径
     set(CMAKE_MODULE_PATH ${AKI_ROOT_PATH})
     find_package(Aki REQUIRED)
-  
+
     ...
-  
+
     target_link_libraries(hello PUBLIC Aki::libjsbind) # 链接二进制依赖 & 头文件
     ```
 
@@ -860,8 +860,8 @@ void DoSomething() {
 
 ## <a id="type_conversion"> 类型转换 </a>
 
-|  **JavaScript**  | **C++** |
-| ---------------- | ------------------------ |
+|  **JavaScript**  | **C++** | 
+| ---------------- | ------------------------ | 
 | Boolean          | `bool`  <br> [参考](https://gitee.com/openharmony-sig/aki/blob/master/doc/type-conversion.md#boolean)                                     |
 | Number           | `uint8_t`, `int8_t`, `uint16_t`, `int16_t`, `short`, `int32`, `uint32`, `int64`, `float`, `double`, `enum` <br> [参考](https://gitee.com/openharmony-sig/aki/blob/master/doc/type-conversion.md#number) |
 | String           | `const char*`, `std::string` <br> [参考](https://gitee.com/openharmony-sig/aki/blob/master/doc/type-conversion.md#string)                |

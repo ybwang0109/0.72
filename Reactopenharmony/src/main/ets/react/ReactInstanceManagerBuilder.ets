@@ -4,8 +4,7 @@ import { ReactInstanceManager } from './ReactInstanceManager';
 
 
 export class ReactInstanceManagerBuilder {
-
-  private mApplicationContext: Context| undefined = undefined;
+  private mApplicationContext: Context | undefined = undefined;
   private mJSMainModulePath: string = "";
   private mUseDeveloperSupport: boolean = false;
   private mJSBundleAssetUrl: string | null = null;
@@ -15,20 +14,20 @@ export class ReactInstanceManagerBuilder {
   // private mTMMDelegateBuilder: ReactPackageTurboModuleManagerDelegateBuilder;
   // private mJSBundleLoader: JSBundleLoader;
 
-  public setTurboModuleWorker(workerInstance: worker.ThreadWorker | null ){
-	this.mTruboModuleWorkerInstance = workerInstance;
-	return this;
+  public setTurboModuleWorker(workerInstance: worker.ThreadWorker | null) {
+    this.mTruboModuleWorkerInstance = workerInstance;
+    return this;
   }
 
   public setJSIModulesPackage(jsiModulePackage: JSIModulePackage): ReactInstanceManagerBuilder {
-	this.mJSIModulesPackage = jsiModulePackage;
-	return this;
+    this.mJSIModulesPackage = jsiModulePackage;
+    return this;
   }
 
   /** Required. This must be your {@code Application} instance. */
-  public setApplication(applicationContext: Context):ReactInstanceManagerBuilder {
-	this.mApplicationContext = applicationContext;
-	return this;
+  public setApplication(applicationContext: Context): ReactInstanceManagerBuilder {
+    this.mApplicationContext = applicationContext;
+    return this;
   }
 
   /**
@@ -36,9 +35,9 @@ export class ReactInstanceManagerBuilder {
    * paths are relative to the root folder the packager is serving files from. Examples: {@code
    * "index.android"} or {@code "subdirectory/index.android"}
    */
-  public setJSMainModulePath( jsMainModulePath: string): ReactInstanceManagerBuilder {
-	this.mJSMainModulePath = jsMainModulePath;
-	return this;
+  public setJSMainModulePath(jsMainModulePath: string): ReactInstanceManagerBuilder {
+    this.mJSMainModulePath = jsMainModulePath;
+    return this;
   }
 
   /**
@@ -46,9 +45,9 @@ export class ReactInstanceManagerBuilder {
    * still have to call {@link #showDevOptionsDialog} to show the dev menu, e.g. when the device
    * Menu button is pressed.
    */
-  public  setUseDeveloperSupport( useDeveloperSupport: boolean): ReactInstanceManagerBuilder {
-	this.mUseDeveloperSupport = useDeveloperSupport;
-	return this;
+  public setUseDeveloperSupport(useDeveloperSupport: boolean): ReactInstanceManagerBuilder {
+    this.mUseDeveloperSupport = useDeveloperSupport;
+    return this;
   }
 
   /**
@@ -56,15 +55,15 @@ export class ReactInstanceManagerBuilder {
    *
    * <p>Example: {@code "assets://index.android.js" or "/sdcard/main.jsbundle"}
    */
-  public  setJSBundleFile( jsBundleFile: string): ReactInstanceManagerBuilder {
-	if (jsBundleFile.startsWith("assets://")) {
-	  this.mJSBundleAssetUrl = jsBundleFile;
-	  // this.mJSBundleLoader = null;
-	  return this;
-	}
-	//todo:需要适配JSBundleLoader能力
-	// return this.setJSBundleLoader(JSBundleLoader.createFileLoader(jsBundleFile));
-	return this;
+  public setJSBundleFile(jsBundleFile: string): ReactInstanceManagerBuilder {
+    if (jsBundleFile.startsWith("assets://")) {
+      this.mJSBundleAssetUrl = jsBundleFile;
+      // this.mJSBundleLoader = null;
+      return this;
+    }
+    //todo:需要适配JSBundleLoader能力
+    // return this.setJSBundleLoader(JSBundleLoader.createFileLoader(jsBundleFile));
+    return this;
   }
 
   /**
@@ -84,11 +83,11 @@ export class ReactInstanceManagerBuilder {
    * Name of the JS bundle file to be loaded from application's raw assets. Example: {@code
    * "index.android.js"}
    */
-  public  setBundleAssetName( bundleAssetName: string):ReactInstanceManagerBuilder {
-	this.mJSBundleAssetUrl = (bundleAssetName == null ? null : "assets://" + bundleAssetName);
-	//todo:需要适配JSBundleLoader能力
-	// this.mJSBundleLoader = null;
-	return this;
+  public setBundleAssetName(bundleAssetName: string): ReactInstanceManagerBuilder {
+    this.mJSBundleAssetUrl = (bundleAssetName == null ? null : "assets://" + bundleAssetName);
+    //todo:需要适配JSBundleLoader能力
+    // this.mJSBundleLoader = null;
+    return this;
   }
 
   // public setReactPackageTurboModuleManagerDelegateBuilder(builder: ReactPackageTurboModuleManagerDelegateBuilder): ReactInstanceManagerBuilder {
@@ -107,11 +106,11 @@ export class ReactInstanceManagerBuilder {
    *   <li>{@link #setJSBundleFile} or {@link #setJSMainModulePath}
    * </ul>
    */
-  public  build(): ReactInstanceManager {
-	return new ReactInstanceManager(
-	  this.mApplicationContext as Context,
-	  this.mTruboModuleWorkerInstance,
-	  this.mJSIModulesPackage as JSIModulePackage,
-	);
+  public build(): ReactInstanceManager {
+    return new ReactInstanceManager(
+      this.mApplicationContext as Context,
+      this.mTruboModuleWorkerInstance,
+      this.mJSIModulesPackage as JSIModulePackage,
+    );
   }
 }

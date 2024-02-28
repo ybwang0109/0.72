@@ -18,7 +18,7 @@
  *       triggered.
  * </ol>
  */
- export interface LifecycleEventListener {
+export interface LifecycleEventListener {
 
   /**
    * Called either when the host activity receives a resume event (e.g. {@link Activity#onResume} or
@@ -26,13 +26,13 @@
    * resumed. Always called for the most current activity.
    */
   onHostResume(): void;
-  
+
   /**
    * Called when host activity receives pause event (e.g. {@link Activity#onPause}. Always called
    * for the most current activity.
    */
   onHostPause(): void;
-  
+
   /**
    * Called when host activity receives destroy event (e.g. {@link Activity#onDestroy}. Only called
    * for the last React activity to be destroyed.

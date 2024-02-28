@@ -97,4 +97,4 @@ export interface EllipsisInserter<TTextExtraData extends Record<string, any>> {
     nextHiddenLine: MeasuredLine<TTextExtraData>,
     containerWidth: number,
   ): MeasuredLine<TTextExtraData>;
-}	
+}

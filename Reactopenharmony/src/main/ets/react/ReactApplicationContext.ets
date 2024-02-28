@@ -8,7 +8,7 @@ export class ReactApplicationContext extends ReactContext {
   // We want to wrap ApplicationContext, since there is no easy way to verify that application
   // context is passed as a param, we use {@link Context#getApplicationContext} to ensure that
   // the context we're wrapping is in fact an application context.
-   constructor(context: Context) {
-	 super(context);
-   }
+  constructor(context: Context) {
+    super(context);
+  }
 }

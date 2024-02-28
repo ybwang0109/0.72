@@ -103,16 +103,16 @@ export class UnhyphenatedWordWrapStrategy<
           (containerConfig.padding?.right ?? 0));
     }
     return this.distributeMeasuredTokensAcrossLines(
-        measuredTokens,
-        contentContainerWidth,
-      ).map(lineOfMeasuredTokens => ({
-        positionedFragments: convertMeasuredFragmentsToPositionedFragments(
-          reduceMeasuredFragments(lineOfMeasuredTokens),
-        ),
-        size: this.getLineSizeFromMeasuredTokens(lineOfMeasuredTokens),
-      }));
-    }
-  
+      measuredTokens,
+      contentContainerWidth,
+    ).map(lineOfMeasuredTokens => ({
+      positionedFragments: convertMeasuredFragmentsToPositionedFragments(
+        reduceMeasuredFragments(lineOfMeasuredTokens),
+      ),
+      size: this.getLineSizeFromMeasuredTokens(lineOfMeasuredTokens),
+    }));
+  }
+
   private getLineSizeFromMeasuredTokens(measuredTokens: MeasuredToken[]): Size {
     const width = measuredTokens
       .map(measuredFragment => measuredFragment.size.width)
@@ -326,4 +326,4 @@ function findLastIndex<T>(
     }
   }
   return undefined;
-}	
+}

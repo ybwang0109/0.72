@@ -7,7 +7,7 @@ export interface JSIModule {
    * CatalystInstance or JS modules.
    */
   initialize(): void;
-  
+
   /** Called before {CatalystInstance#onHostDestroy} */
   onCatalystInstanceDestroy(): void;
-}	
+}

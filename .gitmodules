@@ -99,4 +99,4 @@
 	url = https://github.com/boostorg/winapi.git
 [submodule "ReactOpenHarmony/src/main/cpp/third-party/boost/libs/spirit"]
 	path = ReactOpenHarmony/src/main/cpp/third-party/boost/libs/spirit
-	url = https://github.com/boostorg/spirit.git 
+	url = https://github.com/boostorg/spirit.git

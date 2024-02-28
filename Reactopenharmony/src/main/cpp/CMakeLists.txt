@@ -416,7 +416,7 @@ set(glog_include_dir "${third_party_dir}/glog/src")
 set(glog_src_dir "${third_party_dir}/glog/src")
 add_library(glog_target)
 target_include_directories(glog_target PUBLIC
-	"${glog_include_dir}"
+    "${glog_include_dir}"
 	"${glog_include_dir}/base"
 )
 target_sources(glog_target PRIVATE

@@ -1,14 +1,14 @@
 import {
-    EllipsisInserter,
-    MeasuredFragment,
-    MeasuredLine,
-    Position,
-    PositionedFragment,
-    Size,
-    TextFragment,
-    TextFragmentMeasurer,
-  } from './types';
-  
+  EllipsisInserter,
+  MeasuredFragment,
+  MeasuredLine,
+  Position,
+  PositionedFragment,
+  Size,
+  TextFragment,
+  TextFragmentMeasurer,
+} from './types';
+
 export class TailEllipsisInserter<TTextExtraData extends Record<string, any>>
   implements EllipsisInserter<TTextExtraData>
 {
@@ -98,8 +98,8 @@ export class TailEllipsisInserter<TTextExtraData extends Record<string, any>>
     if (measuredTextFragment.fragment.type !== 'text') {
       return line;
     }
-    let lastPositionedFragmentPositionRelativeToLine: Position = {x: 0, y: 0};
-    let lastPositionedFragmentSize: Size = {width: 0, height: 0};
+    let lastPositionedFragmentPositionRelativeToLine: Position = { x: 0, y: 0 };
+    let lastPositionedFragmentSize: Size = { width: 0, height: 0 };
     if (line.positionedFragments.length > 0) {
       const lastPositionedFragment =
         line.positionedFragments[line.positionedFragments.length - 1];
@@ -114,8 +114,8 @@ export class TailEllipsisInserter<TTextExtraData extends Record<string, any>>
           ...measuredTextFragment,
           positionRelativeToLine: {
             x:
-              lastPositionedFragmentPositionRelativeToLine.x +
-              lastPositionedFragmentSize.width,
+            lastPositionedFragmentPositionRelativeToLine.x +
+            lastPositionedFragmentSize.width,
             y: lastPositionedFragmentPositionRelativeToLine.y,
           },
         },
@@ -155,7 +155,7 @@ export class TailEllipsisInserter<TTextExtraData extends Record<string, any>>
             {
               ...lastFittingMeasuredTextFragment,
               positionRelativeToLine:
-                lastPositionedTextFragment.positionRelativeToLine,
+              lastPositionedTextFragment.positionRelativeToLine,
             },
           ];
           return {
@@ -169,7 +169,7 @@ export class TailEllipsisInserter<TTextExtraData extends Record<string, any>>
             },
           };
         }
-        lastFittingMeasuredTextFragment = {fragment: textFragment, size};
+        lastFittingMeasuredTextFragment = { fragment: textFragment, size };
       }
     }
     return null;
@@ -190,8 +190,8 @@ export class TailEllipsisInserter<TTextExtraData extends Record<string, any>>
           ...ellipsisMeasuredFragment,
           positionRelativeToLine: {
             x:
-              lastPositionedFragment.positionRelativeToLine.x +
-              lastPositionedFragment.size.width,
+            lastPositionedFragment.positionRelativeToLine.x +
+            lastPositionedFragment.size.width,
             y: lastPositionedFragment.positionRelativeToLine.y,
           },
         },

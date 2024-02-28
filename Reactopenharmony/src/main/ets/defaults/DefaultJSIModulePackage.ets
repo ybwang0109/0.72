@@ -19,18 +19,18 @@ export class DefaultJSIModulePackage implements JSIModulePackage {
   private mReactNativeHost: ReactNativeHost;
 
   constructor(reactNativeHost: ReactNativeHost) {
-	this.mReactNativeHost = reactNativeHost;
+    this.mReactNativeHost = reactNativeHost;
   }
 
   getImportPath(): string {
-	return "ReactOpenHarmony/src/main/ets/defaults/DefaultJSIModulePackage.ets";
+    return "ReactOpenHarmony/src/main/ets/defaults/DefaultJSIModulePackage.ets";
   }
 
   getJSIModules(reactApplicationContext: ReactApplicationContext): ArrayList<JSIModuleSpec<JSIModule>> {
-	const jsiModuleSpecList: ArrayList<JSIModuleSpec<JSIModule>> = new ArrayList<JSIModuleSpec<JSIModule>>();
-	jsiModuleSpecList.add(new JSIModuleSpecForFabric(reactApplicationContext, this.mReactNativeHost));
-	jsiModuleSpecList.add(new JSIModuleSpecForTurboModule(reactApplicationContext, this.mReactNativeHost));
-	return jsiModuleSpecList;
+    const jsiModuleSpecList: ArrayList<JSIModuleSpec<JSIModule>> = new ArrayList<JSIModuleSpec<JSIModule>>();
+    jsiModuleSpecList.add(new JSIModuleSpecForFabric(reactApplicationContext, this.mReactNativeHost));
+    jsiModuleSpecList.add(new JSIModuleSpecForTurboModule(reactApplicationContext, this.mReactNativeHost));
+    return jsiModuleSpecList;
   }
 }
 
@@ -39,27 +39,27 @@ class JSIModuleSpecForFabric implements JSIModuleSpec<UIManager> {
   private mReactNativeHost: ReactNativeHost;
 
   constructor(reactApplicationContext: ReactApplicationContext, reactNativeHost: ReactNativeHost) {
-	this.mReactApplicationContext = reactApplicationContext;
-	this.mReactNativeHost = reactNativeHost;
+    this.mReactApplicationContext = reactApplicationContext;
+    this.mReactNativeHost = reactNativeHost;
   }
 
-  getImportPath(): string{
-	return "ReactOpenHarmony/src/main/ets/defaults/DefaultJSIModulePackage.ets";
+  getImportPath(): string {
+    return "ReactOpenHarmony/src/main/ets/defaults/DefaultJSIModulePackage.ets";
   }
 
   getJSIModuleType(): JSIModuleType {
-	return JSIModuleType.UIManager;
+    return JSIModuleType.UIManager;
   }
 
   getJSIModuleProvider(): JSIModuleProvider<UIManager> {
-	let componentFactory:ComponentFactory = new ComponentFactory();
-	new DefaultComponentsRegistry(componentFactory);
+    let componentFactory: ComponentFactory = new ComponentFactory();
+    new DefaultComponentsRegistry(componentFactory);
 
-	let viewManagers = createViewManagers();//todo: 从reactNativeHost.reactInstanceManager.getOrCreateViewManagers(reactApplicationContext)获取。
-	let viewManagerRegistry = new ViewManagerRegistry(viewManagers);
+    let viewManagers = createViewManagers(); //todo: 从reactNativeHost.reactInstanceManager.getOrCreateViewManagers(reactApplicationContext)获取。
+    let viewManagerRegistry = new ViewManagerRegistry(viewManagers);
 
 
-	return new FabricJSIModuleProvider(this.mReactApplicationContext, componentFactory, viewManagerRegistry);
+    return new FabricJSIModuleProvider(this.mReactApplicationContext, componentFactory, viewManagerRegistry);
   }
 }
 
@@ -68,19 +68,19 @@ class JSIModuleSpecForTurboModule implements JSIModuleSpec<TurboModuleManager> {
   private mReactNativeHost: ReactNativeHost;
 
   constructor(
-	reactApplicationContext: ReactApplicationContext,
-	reactNativeHost: ReactNativeHost
+    reactApplicationContext: ReactApplicationContext,
+    reactNativeHost: ReactNativeHost
   ) {
-	this.mReactApplicationContext = reactApplicationContext;
-	this.mReactNativeHost = reactNativeHost;
+    this.mReactApplicationContext = reactApplicationContext;
+    this.mReactNativeHost = reactNativeHost;
   }
 
   getJSIModuleType(): JSIModuleType {
-	return JSIModuleType.TurboModuleManager;
+    return JSIModuleType.TurboModuleManager;
   }
 
   getJSIModuleProvider(): JSIModuleProvider<TurboModuleManager> {
-	throw new Error('getJSIModuleProvider Method not implemented.');
+    throw new Error('getJSIModuleProvider Method not implemented.');
   }
 }
 

@@ -5,7 +5,7 @@ export interface JavaScriptExecutor {
    * after this. TODO mhorowitz: This may no longer be used; check and delete if possible.
    */
   close(): void
-  
+
   /** Returns the name of the executor, identifying the underlying runtime. */
   getName(): string;
 }

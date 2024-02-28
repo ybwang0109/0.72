@@ -12,31 +12,31 @@ export class JSIModuleRegistry {
   }
 
   getModule(moduleType: JSIModuleType) {
-	let jsiModuleHolder = this.mModules.get(moduleType);
-	if (jsiModuleHolder == null) {
-	  throw new Error("Unable to find JSIModule for class " + moduleType);
-	}
-	let jsiModule: JSIModule = jsiModuleHolder.getJSIModule();
-	if (jsiModule == null) {
-	  throw new Error("Unable to find JSIModule for class " + moduleType + " in JSIModuleHolder");
-	}
-	return jsiModule;
+    let jsiModuleHolder = this.mModules.get(moduleType);
+    if (jsiModuleHolder == null) {
+      throw new Error("Unable to find JSIModule for class " + moduleType);
+    }
+    let jsiModule: JSIModule = jsiModuleHolder.getJSIModule();
+    if (jsiModule == null) {
+      throw new Error("Unable to find JSIModule for class " + moduleType + " in JSIModuleHolder");
+    }
+    return jsiModule;
   }
 
   registerModules(jsiModules: ArrayList<JSIModuleSpec<JSIModule>>) {
-	for (let spec of jsiModules) {
-	  this.mModules.set(spec.getJSIModuleType(), new JSIModuleHolder(spec));
-	}
+    for (let spec of jsiModules) {
+      this.mModules.set(spec.getJSIModuleType(), new JSIModuleHolder(spec));
+    }
   }
 
   notifyJSInstanceDestroy() {
-	for (let moduleType of this.mModules.keys()) {
-	  if (moduleType == JSIModuleType.TurboModuleManager) {
-		continue;
-	  }
+    for (let moduleType of this.mModules.keys()) {
+      if (moduleType == JSIModuleType.TurboModuleManager) {
+        continue;
+      }
 
-	  let moduleHolder: JSIModuleHolder = this.mModules.get(moduleType);
-	  moduleHolder.notifyJSInstanceDestroy();
-	}
+      let moduleHolder: JSIModuleHolder = this.mModules.get(moduleType);
+      moduleHolder.notifyJSInstanceDestroy();
+    }
   }
 }

@@ -11,13 +11,13 @@ export class FabricJSIModuleProvider implements JSIModuleProvider<UIManager> {
   private mComponentFactory: ComponentFactory
 
   constructor(reactApplicationContext: ReactApplicationContext, componentFactory: ComponentFactory, viewManagerRegistry: ViewManagerRegistry) {
-	this.mReactApplicationContext = reactApplicationContext;
-	this.mViewManagerRegistry = viewManagerRegistry;
-	this.mComponentFactory = componentFactory;
+    this.mReactApplicationContext = reactApplicationContext;
+    this.mViewManagerRegistry = viewManagerRegistry;
+    this.mComponentFactory = componentFactory;
   }
 
   get(): UIManager {
-	const uiManager: FabricUIManager = new FabricUIManager(this.mReactApplicationContext, this.mComponentFactory, this.mViewManagerRegistry);
-	return uiManager;
+    const uiManager: FabricUIManager = new FabricUIManager(this.mReactApplicationContext, this.mComponentFactory, this.mViewManagerRegistry);
+    return uiManager;
   }
 }

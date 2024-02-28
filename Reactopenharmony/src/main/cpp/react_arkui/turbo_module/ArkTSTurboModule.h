@@ -66,7 +66,7 @@ class ArkTSTurboModule : public TurboModule {
                                    const std::string &methodName,
                                    const facebook::jsi::Value *args,
                                    size_t argsCount);
-   
+
   protected:
     Context m_ctx;
 };

@@ -25,7 +25,7 @@ ArkTSTurboModule::ArkTSTurboModule(Context ctx, std::string name) : m_ctx(ctx), 
 // calls a TurboModule method and blocks until it returns, returning its result
 jsi::Value ArkTSTurboModule::call(jsi::Runtime &runtime, const std::string &methodName, const jsi::Value *jsiArgs, size_t argsCount) {
     folly::dynamic result;
-
+        
 //     if ( strcmp("getInitialInsets", methodName.c_str()) == 0 ){
 //         LOG(INFO) << "longhaitao  methodName " << methodName;
 //         std::string jsonStr = R"({"bottom":0,"left":8,"right":8,"top":38.857142857142854})";
@@ -33,7 +33,7 @@ jsi::Value ArkTSTurboModule::call(jsi::Runtime &runtime, const std::string &meth
 //         LOG(INFO) << "longhaitao  " << jsonObj;
 //         return jsi::valueFromDynamic(runtime, jsonObj);
 //     }
-       
+        
     auto args = convertJSIValuesToIntermediaryValues(runtime, m_ctx.jsInvoker, jsiArgs, argsCount);
     m_ctx.taskExecutor->runSyncTask(TaskThread::MAIN, [ctx = m_ctx, &methodName, &args, &result, &runtime]() {
         ArkJS arkJs(ctx.env);
@@ -42,7 +42,7 @@ jsi::Value ArkTSTurboModule::call(jsi::Runtime &runtime, const std::string &meth
         auto napiResult = napiTurboModuleObject.call(methodName, napiArgs);
         result = arkJs.getDynamic(napiResult);
 
-//         LOG(INFO) << "longhaitao " << result;
+//         LOG(INFO) << "longhaitao  " << result;
     });
     return jsi::valueFromDynamic(runtime, result);
 }

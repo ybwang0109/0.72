@@ -268,7 +268,7 @@ export type OHOSMeasurerTextFragmentExtraData = {
   fontWeight?: number;
   lineHeight?: number;
 };
-  
+
 export class OHOSTextFragmentMeasurer
 implements TextFragmentMeasurer<OHOSMeasurerTextFragmentExtraData> {
   private sizeByMeasuredTextFragmentHash = new Map<string, Size>()

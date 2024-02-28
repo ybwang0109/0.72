@@ -1,5 +1,5 @@
 import worker, { ThreadWorkerGlobalScope, MessageEvents, ErrorEvent } from '@ohos.worker';
-import { CatalystInstanceWorkerHost } from '@ohos/react-openharmony';
+import { CatalystInstanceWorkerHost  } from '@ohos/react-openharmony';
 import hilog from '@ohos.hilog';
 
 const workerPort: ThreadWorkerGlobalScope = worker.workerPort;
@@ -12,18 +12,17 @@ const ReactTurboModule: CatalystInstanceWorkerHost = new CatalystInstanceWorkerH
  * @param e message data
  */
 workerPort.onmessage = (e: MessageEvents) => {
-   hilog.info(0x0000, "ReactWorker", 'receive a message "%{public}s"', e.data);
-   ReactTurboModule.onmessage(e);
+  hilog.info(0x0000, "ReactWorker", 'receive a message "%{public}s"', e.data);
+  ReactTurboModule.onmessage(e);
 }
 
 /**
- * Defines the event handler to be called when the worker  receives a message that cannot be deserialized.
+ * Defines the event handler to be called when the worker receives a message that cannot be deserialized.
  * The event handler is executed in the worker thread.
  *
  * @param e message data
  */
-
-workerPort.onmessageerror = ( e: MessageEvents) => {
+workerPort.onmessageerror = (e: MessageEvents) => {
   ReactTurboModule.onmessageerror(e);
 }
 
@@ -33,7 +32,6 @@ workerPort.onmessageerror = ( e: MessageEvents) => {
  *
  * @param e error message
  */
- workerPort.onerror = (e: ErrorEvent) => {
+workerPort.onerror = (e: ErrorEvent) => {
   ReactTurboModule.onerror(e);
- }
- 
+}

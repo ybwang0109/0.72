@@ -16,13 +16,13 @@ export class ReactAbilityDelegate {
   private mMainComponentName: string;
 
   public constructor(Ability: ReactAbility, MainComponentName: string) {
-	this.mAbility = Ability;
-	this.mMainComponentName = MainComponentName;
+    this.mAbility = Ability;
+    this.mMainComponentName = MainComponentName;
   }
 
-  public  getMainComponentName():string {
-	hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'getMainComponentName');
-	return this.mMainComponentName;
+  public getMainComponentName(): string {
+    hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'getMainComponentName');
+    return this.mMainComponentName;
   }
 
   /**
@@ -31,9 +31,9 @@ export class ReactAbilityDelegate {
    *
    * @return Either null or a key-value map as a Bundle
    */
-  protected getLaunchOptions():string | null{
-	hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'getLaunchOptions');
-	return null;
+  protected getLaunchOptions(): string | null {
+    hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'getLaunchOptions');
+    return null;
   }
 
   /**
@@ -44,25 +44,25 @@ export class ReactAbilityDelegate {
    *
    * @return Wether you want to enable Concurrent Root for this surface or not.
    */
-  protected  isConcurrentRootEnabled():boolean {
-	hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'isConcurrentRootEnabled');
-	return false;
+  protected isConcurrentRootEnabled(): boolean {
+    hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'isConcurrentRootEnabled');
+    return false;
   }
 
   protected getPlainAbility(): ReactAbility {
-	hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'getPlainActivity');
-	return this.mAbility;
+    hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'getPlainActivity');
+    return this.mAbility;
   }
 
-  private composeLaunchOptions():string {
-	let  composedLaunchOptions: string | null = this.getLaunchOptions();
-	if (this.isConcurrentRootEnabled()) {
-	  if (composedLaunchOptions == null) {
-		composedLaunchOptions = "";
-	  }
-	  //composedLaunchOptions.putBoolean("concurrentRoot", true);
-	}
-	return composedLaunchOptions as string;
+  private composeLaunchOptions(): string {
+    let composedLaunchOptions: string | null = this.getLaunchOptions();
+    if (this.isConcurrentRootEnabled()) {
+      if (composedLaunchOptions == null) {
+        composedLaunchOptions = "";
+      }
+      //composedLaunchOptions.putBoolean("concurrentRoot", true);
+    }
+    return composedLaunchOptions as string;
   }
 
   /**
@@ -72,43 +72,43 @@ export class ReactAbilityDelegate {
    * implement {@code ReactApplication} or you simply have a different mechanism for storing a
    * {@code ReactNativeHost}, e.g. as a static field somewhere.
    */
-  protected  getReactNativeHost(): ReactNativeHost {
-	hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'getReactNativeHost');
-	return ReactNativeHost.getInstance() as ReactNativeHost;
+  protected getReactNativeHost(): ReactNativeHost {
+    hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'getReactNativeHost');
+    return ReactNativeHost.getInstance() as ReactNativeHost;
   }
 
   public onCreate() {
-	hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'onCreate');
-	let mainComponentName: string = this.getMainComponentName();
-	let launchOptions: string = this.composeLaunchOptions();
-	this.mReactDelegate =
-	  new ReactDelegate(
-		this.getPlainAbility(), this.getReactNativeHost(), mainComponentName, launchOptions);
+    hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'onCreate');
+    let mainComponentName: string = this.getMainComponentName();
+    let launchOptions: string = this.composeLaunchOptions();
+    this.mReactDelegate =
+      new ReactDelegate(
+        this.getPlainAbility(), this.getReactNativeHost(), mainComponentName, launchOptions);
 
-	if (mainComponentName != null) {
-	  this.loadApp(mainComponentName);
-	}
+    if (mainComponentName != null) {
+      this.loadApp(mainComponentName);
+    }
   }
 
   protected loadApp(appKey: string): void {
-	hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'loadApp');
-	this.mReactDelegate?.loadApp(appKey);
-	this.getPlainAbility().setContentView(this.mReactDelegate?.getReactRootView());
+    hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'loadApp');
+    this.mReactDelegate?.loadApp(appKey);
+    this.getPlainAbility().setContentView(this.mReactDelegate?.getReactRootView());
   }
 
   public onDestroy() {
-	hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'onDestroy');
-	// this.mReactDelegate?.onHostDestroy();
+    hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'onDestroy');
+    // this.mReactDelegate?.onHostDestroy();
   }
 
 
   public onForeground() {
-	hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'onForeground');
-	// this.mReactDelegate?.onHostResume();
+    hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'onForeground');
+    // this.mReactDelegate?.onHostResume();
   }
 
   public onBackground() {
-	hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'onBackground');
-	// this.mReactDelegate?.onHostPause();
+    hilog.info(0x0000, this.ReactAbilityDelegate, '%{public}s', 'onBackground');
+    // this.mReactDelegate?.onHostPause();
   }
 }

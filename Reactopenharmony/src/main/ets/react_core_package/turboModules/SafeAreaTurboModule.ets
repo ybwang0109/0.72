@@ -19,7 +19,7 @@ export class SafeAreaTurboModule extends TurboModule {
 
   public getInitialInsets(): SafeAreaInsets {
 
-	return defaultDisplayMetrics
+    return defaultDisplayMetrics
   }
 }
 

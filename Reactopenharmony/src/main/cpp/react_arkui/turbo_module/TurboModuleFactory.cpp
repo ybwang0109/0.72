@@ -20,7 +20,7 @@ namespace rnoh {
             LOG(INFO) << "Cache hit. Providing '" << moduleName << "' Turbo Module";
             return m_cache[moduleName];
         }
- 
+
         LOG(INFO) << "Providing Turbo Module: " << moduleName;
         SharedTurboModule turboModule;
 

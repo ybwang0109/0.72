@@ -7,11 +7,10 @@ export class MountingManager {
   constructor() {
   }
 
-  public startSurface(surfaceId: number, rootView: ReactRoot ){
-	this.mRootView = rootView as ReactRootView;
+  public startSurface(surfaceId: number, rootView: ReactRoot) {
+    this.mRootView = rootView as ReactRootView;
 
-	//todo:创建一个SurfaceMountingManager，管理mTagToViewState，线性表。这个表怎么可以映射到RTNSurface上绑定。
-	//ViewState为抽象节点
+    //todo:创建一个SurfaceMountingManager，管理mTagToViewState，线性表。这个表怎么可以映射到RTNSurface上绑定。
+    //ViewState为抽象节点
   }
-
 }

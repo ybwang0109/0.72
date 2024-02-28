@@ -3,6 +3,6 @@ import { ComponentFactory } from '../fabric/ComponentFactory';
 
 export class DefaultComponentsRegistry extends default_components_registry {
   constructor(componentFactory: ComponentFactory) {
-	super(componentFactory);
+    super(componentFactory);
   }
 }

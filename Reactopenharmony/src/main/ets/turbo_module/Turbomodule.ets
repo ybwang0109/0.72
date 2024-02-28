@@ -12,7 +12,7 @@ export class TurboModule {
   protected ctx: TurboModuleContext
 
   public constructor(context: TurboModuleContext) {
-	this.ctx = context;
+    this.ctx = context;
   }
 }
 
