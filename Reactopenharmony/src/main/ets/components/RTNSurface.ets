@@ -25,9 +25,11 @@ export struct RTNSurface {
           .onClick(() => {
             // rnoh.startReactNative()
           })
-        Flex({direction: FlexDirection.Column}) {
-
-        }
+	      XComponent({
+		    id: "5",
+		    type: "node",
+		    libraryname: 'react_arkui'
+	      })
         .width("100%")
         .height(700)
         .shadow({radius: 16})

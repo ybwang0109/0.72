@@ -32,6 +32,8 @@ namespace rnoh {
 
         bool isStopped();
 
+        void attachRootViewToWindow();
+
         void preallocateView(Tag tag, ComponentName componentName, folly::dynamic props, State::Shared state,
                              EventEmitter::Shared eventEmitter, bool isLayoutable);
 
@@ -67,6 +69,7 @@ namespace rnoh {
         JSBIND_CONSTRUCTOR<SurfaceId>();
         JSBIND_METHOD(bindingArkTsParty);
         JSBIND_METHOD(registryViewManager);
+        JSBIND_METHOD(attachRootViewToWindow);
     }
 } // namespace rnoh
 #endif // SURFACE_MOUNTING_MANAGER_H

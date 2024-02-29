@@ -28,6 +28,8 @@
 
 #include <aki/jsbind.h>
 
+#include <ace/xcomponent/native_interface_xcomponent.h>
+
 namespace rnoh {
 
     class RNOHFabricUIManager : public facebook::react::LayoutAnimationStatusDelegate {
@@ -54,7 +56,7 @@ namespace rnoh {
             m_arkTsChannel = std::make_shared<ArkTSChannel>(taskExecutor, ArkJS(env), napiEventDispatcherRef);
         }
 
-        static std::unique_ptr<RNOHFabricUIManager> FabricInstances;
+        static OH_NativeXComponent *XComponentSurface;
 
     private:
         napi_env env;

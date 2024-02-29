@@ -6,8 +6,11 @@
 
 #include "surface_mounting_manager.h"
 #include "react_arkui/LogSink.h"
+#include "react_arkui/fabric/RootView.h"
 #include "react_arkui/fabric/arkui_view.h"
 #include "react_arkui/fabric/view_state.h"
+
+#include "react_arkui/fabric/RNOHFabricUIManager.h"
 
 namespace rnoh {
 
@@ -27,6 +30,32 @@ namespace rnoh {
         ViewManagerRegistry_.insert_or_assign(managerName, viewManager);
     }
 
+    void surface_mounting_manager::attachRootViewToWindow(){
+    
+        char const * componentName = "RootView";
+        view_manager<arkui_view> *viewManager = nullptr;
+        arkui_view *view = nullptr;
+        Tag reactTag = 1;
+ 
+        LOG(ERROR) << "surface_mounting_manager::addRootView " << componentName;
+        auto it = ViewManagerRegistry_.find(componentName);
+        if (it == ViewManagerRegistry_.end()) {
+            LOG(ERROR) << "surface_mounting_manager::createViewOnMainThread get view_manager error!";
+            return;
+        }
+ 
+        viewManager = it->second;
+        view = viewManager->createView(reactTag, nullptr, nullptr, nullptr);
+    
+        LOG(ERROR) << "surface_mounting_manager::viewManager->createView view is " << view;
+ 
+        auto viewState = std::make_shared<view_state>(reactTag, view, viewManager);
+        TagToViewState_.insert_or_assign(reactTag, viewState);
+ 
+        RootView * Rootview = (RootView *)view;
+        Rootview->attachedToWindow(RNOHFabricUIManager::XComponentSurface);
+    }
+    
     void surface_mounting_manager::preallocateView(Tag tag, ComponentName componentName, folly::dynamic props,
                                                    State::Shared state, EventEmitter::Shared eventEmitter,
                                                    bool isLayoutable) {

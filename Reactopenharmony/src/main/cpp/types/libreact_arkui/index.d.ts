@@ -30,6 +30,7 @@ export abstract class surface_mounting_manager{
   constructor(surfaceId: number);
   bindingArkTsParty(surface_mounting_manager: surface_mounting_manager);
   registryViewManager(managerName: string, viewManager: view_manager);
+  attachRootViewToWindow();
 }
 
 export class component_factory{
@@ -42,6 +43,11 @@ export class default_components_registry{
 
 export interface view_manager {
   getName(): string;
+}
+
+export abstract class RootView_manager{
+  constructor(componentName: string);
+  bindingArkTsParty(view_manager: RootView_manager);
 }
 
 export abstract class RCTView_manager{

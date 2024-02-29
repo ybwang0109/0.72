@@ -5,6 +5,10 @@
 #include "react_arkui/fabric/RNOHFabricUIManager.h"
 #include "react_arkui/LogSink.h"
 
+#include <ace/xcomponent/native_interface_xcomponent.h>
+#include <arkui/native_interface.h>
+#include <arkui/native_node.h>
+
 #define LOG_TAG "RTNArkUI_CPP"
 
 using namespace rnoh;
@@ -23,6 +27,44 @@ static napi_value emitEvent(napi_env env, napi_callback_info info) {
     return ark_js.getUndefined();
 }
 
+static void registerNativeXComponent(napi_env env, napi_value exports) {
+
+	LOG(ERROR) << "registerNativeXComponent: begin";
+ 
+	if ((env == nullptr) || (exports == nullptr)) {
+		LOG(ERROR) << "registerNativeXComponent: env or exports is null"
+				   << "\n";
+		return;
+	}
+ 
+	napi_value exportInstance = nullptr;
+	if (napi_get_named_property(env, exports, OH_NATIVE_XCOMPONENT_OBJ, &exportInstance) != napi_ok) {
+		LOG(ERROR) << "registerNativeXComponent: napi_get_named_property fail"
+				   << "\n";
+		return;
+	}
+ 
+	OH_NativeXComponent *nativeXComponent = nullptr;
+	if (napi_unwrap(env, exportInstance, reinterpret_cast<void **>(&nativeXComponent)) != napi_ok) {
+		LOG(ERROR) << "registerNativeXComponent: napi_get_named_property fail"
+				   << "\n";
+		return;
+	}
+ 
+	char idStr[OH_XCOMPONENT_ID_LEN_MAX + 1] = {'\0'};
+	uint64_t idSize = OH_XCOMPONENT_ID_LEN_MAX + 1;
+	if (OH_NativeXComponent_GetXComponentId(nativeXComponent, idStr, &idSize) != OH_NATIVEXCOMPONENT_RESULT_SUCCESS) {
+		LOG(ERROR) << "registerNativeXComponent: OH_NativeXComponent_GetXComponentId fail"
+				   << "\n";
+		return;
+	}
+ 
+	LOG(ERROR) << "registerNativeXComponent: idStr = " << idStr;
+	RNOHFabricUIManager::XComponentSurface = nativeXComponent;
+ 
+	LOG(ERROR) << "registerNativeXComponent: end";
+}
+
 EXTERN_C_START
 static napi_value Init(napi_env env, napi_value exports) {
     LogSink::initializeLogging();
@@ -32,6 +74,8 @@ static napi_value Init(napi_env env, napi_value exports) {
     napi_define_properties(env, exports, sizeof(desc) / sizeof(napi_property_descriptor), desc);
 
     exports = aki::JSBind::BindSymbols(env, exports);
+
+    registerNativeXComponent(env, exports);
 
     return exports;
 }

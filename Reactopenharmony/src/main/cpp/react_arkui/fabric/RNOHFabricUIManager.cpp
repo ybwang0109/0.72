@@ -32,12 +32,7 @@ const std::string instanceName = "testInstance";
 using namespace facebook;
 namespace rnoh {
 
-std::unique_ptr<RNOHFabricUIManager> RNOHFabricUIManager::FabricInstances;
-void addInstanceToStaticVariable(RNOHFabricUIManager *inputInstance) {
-    std::unique_ptr<RNOHFabricUIManager> temp;  
-    temp.reset(inputInstance);
-    RNOHFabricUIManager::FabricInstances = std::move(temp);
-}
+OH_NativeXComponent* RNOHFabricUIManager::XComponentSurface;
 
 RNOHFabricUIManager::RNOHFabricUIManager(fabric_mounting_manager *mountingManager)
     : fabricMountingManager_(mountingManager),
@@ -59,7 +54,6 @@ RNOHFabricUIManager::RNOHFabricUIManager(fabric_mounting_manager *mountingManage
     this->instance = native_catalyst_instance::instancesByName[instanceName]->instance_;
     this->taskExecutor = native_catalyst_instance::instancesByName[instanceName]->taskExecutor;
 
-    addInstanceToStaticVariable(this); // todo:临时通过全局变量管理实例，需要该实例应该由JS实例持有
 }
 
 RNOHFabricUIManager::~RNOHFabricUIManager() {

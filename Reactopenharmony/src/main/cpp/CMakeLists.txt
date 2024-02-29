@@ -442,7 +442,7 @@ target_compile_options(glog_target PRIVATE
 #file(GLOB boost_include_dirs "${boost_libs_dir}/*/include")
 #add_library(Boost::context SHARED IMPORTED)
 #set_property(TARGET Boost::context PROPERTY
-				IMPORTED_LOCATION "${third_party_dir}/prebuilt/${OHOS_ARCH}/libboost_context.a")
+#				IMPORTED_LOCATION "${third_party_dir}/prebuilt/${OHOS_ARCH}/libboost_context.a")
 
 
 # BOOST
@@ -774,6 +774,8 @@ add_library(react_arkui SHARED
 	"${RNOH_CPP_DIR}/react_arkui/fabric/base_view_manager.hpp"
 	"${RNOH_CPP_DIR}/react_arkui/fabric/view_group_manager.hpp"
 	"${RNOH_CPP_DIR}/react_arkui/fabric/simple_view_manager.hpp"
+	"${RNOH_CPP_DIR}/react_arkui/fabric/RootView_manager.cpp"	
+    "${RNOH_CPP_DIR}/react_arkui/fabric/RootView.cpp"
 	"${RNOH_CPP_DIR}/react_arkui/fabric/view_state.cpp"
 	"${RNOH_CPP_DIR}/react_arkui/fabric/component_factory.cpp"
 
@@ -817,6 +819,7 @@ target_include_directories(react_arkui PUBLIC
 )
 target_link_libraries(react_arkui PUBLIC
 	libace_napi.z.so
+	libace_ndk.z.so
 	libhilog_ndk.z.so
 	libnative_vsync.so
 	libnative_drawing.so

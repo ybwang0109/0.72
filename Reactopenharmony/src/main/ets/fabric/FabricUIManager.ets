@@ -5,7 +5,6 @@ import { LifecycleEventListener } from '../react/LifecycleEventListener';
 import { ReactApplicationContext } from '../react/ReactApplicationContext';
 import { RNOHFabricUIManager } from 'libreact_arkui.so'
 import { ReactRoot } from '../react/ReactRoot';
-import { MountingManager } from './mounting/MountingManager';
 import { ViewManagerRegistry } from './ViewManagerRegistry'
 
 import { FabricMountingManager } from './mounting/FabricMountingManager';
@@ -17,7 +16,6 @@ import { ComponentFactory } from './ComponentFactory';
 export class FabricUIManager implements UIManager, LifecycleEventListener {
   private mReactApplicationContext: ReactApplicationContext;
   private mRNOHFabricUIManager: RNOHFabricUIManager;
-  private mMountingManager: MountingManager = new MountingManager();
   private mFabricMountingManager: FabricMountingManager;
   private mViewManagerRegistry: ViewManagerRegistry;
   private mComponentFactory: ComponentFactory;
@@ -50,8 +48,7 @@ export class FabricUIManager implements UIManager, LifecycleEventListener {
 
     let rootTag: number = rootView.getRootViewTag();
 
-    this.mMountingManager.startSurface(rootTag, rootView); //todo:原有流程，需要删除
-    this.mFabricMountingManager.startSurface(1, rootView);
+    this.mFabricMountingManager.startSurface(1, this.mReactApplicationContext, rootView);
 
     this.mRNOHFabricUIManager.startSurfaceWithConstraints(
       1,
