@@ -1,0 +1,3 @@
+[submodule "ReactOpenHarmony/src/main/cpp/third-party/folly"]
+	path = ReactOpenHarmony/src/main/cpp/third-party/folly
+	url = https://github.com/facebook/folly
